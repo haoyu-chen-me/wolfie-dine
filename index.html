@@ -1,17 +1,1049 @@
-<!DOCTYPE html>
-<html>
+<! DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dining Hall Boxes</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Wolfie Dine - Campus Dining</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background:  linear-gradient(135deg, #ffcdd2 0%, #ffebee 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #b71c1c 0%, #c62828 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top:  0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        . header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        . header-left {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom:  0.5rem;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Clock Styles */
+        .clock-container {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            text-align: right;
+        }
+
+        .clock-time {
+            font-size: 1.8rem;
+            font-weight:  700;
+            margin-bottom: 0.25rem;
+        }
+
+        . clock-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 100px;
+            z-index: 999;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #c62828;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-btn:: after {
+            content: '';
+            position: absolute;
+            bottom:  0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #c62828;
+            transition: width 0.3s ease;
+        }
+
+        .nav-btn:hover::after,
+        .nav-btn. active::after {
+            width:  100%;
+        }
+
+        . nav-btn:hover {
+            color: #b71c1c;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem 2rem;
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Meal Period Selector - KEEP ORIGINAL SIZE */
+        .meal-selector {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .meal-selector h2 {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .meal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .meal-btn {
+            padding: 0.75rem 2rem;
+            border: 2px solid #fff;
+            background: white;
+            color: #c62828;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .meal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+        }
+
+        . meal-btn.active {
+            background: #b71c1c;
+            color: white;
+            border-color: #b71c1c;
+            transform: scale(1.05);
+        }
+
+        /* Dining Halls Grid - COMPRESSED BOXES */
+        .dining-halls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .dining-hall {
+            background: white;
+            border-radius: 10px;
+            box-shadow:  0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dining-hall:hover {
+            transform: translateY(-4px);
+            box-shadow:  0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hall Header - SLIGHTLY COMPRESSED */
+        .hall-header {
+            background: linear-gradient(135deg, #c62828 0%, #d32f2f 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .hall-header h3 {
+            font-size: 1.4rem;
+            margin-bottom:  0.4rem;
+        }
+
+        . hall-status {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 16px;
+            font-size:  0.8rem;
+            font-weight:  600;
+        }
+
+        /* Menu Content - COMPRESSED WITH SCROLLBAR */
+        .menu-content {
+            padding: 1rem;
+            max-height: 420px;
+            overflow-y:  auto;
+        }
+
+        .menu-content: :-webkit-scrollbar {
+            width: 6px;
+        }
+
+        . menu-content::-webkit-scrollbar-track {
+            background:  #f1f1f1;
+            border-radius: 10px;
+        }
+
+        . menu-content::-webkit-scrollbar-thumb {
+            background:  #c62828;
+            border-radius: 10px;
+        }
+
+        .menu-content::-webkit-scrollbar-thumb:hover {
+            background: #b71c1c;
+        }
+
+        . menu-category {
+            margin-bottom: 1. 2rem;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform:  translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform:  translateX(0);
+            }
+        }
+
+        .category-title {
+            color: #c62828;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.4rem;
+            padding-left: 1rem;
+            border-bottom: 2px solid #ffebee;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-icon {
+            font-size: 1.2rem;
+        }
+
+        .menu-items {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .menu-item {
+            padding: 0.4rem 0;
+            padding-left: 0.8rem;
+            border-left: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+
+        . menu-item:hover {
+            border-left-color: #c62828;
+            background: #ffebee;
+            padding-left: 1. 2rem;
+        }
+
+        . item-price {
+            color: #c62828;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-left: 0.75rem;
+        }
+
+        . no-menu {
+            text-align: center;
+            padding: 2.5rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        . loading-message {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        . last-updated {
+            text-align: center;
+            color: #888;
+            font-size: 0.8rem;
+            margin-top:  0.8rem;
+            padding-top: 0.6rem;
+            border-top:  1px solid #ffebee;
+            font-style: italic;
+        }
+
+        /* About Page Styles */
+        .about-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out;
+            line-height: 1.8;
+        }
+
+        . about-content h2 {
+            color: #c62828;
+            font-size: 2.5rem;
+            margin-bottom:  1.5rem;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .about-content a {
+            color: #c62828;
+            text-decoration:  underline;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        . about-content a:hover {
+            color: #b71c1c;
+        }
+
+        /* Feedback Page Styles */
+        .feedback-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            max-width:  600px;
+            margin: 2rem auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .feedback-content h2 {
+            color: #c62828;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding:  0.75rem;
+            border: 2px solid #ffcdd2;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #c62828;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: #c62828;
+            color:  white;
+            border: none;
+            border-radius: 25px;
+            font-size:  1.1rem;
+            font-weight: 600;
+            cursor:  pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(198, 40, 40, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding:  2rem;
+            color:  #fff;
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            . header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .clock-container {
+                text-align: center;
+                width: 100%;
+            }
+
+            .dining-halls {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                gap: 0.5rem;
+            }
+
+            .nav-btn {
+                padding: 0.75rem 1rem;
+                font-size:  0.9rem;
+            }
+
+            . meal-buttons {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+
+            .header-container,
+            .nav-container,
+            main {
+                padding: 0 1rem;
+            }
+
+            .about-content,
+            .feedback-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .clock-time {
+                font-size: 1.5rem;
+            }
+
+            . menu-content {
+                max-height: 350px;
+            }
+
+            .category-title {
+                padding-left: 0.5rem;
+            }
+
+            . menu-items {
+                padding-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dining-halls {
+                grid-template-columns: 1fr;
+            }
+            
+            .hall-header h3 {
+                font-size: 1.3rem;
+            }
+
+            . category-title {
+                font-size: 1rem;
+            }
+
+            .about-content h2,
+            . feedback-content h2 {
+                font-size:  2rem;
+            }
+        }
+
+        /* Multi-column layout for larger screens */
+        @media (min-width:  1200px) {
+            .dining-halls {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .dining-halls {
+                grid-template-columns:  repeat(4, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="box-container">
-        <div class="box">Dining Hall 1</div>
-        <div class="box">Dining Hall 2</div>
-        <div class="box">Dining Hall 3</div>
-    </div>
-    <script src="script.js"></script>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <h1>🐺 Wolfie Dine</h1>
+                <p class="tagline">Your campus dining companion</p>
+            </div>
+            <div class="clock-container">
+                <div class="clock-time" id="clock-time">00:00:00</div>
+                <div class="clock-date" id="clock-date">Loading...</div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showPage('menu')">Menu</button>
+            <button class="nav-btn" onclick="showPage('about')">About</button>
+            <button class="nav-btn" onclick="showPage('feedback')">Feedback</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Menu Page -->
+        <div id="menu-page" class="page active">
+            <div class="meal-selector">
+                <h2>Select Meal Period</h2>
+                <div class="meal-buttons">
+                    <button class="meal-btn active" data-meal="breakfast" onclick="changeMeal('breakfast')">Breakfast</button>
+                    <button class="meal-btn" data-meal="lunch" onclick="changeMeal('lunch')">Lunch</button>
+                    <button class="meal-btn" data-meal="dinner" onclick="changeMeal('dinner')">Dinner</button>
+                </div>
+            </div>
+
+            <div class="dining-halls" id="dining-halls-container">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about-page" class="page">
+            <div class="about-content">
+                <h2>About Wolfie Dine</h2>
+                <p>
+                    Wolfie Dine is a menu aggregator for the Stony Brook University dining halls that lets students see all meal options in one place. 
+                </p>
+                <p>
+                    Wolfie Dine was founded in January 2025 by Tina Yu [CC '26] and Chenhao Yu [CC '26].  It's maintained by current students and updates daily.
+                </p>
+                <p>
+                    See the <a href="https://stonybrook.nutrislice.com" target="_blank" rel="noopener noreferrer">official Dining website</a> for hours updates, nutritional information, service alerts, events, and more.
+                </p>
+            </div>
+        </div>
+
+        <!-- Feedback Page -->
+        <div id="feedback-page" class="page">
+            <div class="feedback-content">
+                <h2>Feedback</h2>
+                <form class="feedback-form" onsubmit="handleFeedback(event)">
+                    <div class="form-group">
+                        <label for="name">Name (Optional)</label>
+                        <input type="text" id="name" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email (Optional)</label>
+                        <input type="email" id="email" placeholder="your. email@stonybrook.edu">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Feedback *</label>
+                        <textarea id="message" required placeholder="Share your thoughts, suggestions, or report issues... "></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Feedback</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Wolfie Dine.  Bringing campus dining to your fingertips.</p>
+    </footer>
+
+    <script>
+        // Menu Data
+        const menuData = {
+            'west-hall': {
+                name: 'West Campus Dining Hall',
+                breakfast: {
+                    'Breakfast Classics': [
+                        'Scrambled Eggs',
+                        'Bacon',
+                        'Sausage Links',
+                        'Hash Browns',
+                        'Pancakes',
+                        'French Toast',
+                        'Belgian Waffles'
+                    ],
+                    'Healthy Options': [
+                        'Fresh Fruit Bowl',
+                        'Greek Yogurt Parfait',
+                        'Oatmeal Bar',
+                        'Granola',
+                        'Whole Grain Toast'
+                    ],
+                    'Beverages': [
+                        'Coffee',
+                        'Orange Juice',
+                        'Apple Juice',
+                        'Hot Tea',
+                        'Milk'
+                    ]
+                },
+                lunch: {
+                    'Entrees': [
+                        'Grilled Chicken Breast',
+                        'Beef Tacos',
+                        'Vegetarian Pasta Primavera',
+                        'Baked Salmon',
+                        'BBQ Pulled Pork Sandwich'
+                    ],
+                    'Sides': [
+                        'Caesar Salad',
+                        'French Fries',
+                        'Steamed Broccoli',
+                        'Rice Pilaf',
+                        'Coleslaw'
+                    ],
+                    'Soups': [
+                        'Tomato Soup',
+                        'Chicken Noodle Soup'
+                    ],
+                    'Desserts':  [
+                        'Chocolate Chip Cookies',
+                        'Fresh Fruit',
+                        'Ice Cream'
+                    ]
+                },
+                dinner: {
+                    'Entrees': [
+                        'Prime Rib',
+                        'Herb Roasted Chicken',
+                        'Shrimp Scampi',
+                        'Vegetable Stir Fry',
+                        'Meatloaf',
+                        'Baked Ziti'
+                    ],
+                    'Sides': [
+                        'Mashed Potatoes',
+                        'Green Beans',
+                        'Garden Salad',
+                        'Garlic Bread',
+                        'Roasted Vegetables'
+                    ],
+                    'Soups': [
+                        'French Onion Soup',
+                        'Minestrone'
+                    ],
+                    'Desserts': [
+                        'Cheesecake',
+                        'Brownies',
+                        'Apple Pie',
+                        'Fruit Cobbler'
+                    ]
+                }
+            },
+            'east-hall': {
+                name:  'East Campus Dining Hall',
+                breakfast: {
+                    'Hot Breakfast':  [
+                        'Eggs Benedict',
+                        'Omelet Station',
+                        'Turkey Bacon',
+                        'Breakfast Burrito',
+                        'Cinnamon Rolls',
+                        'Bagels with Cream Cheese'
+                    ],
+                    'Continental':  [
+                        'Assorted Pastries',
+                        'Fresh Berries',
+                        'Yogurt Station',
+                        'Cereal Bar',
+                        'Toast & Jam'
+                    ],
+                    'Beverages': [
+                        'Espresso Bar',
+                        'Fresh Squeezed Juice',
+                        'Smoothies',
+                        'Herbal Tea',
+                        'Chocolate Milk'
+                    ]
+                },
+                lunch: {
+                    'Entrees': [
+                        'Buffalo Chicken Wrap',
+                        'Veggie Burger',
+                        'Fish Tacos',
+                        'Chicken Teriyaki',
+                        'Margherita Pizza'
+                    ],
+                    'Sides': [
+                        'Sweet Potato Fries',
+                        'Mixed Green Salad',
+                        'Corn on the Cob',
+                        'Quinoa Salad',
+                        'Onion Rings'
+                    ],
+                    'Soups':  [
+                        'Butternut Squash Soup',
+                        'Vegetable Soup'
+                    ],
+                    'Desserts': [
+                        'Cupcakes',
+                        'Jello',
+                        'Seasonal Fruit'
+                    ]
+                },
+                dinner: {
+                    'Entrees': [
+                        'Steak Tips',
+                        'Lemon Garlic Tilapia',
+                        'Chicken Parmesan',
+                        'Tofu Pad Thai',
+                        'Beef Stroganoff',
+                        'Fajita Bar'
+                    ],
+                    'Sides': [
+                        'Loaded Baked Potato',
+                        'Asparagus',
+                        'Caprese Salad',
+                        'Mac and Cheese',
+                        'Sautéed Spinach'
+                    ],
+                    'Soups': [
+                        'Loaded Baked Potato Soup',
+                        'Clam Chowder'
+                    ],
+                    'Desserts': [
+                        'Tiramisu',
+                        'Cookies',
+                        'Carrot Cake',
+                        'Gelato'
+                    ]
+                }
+            },
+            'dental-cafe': {
+                name: 'Dental Café',
+                isDynamic: true
+            }
+        };
+
+        // Store dental cafe data
+        let dentalCafeData = null;
+
+        // Category Icons
+        const categoryIcons = {
+            'Breakfast Classics': '🍳',
+            'Hot Breakfast': '🍳',
+            'Healthy Options': '🥗',
+            'Continental': '🥐',
+            'Beverages': '☕',
+            'Entrees': '🍽️',
+            'Sides': '🥘',
+            'Soups':  '🍲',
+            'Desserts': '🍰',
+            'All Items': '🍴'
+        };
+
+        let currentMeal = 'breakfast';
+
+        // Load Dental Cafe data
+        async function loadDentalCafeData() {
+            try {
+                const response = await fetch('dental_cafe. json? t=' + new Date().getTime());
+                if (! response.ok) throw new Error('Could not load menu');
+                dentalCafeData = await response.json();
+                renderDiningHalls();
+            } catch (error) {
+                console.error('Error loading Dental Cafe data:', error);
+                dentalCafeData = { error: true, message: 'Menu data unavailable' };
+                renderDiningHalls();
+            }
+        }
+
+        // Clock Function
+        function updateClock() {
+            const now = new Date();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now. getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            const dayOfWeek = days[now.getDay()];
+            const month = months[now.getMonth()];
+            const date = now.getDate();
+            const year = now.getFullYear();
+            const dateString = `${dayOfWeek}, ${month} ${date}, ${year}`;
+            
+            document.getElementById('clock-time').textContent = timeString;
+            document.getElementById('clock-date').textContent = dateString;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Page Navigation
+        function showPage(pageName) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(`${pageName}-page`).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render dining halls
+        function renderDiningHalls() {
+            const container = document.getElementById('dining-halls-container');
+            container.innerHTML = '';
+
+            Object.keys(menuData).forEach((hallId, index) => {
+                const hall = menuData[hallId];
+                
+                const hallElement = document.createElement('div');
+                hallElement.className = 'dining-hall';
+                hallElement.id = hallId;
+                hallElement.style.animationDelay = `${index * 0.1}s`;
+
+                let contentHTML = '';
+                
+                // Handle dynamic Dental Cafe
+                if (hall.isDynamic && hallId === 'dental-cafe') {
+                    if (dentalCafeData === null) {
+                        contentHTML = '<div class="loading-message">Loading menu...</div>';
+                    } else if (dentalCafeData. error) {
+                        contentHTML = `<div class="no-menu">${dentalCafeData. message}</div>`;
+                    } else {
+                        contentHTML = `
+                            <div class="menu-category">
+                                <h4 class="category-title">
+                                    <span class="category-icon">🍴</span>
+                                    Today's Menu
+                                </h4>
+                                <ul class="menu-items">
+                                    ${dentalCafeData.menu.map(item => `
+                                        <li class="menu-item">
+                                            <span>${item.name}</span>
+                                            ${item.price ? `<span class="item-price">${item.price}</span>` : ''}
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            ${dentalCafeData.updated_at ? `<div class="last-updated">Last updated: ${dentalCafeData.updated_at}</div>` : ''}
+                        `;
+                    }
+                } else {
+                    // Regular menu display
+                    const menu = hall[currentMeal];
+                    
+                    if (menu && Object.keys(menu).length > 0) {
+                        Object.keys(menu).forEach(category => {
+                            const icon = categoryIcons[category] || '🍴';
+                            contentHTML += `
+                                <div class="menu-category">
+                                    <h4 class="category-title">
+                                        <span class="category-icon">${icon}</span>
+                                        ${category}
+                                    </h4>
+                                    <ul class="menu-items">
+                                        ${menu[category].map(item => `<li class="menu-item"><span>${item}</span></li>`).join('')}
+                                    </ul>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        contentHTML = '<div class="no-menu">No menu available for this meal period</div>';
+                    }
+                }
+
+                const statusText = hall.isDynamic ? 'Live Menu' : currentMeal. charAt(0).toUpperCase() + currentMeal.slice(1);
+
+                hallElement.innerHTML = `
+                    <div class="hall-header">
+                        <h3>${hall.name}</h3>
+                        <span class="hall-status">${statusText}</span>
+                    </div>
+                    <div class="menu-content">
+                        ${contentHTML}
+                    </div>
+                `;
+
+                container.appendChild(hallElement);
+            });
+        }
+
+        // Change meal period
+        function changeMeal(meal) {
+            currentMeal = meal;
+            
+            document.querySelectorAll('.meal-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.meal === meal) {
+                    btn. classList.add('active');
+                }
+            });
+
+            renderDiningHalls();
+        }
+
+        // Handle feedback
+        function handleFeedback(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            alert('Thank you for your feedback! We appreciate your input.\n\nNote: This is a demo - feedback is not actually sent.');
+            
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('message').value = '';
+        }
+
+        // Auto-detect meal based on time
+        function autoDetectMeal() {
+            const hour = new Date().getHours();
+            if (hour >= 6 && hour < 11) {
+                changeMeal('breakfast');
+            } else if (hour >= 11 && hour < 16) {
+                changeMeal('lunch');
+            } else {
+                changeMeal('dinner');
+            }
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            autoDetectMeal();
+            loadDentalCafeData();
+        });
+    </script>
 </body>
 </html>
