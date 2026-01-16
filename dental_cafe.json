@@ -1,0 +1,55 @@
+{
+    "date": "2026-01-15",
+    "location": "Dental Cafe",
+    "menu": [
+        {
+            "name": "Pork Bacon, Egg & Cheese on a English Muffin",
+            "price": 6.0
+        },
+        {
+            "name": "Turkey Sausage, Egg, Cheese on a English Muffin",
+            "price": 6.0
+        },
+        {
+            "name": "Double Egg & Cheese on a English Muffin",
+            "price": 6.0
+        },
+        {
+            "name": "Chipotle Aioli Chicken, Mozzarella Cheese & Basil Panini",
+            "price": 10.95
+        },
+        {
+            "name": "Turkey & Asiago Cheese Panini, Spinach & Artichoke Mayo Spread",
+            "price": 10.95
+        },
+        {
+            "name": "Roast Beef and Brie Panini",
+            "price": 10.95
+        },
+        {
+            "name": "Vegetable Pasta Primavera",
+            "price": null
+        },
+        {
+            "name": "Jerk Chicken",
+            "price": null
+        },
+        {
+            "name": "White Rice",
+            "price": null
+        },
+        {
+            "name": "Pineapple Salsa",
+            "price": null
+        },
+        {
+            "name": "Personal Cheese Pizza",
+            "price": 6.0
+        },
+        {
+            "name": "Personal Pepperoni Pizza",
+            "price": 6.0
+        }
+    ],
+    "updated_at": "2026-01-16 04:30:12"
+}
