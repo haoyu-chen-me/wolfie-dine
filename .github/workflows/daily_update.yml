@@ -2,8 +2,8 @@ name: Update Dental Cafe Menu
 
 on:
   schedule:
-    # Runs every day at 6:00 AM EST (11:00 AM UTC)
-    - cron: '0 11 * * *'
+    # Runs every day at 6:00 AM EST (07:00 AM UTC)
+    - cron: '0 7 * * *'
   workflow_dispatch:  # Allows you to manually trigger it too
 
 jobs:
