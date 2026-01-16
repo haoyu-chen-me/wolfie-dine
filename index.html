@@ -1,4 +1,4 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -50,7 +50,7 @@
             gap: 2rem;
         }
 
-        . header-left {
+        .header-left {
             flex: 0 1 auto;
         }
 
@@ -68,7 +68,7 @@
             margin-top: 0.25rem;
         }
 
-        . clock-container {
+        .clock-container {
             flex: 0 0 auto;
             text-align: right;
         }
@@ -115,7 +115,7 @@
             position: relative;
         }
 
-        .nav-btn:: after {
+        .nav-btn::after {
             content: '';
             position: absolute;
             bottom:  0;
@@ -127,7 +127,7 @@
         }
 
         .nav-btn:hover::after,
-        .nav-btn. active::after {
+        .nav-btn.active::after {
             width:  100%;
         }
 
@@ -172,7 +172,7 @@
             font-size: 1.8rem;
         }
 
-        . meal-buttons {
+        .meal-buttons {
             display: flex;
             justify-content: center;
             gap: 1rem;
@@ -247,7 +247,7 @@
             margin-bottom:  0.4rem;
         }
 
-        . hall-status {
+        .hall-status {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
             padding: 0.4rem 0.8rem;
@@ -262,16 +262,16 @@
             overflow-y:  auto;
         }
 
-        . menu-content: :-webkit-scrollbar {
+        .menu-content::-webkit-scrollbar {
             width: 6px;
         }
 
-        . menu-content::-webkit-scrollbar-track {
+        .menu-content::-webkit-scrollbar-track {
             background:  #f1f1f1;
             border-radius: 10px;
         }
 
-        . menu-content::-webkit-scrollbar-thumb {
+        .menu-content::-webkit-scrollbar-thumb {
             background:  #c62828;
             border-radius: 10px;
         }
@@ -330,20 +330,20 @@
             font-size: 0.95rem;
         }
 
-        . menu-item:hover {
+        .menu-item:hover {
             border-left-color: #c62828;
             background: #ffebee;
-            padding-left: 1. 2rem;
+            padding-left: 1.2rem;
         }
 
-        . item-price {
+        .item-price {
             color: #c62828;
             font-weight: 600;
             font-size: 0.9rem;
             margin-left: 0.75rem;
         }
 
-        . no-menu {
+        .no-menu {
             text-align: center;
             padding: 2.5rem;
             color: #666;
@@ -378,7 +378,7 @@
             line-height: 1.8;
         }
 
-        . about-content h2 {
+        .about-content h2 {
             color: #c62828;
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
@@ -398,11 +398,11 @@
             transition: color 0.3s ease;
         }
 
-        . about-content a:hover {
+        .about-content a:hover {
             color: #b71c1c;
         }
 
-        . feedback-content {
+        .feedback-content {
             background: white;
             border-radius: 12px;
             padding: 3rem;
@@ -437,8 +437,8 @@
             font-size: 1rem;
         }
 
-        . form-group input,
-        . form-group textarea {
+        .form-group input,
+        .form-group textarea {
             padding: 0.75rem;
             border: 2px solid #ffcdd2;
             border-radius: 8px;
@@ -494,7 +494,7 @@
                 gap: 0.75rem;
             }
 
-            . clock-container {
+            .clock-container {
                 text-align: center;
             }
 
@@ -502,7 +502,7 @@
                 font-size: 1.5rem;
             }
 
-            . dining-halls {
+            .dining-halls {
                 grid-template-columns: 1fr;
             }
 
@@ -530,14 +530,14 @@
 
             .about-content,
             .feedback-content {
-                padding: 2rem 1. 5rem;
+                padding: 2rem 1.5rem;
             }
 
             .menu-content {
                 max-height: 350px;
             }
 
-            . category-title {
+            .category-title {
                 padding-left: 0.5rem;
             }
 
@@ -576,7 +576,73 @@
                 grid-template-columns: repeat(4, 1fr);
             }
         }
-    </style>
+    
+
+/* === Modern + minimal meal selector (override) === */
+.meal-selector{
+  background:#fff;
+  border-radius:18px;
+  padding:2.2rem 2rem;
+  max-width:860px;
+  margin:1.4rem auto 2rem;
+  border:1px solid rgba(0,0,0,.06);
+  box-shadow:0 10px 24px rgba(0,0,0,.10);
+}
+
+.meal-selector h2{
+  color:#9b1111;        /* 更现代一点的红 */
+  font-size:2rem;
+  font-weight:750;
+  letter-spacing:-.02em;
+  margin:0 0 1.3rem;
+}
+
+/* 你原来写成了 `.meal-buttons`（前面多空格）不会命中，这里用正确类名覆盖 */
+.meal-buttons{
+  display:flex;
+  justify-content:center;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+
+.meal-btn{
+  border:1px solid rgba(0,0,0,.06);
+  background:#f2f3f5;   /* 更浅的灰，更“简约” */
+  color:#30343a;
+  font-size:1rem;
+  font-weight:650;
+  padding:.82rem 2.2rem;
+  border-radius:9999px;
+  cursor:pointer;
+  transition:background .16s ease, box-shadow .16s ease, transform .16s ease, color .16s ease, border-color .16s ease;
+  box-shadow:none;
+}
+
+.meal-btn:hover{
+  background:#eceef1;
+  transform:translateY(-1px);
+}
+
+.meal-btn.active{
+  background:#b11212;   /* 现代干净的红 */
+  border-color:rgba(177,18,18,.18);
+  color:#fff;
+  box-shadow:0 10px 18px rgba(177,18,18,.22);
+  transform:none;
+}
+
+.meal-btn:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 4px rgba(177,18,18,.18);
+}
+
+@media (max-width:768px){
+  .meal-selector{ padding:1.8rem 1.2rem; }
+  .meal-btn{ width:100%; }
+}
+
+
+</style>
 </head>
 <body>
     <header>
@@ -594,9 +660,9 @@
 
     <nav>
         <div class="nav-container">
-            <button class="nav-btn active" onclick="showPage('menu')">Menu</button>
-            <button class="nav-btn" onclick="showPage('about')">About</button>
-            <button class="nav-btn" onclick="showPage('feedback')">Feedback</button>
+            <button class="nav-btn active" onclick="showPage('menu', this)">Menu</button>
+            <button class="nav-btn" onclick="showPage('about', this)">About</button>
+            <button class="nav-btn" onclick="showPage('feedback', this)">Feedback</button>
         </div>
     </nav>
 
@@ -842,8 +908,8 @@
 
         async function loadDentalCafeData() {
             try {
-                const response = await fetch('dental_cafe.json? t=' + new Date().getTime());
-                if (! response.ok) throw new Error('Could not load menu');
+                const response = await fetch('dental_cafe.json?t=' + new Date().getTime());
+                if (!response.ok) throw new Error('Could not load menu');
                 dentalCafeData = await response.json();
                 renderDiningHalls();
             } catch (error) {
@@ -856,7 +922,7 @@
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now. getMinutes()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const timeString = `${hours}:${minutes}:${seconds}`;
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -867,93 +933,102 @@
             const year = now.getFullYear();
             const dateString = `${dayOfWeek}, ${month} ${date}, ${year}`;
             document.getElementById('clock-time').textContent = timeString;
-            document. getElementById('clock-date').textContent = dateString;
+            document.getElementById('clock-date').textContent = dateString;
         }
 
         setInterval(updateClock, 1000);
         updateClock();
 
-        function showPage(pageName) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+        function showPage(pageName, btn) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(`${pageName}-page`).classList.add('active');
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function capitalize(s) {
+            return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+        }
+
+        function renderDentalCafeContent() {
+            if (dentalCafeData === null) {
+                return '<div class="loading-message">Loading menu...</div>';
+            }
+            if (dentalCafeData.error) {
+                return `<div class="no-menu">${dentalCafeData.message}</div>`;
+            }
+
+            const items = (dentalCafeData.menu || []).map(item => {
+                const price = item.price ? `<span class="item-price">${item.price}</span>` : '';
+                return `<li class="menu-item"><span>${item.name}</span>${price}</li>`;
+            }).join('');
+
+            const updated = dentalCafeData.updated_at
+                ? `<div class="last-updated">Last updated: ${dentalCafeData.updated_at}</div>`
+                : '';
+
+            return `
+                <div class="menu-category">
+                    <h4 class="category-title">
+                        <span class="category-icon">🍴</span>
+                        Today's Menu
+                    </h4>
+                    <ul class="menu-items">${items}</ul>
+                </div>
+                ${updated}
+            `;
+        }
+
+        function renderStaticHallMenu(menu) {
+            if (!menu || Object.keys(menu).length === 0) {
+                return '<div class="no-menu">No menu available for this meal period</div>';
+            }
+
+            return Object.keys(menu).map(category => {
+                const icon = categoryIcons[category] || '🍴';
+                const items = menu[category]
+                    .map(item => `<li class="menu-item"><span>${item}</span></li>`)
+                    .join('');
+
+                return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">${icon}</span>
+                            ${category}
+                        </h4>
+                        <ul class="menu-items">${items}</ul>
+                    </div>
+                `;
+            }).join('');
         }
 
         function renderDiningHalls() {
             const container = document.getElementById('dining-halls-container');
             container.innerHTML = '';
 
-            Object.keys(menuData).forEach((hallId, index) => {
-                const hall = menuData[hallId];
+            const hallEntries = Object.entries(menuData);
+            hallEntries.forEach(([hallId, hall], index) => {
                 const hallElement = document.createElement('div');
                 hallElement.className = 'dining-hall';
                 hallElement.id = hallId;
                 hallElement.style.animationDelay = `${index * 0.1}s`;
 
-                let contentHTML = '';
+                const isDentalCafe = hall.isDynamic && hallId === 'dental-cafe';
+                const contentHTML = isDentalCafe
+                    ? renderDentalCafeContent()
+                    : renderStaticHallMenu(hall[currentMeal]);
 
-                if (hall.isDynamic && hallId === 'dental-cafe') {
-                    if (dentalCafeData === null) {
-                        contentHTML = '<div class="loading-message">Loading menu...</div>';
-                    } else if (dentalCafeData. error) {
-                        contentHTML = `<div class="no-menu">${dentalCafeData. message}</div>`;
-                    } else {
-                        contentHTML = `
-                            <div class="menu-category">
-                                <h4 class="category-title">
-                                    <span class="category-icon">🍴</span>
-                                    Today's Menu
-                                </h4>
-                                <ul class="menu-items">
-                                    ${dentalCafeData.menu.map(item => `
-                                        <li class="menu-item">
-                                            <span>${item.name}</span>
-                                            ${item.price ?  `<span class="item-price">${item.price}</span>` : ''}
-                                        </li>
-                                    `).join('')}
-                                </ul>
-                            </div>
-                            ${dentalCafeData.updated_at ? `<div class="last-updated">Last updated: ${dentalCafeData.updated_at}</div>` : ''}
-                        `;
-                    }
-                } else {
-                    const menu = hall[currentMeal];
-                    if (menu && Object.keys(menu).length > 0) {
-                        Object.keys(menu).forEach(category => {
-                            const icon = categoryIcons[category] || '🍴';
-                            contentHTML += `
-                                <div class="menu-category">
-                                    <h4 class="category-title">
-                                        <span class="category-icon">${icon}</span>
-                                        ${category}
-                                    </h4>
-                                    <ul class="menu-items">
-                                        ${menu[category].map(item => `<li class="menu-item"><span>${item}</span></li>`).join('')}
-                                    </ul>
-                                </div>
-                            `;
-                        });
-                    } else {
-                        contentHTML = '<div class="no-menu">No menu available for this meal period</div>';
-                    }
-                }
-
-                const statusText = hall.isDynamic ? 'Live Menu' : currentMeal. charAt(0).toUpperCase() + currentMeal.slice(1);
+                const statusText = hall.isDynamic ? 'Live Menu' : capitalize(currentMeal);
 
                 hallElement.innerHTML = `
                     <div class="hall-header">
                         <h3>${hall.name}</h3>
                         <span class="hall-status">${statusText}</span>
                     </div>
-                    <div class="menu-content">
-                        ${contentHTML}
-                    </div>
+                    <div class="menu-content">${contentHTML}</div>
                 `;
 
                 container.appendChild(hallElement);
@@ -961,11 +1036,12 @@
         }
 
         function changeMeal(meal) {
+
             currentMeal = meal;
             document.querySelectorAll('.meal-btn').forEach(btn => {
-                btn.classList. remove('active');
+                btn.classList.remove('active');
                 if (btn.dataset.meal === meal) {
-                    btn. classList.add('active');
+                    btn.classList.add('active');
                 }
             });
             renderDiningHalls();
