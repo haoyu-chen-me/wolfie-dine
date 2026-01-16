@@ -1,0 +1,40 @@
+name: Update Menu Daily
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+  
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-menu:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run Scraper
+      run: python scrape.py
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "Seawolf Bot"
+        git config --global user.email "bot@seawolfdine.com"
+        # 检查有没有新变化
+        git add dental_cafe.json
+        # 如果有变化就提交，没变化就不动 (避免报错)
+        git commit -m "Auto-update menu [skip ci]" || exit 0
+        git push
