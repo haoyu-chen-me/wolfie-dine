@@ -24,8 +24,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
-
+        pip install requests
     - name: Run Scraper
       run: python scrape.py
 
@@ -33,8 +32,6 @@ jobs:
       run: |
         git config --global user.name "Seawolf Bot"
         git config --global user.email "bot@seawolfdine.com"
-        # 检查有没有新变化
         git add dental_cafe.json
-        # 如果有变化就提交，没变化就不动 (避免报错)
         git commit -m "Auto-update menu [skip ci]" || exit 0
         git push
