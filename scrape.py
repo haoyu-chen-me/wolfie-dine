@@ -47,7 +47,11 @@ def fetch_dental_cafe_menu():
                 break 
         
         # No data for today?
-        if not found_today:
+        is_weekend = eastern_time.weekday() >= 5  # 5=Sat, 6=Sun
+
+        if is_weekend and (not found_today or len(todays_menu) == 0):
+            print("happy weekends")
+        elif not found_today:
             print(f"API data does not contain {date_str}.")
         else:
             print(f"Valid menu items: {len(todays_menu)}.")
@@ -71,3 +75,4 @@ def fetch_dental_cafe_menu():
 
 if __name__ == "__main__":
     fetch_dental_cafe_menu()
+
