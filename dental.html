@@ -10,11 +10,13 @@
         h1 { color: #990000; text-align: center; }
         .back-link { display: block; margin-bottom: 20px; color: #333; text-decoration: none; }
         .back-link:hover { text-decoration: underline; }
-        
+
         .menu-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
-        .item-station { font-size: 0.8em; color: #888; background: #eee; padding: 2px 5px; border-radius: 4px; margin-top: 5px; display: inline-block;}
         .price { font-weight: bold; color: #990000; }
+
+        .notice { color: #666; text-align: center; }
         .error { color: red; text-align: center; }
+        .meta { text-align: center; color: #999; font-size: 0.85em; margin-top: -6px; }
     </style>
 </head>
 <body>
@@ -23,46 +25,84 @@
         <a href="index.html" class="back-link">← Back to Home</a>
 
         <h1>Dental Cafe Menu</h1>
-        <p id="date-display" style="text-align: center; color: #666;">Loading...</p>
+        <p id="date-display" class="notice">Loading...</p>
+        <p id="updated-display" class="meta"></p>
+        <p id="status-message" class="notice"></p>
 
         <div id="menu-list">
-            <p style="text-align: center;">Loading data...</p>
+            <p class="notice">Loading data...</p>
         </div>
     </div>
 
     <script>
-        
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         fetch('dental_cafe.json?t=' + new Date().getTime())
             .then(response => {
                 if (!response.ok) throw new Error("JSON file not found. Run python script first!");
                 return response.json();
             })
             .then(data => {
-                document.getElementById('date-display').innerText = `Date: ${data.date}`;
-                const list = document.getElementById('menu-list');
-                list.innerHTML = ''; 
+                const dateText = data && data.date ? `Date: ${data.date}` : 'Date: (unknown)';
+                document.getElementById('date-display').innerText = dateText;
 
-                if (data.menu.length === 0) {
-                    list.innerHTML = '<p style="text-align:center">No menu data available.</p>';
+                const updatedEl = document.getElementById('updated-display');
+                updatedEl.innerText = data && data.updated_at ? `Updated: ${data.updated_at}` : '';
+
+                const list = document.getElementById('menu-list');
+                const msgEl = document.getElementById('status-message');
+
+                const menuArr = (data && Array.isArray(data.menu)) ? data.menu : [];
+                const hasItems = menuArr.length > 0;
+
+                const status = (data && typeof data.status === 'string') ? data.status : '';
+                const message = (data && typeof data.message === 'string') ? data.message.trim() : '';
+
+               
+                const shouldShowMsg = (!hasItems) || (status && status !== 'ok');
+                if (shouldShowMsg && message) {
+                    msgEl.className = (status === 'fetch_error') ? 'error' : 'notice';
+                    msgEl.innerText = message;
+                } else {
+                    msgEl.className = 'notice';
+                    msgEl.innerText = '';
+                }
+
+                list.innerHTML = '';
+
+                if (!hasItems) {
+                    const fallback = message || 'No menu data available.';
+                    const cls = (status === 'fetch_error') ? 'error' : 'notice';
+                    list.innerHTML = `<p class="${cls}">${escapeHtml(fallback)}</p>`;
                     return;
                 }
 
-                data.menu.forEach(item => {
+                menuArr.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'menu-item';
+                    const name = item && item.name ? item.name : 'Unknown Item';
+                    const price = item && item.price ? item.price : '';
                     div.innerHTML = `
                         <div>
-                            <strong>${item.name}</strong>
+                            <strong>${escapeHtml(name)}</strong>
                         </div>
-                        <div class="price">${item.price || ''}</div>
+                        <div class="price">${escapeHtml(price)}</div>
                     `;
                     list.appendChild(div);
                 });
             })
             .catch(e => {
-                document.getElementById('menu-list').innerHTML = `<p class="error">${e.message}</p>`;
+                document.getElementById('menu-list').innerHTML = `<p class="error">${escapeHtml(e.message)}</p>`;
+                document.getElementById('status-message').innerText = '';
+                document.getElementById('updated-display').innerText = '';
             });
     </script>
 </body>
-
 </html>
