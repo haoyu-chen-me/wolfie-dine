@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<! DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background:  linear-gradient(135deg, #ffcdd2 0%, #ffebee 100%);
+            background:   linear-gradient(135deg, #ffcdd2 0%, #ffebee 100%);
             min-height: 100vh;
             color: #333;
         }
@@ -24,7 +24,7 @@
             padding: 1rem 0;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: sticky;
-            top: 0;
+            top:  0;
             z-index: 1000;
             animation: slideDown 0.5s ease-out;
         }
@@ -40,7 +40,7 @@
             }
         }
 
-        .header-container {
+        . header-container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
@@ -50,7 +50,7 @@
             gap: 2rem;
         }
 
-        .header-left {
+        . header-left {
             flex: 0 1 auto;
         }
 
@@ -62,21 +62,21 @@
         }
 
         .tagline {
-            font-size:  0.9rem;
+            font-size:   0.9rem;
             opacity: 0.9;
             font-weight: 300;
             margin-top: 0.25rem;
         }
 
-        .clock-container {
+        . clock-container {
             flex: 0 0 auto;
             text-align: right;
         }
 
         .clock-time {
             font-size: 1.8rem;
-            font-weight:  700;
-            margin: 0;
+            font-weight:   700;
+            margin:  0;
         }
 
         .clock-date {
@@ -90,7 +90,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 80px;
-            z-index:  999;
+            z-index:   999;
         }
 
         .nav-container {
@@ -113,22 +113,24 @@
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            text-decoration: none;
+            display: inline-block;
         }
 
-        .nav-btn::after {
+        .nav-btn:: after {
             content: '';
             position: absolute;
-            bottom:  0;
-            left: 0;
+            bottom:   0;
+            left:  0;
             width: 0;
             height: 3px;
             background: #c62828;
-            transition:  width 0.3s ease;
+            transition:   width 0.3s ease;
         }
 
         .nav-btn:hover::after,
-        .nav-btn.active::after {
-            width:  100%;
+        .nav-btn. active::after {
+            width:   100%;
         }
 
         .nav-btn:hover {
@@ -137,7 +139,7 @@
 
         main {
             max-width: 1400px;
-            margin:  2rem auto;
+            margin:   2rem auto;
             padding: 0 2rem 2rem;
         }
 
@@ -157,11 +159,11 @@
 
         @keyframes fadeIn {
             from {
-                opacity:  0;
+                opacity:   0;
                 transform: translateY(20px);
             }
             to {
-                opacity:  1;
+                opacity:   1;
                 transform: translateY(0);
             }
         }
@@ -172,7 +174,7 @@
             font-size: 1.8rem;
         }
 
-        .meal-buttons {
+        . meal-buttons {
             display: flex;
             justify-content: center;
             gap: 1rem;
@@ -207,7 +209,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.2rem;
-            margin-top: 1.5rem;
+            margin-top:  1.5rem;
         }
 
         .dining-hall {
@@ -232,7 +234,7 @@
 
         .dining-hall:hover {
             transform: translateY(-4px);
-            box-shadow:  0 6px 16px rgba(0, 0, 0, 0.15);
+            box-shadow:   0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
         .hall-header {
@@ -243,41 +245,41 @@
         }
 
         .hall-header h3 {
-            font-size:  1.4rem;
-            margin-bottom:  0.4rem;
+            font-size:   1.4rem;
+            margin-bottom:   0.4rem;
         }
 
-        .hall-status {
+        . hall-status {
             display: inline-block;
             background: rgba(255, 255, 255, 0.2);
             padding: 0.4rem 0.8rem;
             border-radius: 16px;
-            font-size:  0.8rem;
-            font-weight:  600;
+            font-size:   0.8rem;
+            font-weight:   600;
         }
 
         .menu-content {
             padding: 1rem;
             max-height: 420px;
-            overflow-y:  auto;
+            overflow-y:   auto;
         }
 
-        .menu-content::-webkit-scrollbar {
+        .menu-content: :-webkit-scrollbar {
             width: 6px;
         }
 
-        .menu-content::-webkit-scrollbar-track {
-            background:  #f1f1f1;
+        . menu-content::-webkit-scrollbar-track {
+            background:   #f1f1f1;
             border-radius: 10px;
         }
 
-        .menu-content::-webkit-scrollbar-thumb {
-            background:  #c62828;
+        . menu-content::-webkit-scrollbar-thumb {
+            background:   #c62828;
             border-radius: 10px;
         }
 
         .menu-content::-webkit-scrollbar-thumb:hover {
-            background: #b71c1c;
+            background:  #b71c1c;
         }
 
         .menu-category {
@@ -287,12 +289,12 @@
 
         @keyframes slideIn {
             from {
-                opacity: 0;
-                transform:  translateX(-20px);
+                opacity:  0;
+                transform:   translateX(-20px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform:  translateX(0);
             }
         }
 
@@ -330,10 +332,10 @@
             font-size: 0.95rem;
         }
 
-        .menu-item:hover {
+        . menu-item:hover {
             border-left-color: #c62828;
             background: #ffebee;
-            padding-left: 1.2rem;
+            padding-left: 1. 2rem;
         }
 
         .item-price {
@@ -343,9 +345,9 @@
             margin-left: 0.75rem;
         }
 
-        .no-menu {
+        . no-menu {
             text-align: center;
-            padding: 2.5rem;
+            padding: 2. 5rem;
             color: #666;
             font-style: italic;
         }
@@ -361,9 +363,9 @@
             text-align: center;
             color: #888;
             font-size: 0.8rem;
-            margin-top:  0.8rem;
-            padding-top: 0.6rem;
-            border-top:  1px solid #ffebee;
+            margin-top:   0.8rem;
+            padding-top:  0.6rem;
+            border-top:   1px solid #ffebee;
             font-style: italic;
         }
 
@@ -378,9 +380,9 @@
             line-height: 1.8;
         }
 
-        .about-content h2 {
+        . about-content h2 {
             color: #c62828;
-            font-size: 2.5rem;
+            font-size: 2. 5rem;
             margin-bottom: 1.5rem;
             text-align: center;
         }
@@ -393,87 +395,13 @@
 
         .about-content a {
             color: #c62828;
-            text-decoration:  underline;
+            text-decoration:   underline;
             font-weight: 600;
             transition: color 0.3s ease;
         }
 
-        .about-content a:hover {
+        . about-content a:hover {
             color: #b71c1c;
-        }
-
-        .feedback-content {
-            background: white;
-            border-radius: 12px;
-            padding: 3rem;
-            max-width:  600px;
-            margin: 2rem auto;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .feedback-content h2 {
-            color: #c62828;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .feedback-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            color: #333;
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 0.75rem;
-            border: 2px solid #ffcdd2;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #c62828;
-        }
-
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .submit-btn {
-            padding: 1rem 2rem;
-            background: #c62828;
-            color:  white;
-            border: none;
-            border-radius: 25px;
-            font-size:  1.1rem;
-            font-weight: 600;
-            cursor:  pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: #b71c1c;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(198, 40, 40, 0.3);
         }
 
         footer {
@@ -494,7 +422,7 @@
                 gap: 0.75rem;
             }
 
-            .clock-container {
+            . clock-container {
                 text-align: center;
             }
 
@@ -502,7 +430,7 @@
                 font-size: 1.5rem;
             }
 
-            .dining-halls {
+            . dining-halls {
                 grid-template-columns: 1fr;
             }
 
@@ -528,9 +456,8 @@
                 padding: 0 1rem;
             }
 
-            .about-content,
-            .feedback-content {
-                padding: 2rem 1.5rem;
+            .about-content {
+                padding: 2rem 1. 5rem;
             }
 
             .menu-content {
@@ -546,7 +473,7 @@
             }
         }
 
-        @media (max-width:  576px) {
+        @media (max-width:   576px) {
             .dining-halls {
                 grid-template-columns: 1fr;
             }
@@ -559,9 +486,8 @@
                 font-size: 1rem;
             }
 
-            .about-content h2,
-            .feedback-content h2 {
-                font-size:  2rem;
+            .about-content h2 {
+                font-size:   2rem;
             }
         }
 
@@ -571,78 +497,73 @@
             }
         }
 
-        @media (min-width:  1600px) {
+        @media (min-width:   1600px) {
             .dining-halls {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
-    
 
+        . meal-selector{
+          background:#fff;
+          border-radius: 18px;
+          padding:2. 2rem 2rem;
+          max-width: 860px;
+          margin:1. 4rem auto 2rem;
+          border:1px solid rgba(0,0,0,. 06);
+          box-shadow:0 10px 24px rgba(0,0,0,.10);
+        }
 
-.meal-selector{
-  background:#fff;
-  border-radius:18px;
-  padding:2.2rem 2rem;
-  max-width:860px;
-  margin:1.4rem auto 2rem;
-  border:1px solid rgba(0,0,0,.06);
-  box-shadow:0 10px 24px rgba(0,0,0,.10);
-}
+        .meal-selector h2{
+          color:#9b1111;     
+          font-size:2rem;
+          font-weight:750;
+          letter-spacing: -. 02em;
+          margin:0 0 1.3rem;
+        }
 
-.meal-selector h2{
-  color:#9b1111;     
-  font-size:2rem;
-  font-weight:750;
-  letter-spacing:-.02em;
-  margin:0 0 1.3rem;
-}
+        .meal-buttons{
+          display:flex;
+          justify-content:center;
+          gap:1rem;
+          flex-wrap:wrap;
+        }
 
+        .meal-btn{
+          border:1px solid rgba(0,0,0,.06);
+          background:#f2f3f5;   
+          color:#30343a;
+          font-size:1rem;
+          font-weight:650;
+          padding:. 82rem 2. 2rem;
+          border-radius:9999px;
+          cursor:pointer;
+          transition:background . 16s ease, box-shadow .16s ease, transform .16s ease, color .16s ease, border-color .16s ease;
+          box-shadow:none;
+        }
 
-.meal-buttons{
-  display:flex;
-  justify-content:center;
-  gap:1rem;
-  flex-wrap:wrap;
-}
+        .meal-btn:hover{
+          background:#eceef1;
+          transform:translateY(-1px);
+        }
 
-.meal-btn{
-  border:1px solid rgba(0,0,0,.06);
-  background:#f2f3f5;   
-  color:#30343a;
-  font-size:1rem;
-  font-weight:650;
-  padding:.82rem 2.2rem;
-  border-radius:9999px;
-  cursor:pointer;
-  transition:background .16s ease, box-shadow .16s ease, transform .16s ease, color .16s ease, border-color .16s ease;
-  box-shadow:none;
-}
+        .meal-btn. active{
+          background:#b11212;   
+          border-color: rgba(177,18,18,. 18);
+          color:#fff;
+          box-shadow:0 10px 18px rgba(177,18,18,.22);
+          transform:none;
+        }
 
-.meal-btn:hover{
-  background:#eceef1;
-  transform:translateY(-1px);
-}
+        .meal-btn:focus-visible{
+          outline: none;
+          box-shadow: 0 0 0 4px rgba(177,18,18,.18);
+        }
 
-.meal-btn.active{
-  background:#b11212;   
-  border-color:rgba(177,18,18,.18);
-  color:#fff;
-  box-shadow:0 10px 18px rgba(177,18,18,.22);
-  transform:none;
-}
-
-.meal-btn:focus-visible{
-  outline:none;
-  box-shadow:0 0 0 4px rgba(177,18,18,.18);
-}
-
-@media (max-width:768px){
-  .meal-selector{ padding:1.8rem 1.2rem; }
-  .meal-btn{ width:100%; }
-}
-
-
-</style>
+        @media (max-width:768px){
+          .meal-selector{ padding:1.8rem 1.2rem; }
+          .meal-btn{ width:100%; }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -662,7 +583,7 @@
         <div class="nav-container">
             <button class="nav-btn active" onclick="showPage('menu', this)">Menu</button>
             <button class="nav-btn" onclick="showPage('about', this)">About</button>
-            <button class="nav-btn" onclick="showPage('feedback', this)">Feedback</button>
+            <a class="nav-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfwXXeb2SHBLBE1TENjznsm8F5WlA5zCsay5n1cbmbJU2BTIQ/viewform?usp=sharing&ouid=114715764942658548801" target="_blank" rel="noopener noreferrer">Feedback</a>
         </div>
     </nav>
 
@@ -688,38 +609,17 @@
                     Wolfie Dine is a menu aggregator for the Stony Brook University dining halls that lets students see all meal options in one place. 
                 </p>
                 <p>
-                    Wolfie Dine was founded in January 2025 by Tina Yu [CC '26] and Chenhao Yu [CC '26]. It's maintained by current students and updates daily.
+                    Wolfie Dine was founded in January 2025 by Tina Yu [CC '26] and Chenhao Yu [CC '26].  It's maintained by current students and updates daily.
                 </p>
                 <p>
-                    See the <a href="https://stonybrook.nutrislice.com" target="_blank" rel="noopener noreferrer">official Dining website</a> for hours updates, nutritional information, service alerts, events, and more.
+                    See the <a href="https://stonybrook.nutrislice.com" target="_blank" rel="noopener noreferrer">official Dining website</a> for hours updates, nutritional information, service alerts[...]
                 </p>
-            </div>
-        </div>
-
-        <div id="feedback-page" class="page">
-            <div class="feedback-content">
-                <h2>Feedback</h2>
-                <form class="feedback-form" onsubmit="handleFeedback(event)">
-                    <div class="form-group">
-                        <label for="name">Name (Optional)</label>
-                        <input type="text" id="name" placeholder="Your name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email (Optional)</label>
-                        <input type="email" id="email" placeholder="your. email@stonybrook.edu">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Feedback *</label>
-                        <textarea id="message" required placeholder="Share your thoughts, suggestions, or report issues... "></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Feedback</button>
-                </form>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Wolfie Dine.  Bringing campus dining to your fingertips.</p>
+        <p>&copy; 2026 Wolfie Dine.   Bringing campus dining to your fingertips.</p>
     </footer>
 
     <script>
@@ -805,9 +705,9 @@
                 }
             },
             'east-hall': {
-                name:  'East Campus Dining Hall',
+                name:   'East Campus Dining Hall',
                 breakfast: {
-                    'Hot Breakfast':  [
+                    'Hot Breakfast':   [
                         'Eggs Benedict',
                         'Omelet Station',
                         'Turkey Bacon',
@@ -815,7 +715,7 @@
                         'Cinnamon Rolls',
                         'Bagels with Cream Cheese'
                     ],
-                    'Continental': [
+                    'Continental':  [
                         'Assorted Pastries',
                         'Fresh Berries',
                         'Yogurt Station',
@@ -845,7 +745,7 @@
                         'Quinoa Salad',
                         'Onion Rings'
                     ],
-                    'Soups':  [
+                    'Soups':   [
                         'Butternut Squash Soup',
                         'Vegetable Soup'
                     ],
@@ -899,7 +799,7 @@
             'Beverages': '☕',
             'Entrees': '🍽️',
             'Sides': '🥘',
-            'Soups':  '🍲',
+            'Soups':   '🍲',
             'Desserts': '🍰',
             'All Items': '🍴'
         };
@@ -908,8 +808,8 @@
 
         async function loadDentalCafeData() {
             try {
-                const response = await fetch('dental_cafe.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error('Could not load menu');
+                const response = await fetch('dental_cafe. json? t=' + new Date().getTime());
+                if (! response.ok) throw new Error('Could not load menu');
                 dentalCafeData = await response.json();
                 renderDiningHalls();
             } catch (error) {
@@ -922,7 +822,7 @@
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const minutes = String(now. getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
             const timeString = `${hours}:${minutes}:${seconds}`;
             const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -950,23 +850,23 @@
         }
 
         function capitalize(s) {
-            return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+            return s ?  s.charAt(0).toUpperCase() + s.slice(1) : s;
         }
 
         function renderDentalCafeContent() {
             if (dentalCafeData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
-            if (dentalCafeData.error) {
-                return `<div class="no-menu">${dentalCafeData.message}</div>`;
+            if (dentalCafeData. error) {
+                return `<div class="no-menu">${dentalCafeData. message}</div>`;
             }
 
             const items = (dentalCafeData.menu || []).map(item => {
-                const price = item.price ? `<span class="item-price">${item.price}</span>` : '';
+                const price = item.price ?  `<span class="item-price">${item.price}</span>` : '';
                 return `<li class="menu-item"><span>${item.name}</span>${price}</li>`;
             }).join('');
 
-            const updated = dentalCafeData.updated_at
+            const updated = dentalCafeData. updated_at
                 ? `<div class="last-updated">Last updated: ${dentalCafeData.updated_at}</div>`
                 : '';
 
@@ -983,7 +883,7 @@
         }
 
         function renderStaticHallMenu(menu) {
-            if (!menu || Object.keys(menu).length === 0) {
+            if (! menu || Object.keys(menu).length === 0) {
                 return '<div class="no-menu">No menu available for this meal period</div>';
             }
 
@@ -1009,70 +909,46 @@
             const container = document.getElementById('dining-halls-container');
             container.innerHTML = '';
 
-            const hallEntries = Object.entries(menuData);
-            hallEntries.forEach(([hallId, hall], index) => {
-                const hallElement = document.createElement('div');
-                hallElement.className = 'dining-hall';
-                hallElement.id = hallId;
-                hallElement.style.animationDelay = `${index * 0.1}s`;
+            Object.keys(menuData).forEach(hallId => {
+                const hall = menuData[hallId];
+                const hallDiv = document.createElement('div');
+                hallDiv.className = 'dining-hall';
 
-                const isDentalCafe = hall.isDynamic && hallId === 'dental-cafe';
-                const contentHTML = isDentalCafe
-                    ? renderDentalCafeContent()
-                    : renderStaticHallMenu(hall[currentMeal]);
+                let menuContent;
+                if (hall.isDynamic) {
+                    menuContent = renderDentalCafeContent();
+                } else {
+                    const menu = hall[currentMeal];
+                    menuContent = renderStaticHallMenu(menu);
+                }
 
-                const statusText = hall.isDynamic ? 'Live Menu' : capitalize(currentMeal);
-
-                hallElement.innerHTML = `
+                hallDiv.innerHTML = `
                     <div class="hall-header">
                         <h3>${hall.name}</h3>
-                        <span class="hall-status">${statusText}</span>
+                        <span class="hall-status">Open</span>
                     </div>
-                    <div class="menu-content">${contentHTML}</div>
+                    <div class="menu-content">
+                        ${menuContent}
+                    </div>
                 `;
 
-                container.appendChild(hallElement);
+                container.appendChild(hallDiv);
             });
         }
 
         function changeMeal(meal) {
-
             currentMeal = meal;
+
             document.querySelectorAll('.meal-btn').forEach(btn => {
                 btn.classList.remove('active');
-                if (btn.dataset.meal === meal) {
-                    btn.classList.add('active');
-                }
             });
+            document.querySelector(`[data-meal="${meal}"]`).classList.add('active');
+
             renderDiningHalls();
         }
 
-        function handleFeedback(event) {
-            event.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            alert('Thank you for your feedback! We appreciate your input.\n\nNote: This is a demo - feedback is not actually sent.');
-            document.getElementById('name').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('message').value = '';
-        }
-
-        function autoDetectMeal() {
-            const hour = new Date().getHours();
-            if (hour >= 6 && hour < 11) {
-                changeMeal('breakfast');
-            } else if (hour >= 11 && hour < 16) {
-                changeMeal('lunch');
-            } else {
-                changeMeal('dinner');
-            }
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            autoDetectMeal();
-            loadDentalCafeData();
-        });
+        loadDentalCafeData();
+        renderDiningHalls();
     </script>
 </body>
 </html>
