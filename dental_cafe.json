@@ -1,5 +1,5 @@
 {
-    "date": "2026-01-19",
+    "date": "2026-01-20",
     "location": "Dental Cafe",
     "menu": [
         {
@@ -19,51 +19,35 @@
             "price": null
         },
         {
-            "name": "Grilled Chicken, Basil Pesto, Mozzarella Panini",
-            "price": 10.95
-        },
-        {
             "name": "Turkey Reuben Panini",
             "price": null
         },
         {
-            "name": "Chipotle Roasted Tofu",
+            "name": "Grilled Chicken, Basil Pesto, Mozzarella Panini",
+            "price": 10.95
+        },
+        {
+            "name": "Buffalo Vegan Chicken Nugget",
             "price": null
         },
         {
-            "name": "Onions and Peppers",
+            "name": "Roasted Vegetables",
             "price": null
         },
         {
-            "name": "Black Beans",
+            "name": "Steamed Rice",
             "price": null
         },
         {
-            "name": "Spanish Rice",
+            "name": "crispy buffalo chicken",
             "price": null
         },
         {
-            "name": "Cheddar Cheese",
+            "name": "Roasted Vegetables",
             "price": null
         },
         {
-            "name": "Citrus Chicken Carnitas",
-            "price": null
-        },
-        {
-            "name": "Onions and Peppers",
-            "price": null
-        },
-        {
-            "name": "Black Beans",
-            "price": null
-        },
-        {
-            "name": "Spanish Rice",
-            "price": null
-        },
-        {
-            "name": "Cheddar Cheese",
+            "name": "Steamed Rice",
             "price": null
         },
         {
@@ -76,6 +60,6 @@
         }
     ],
     "status": "ok",
-    "message": "Valid menu items: 18.",
-    "updated_at": "2026-01-19 01:30:30 EST"
+    "message": "Valid menu items: 14.",
+    "updated_at": "2026-01-20 01:28:05 EST"
 }
