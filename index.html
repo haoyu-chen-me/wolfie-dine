@@ -834,7 +834,66 @@
 
         let currentMeal = 'breakfast';
 
-        async function loadDentalCafeData() {
+        
+        function getSBUTimeParts() {
+            // Use SBU local time (America/New_York) so the default meal matches campus hours
+            try {
+                const now = new Date();
+                const parts = new Intl.DateTimeFormat('en-US', {
+                    timeZone: 'America/New_York',
+                    hour12: false,
+                    weekday: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }).formatToParts(now);
+
+                const get = (t) => {
+                    const p = parts.find(x => x.type === t);
+                    return p ? p.value : null;
+                };
+
+                const hour = parseInt(get('hour') || '0', 10);
+                const minute = parseInt(get('minute') || '0', 10);
+                const weekday = get('weekday') || '';
+                return { hour, minute, weekday };
+            } catch (e) {
+                // Fallback to user's local time if Intl timezone is unavailable
+                const now = new Date();
+                const hour = now.getHours();
+                const minute = now.getMinutes();
+                const weekday = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][now.getDay()];
+                return { hour, minute, weekday };
+            }
+        }
+
+        function pickInitialMeal() {
+            const { hour, minute, weekday } = getSBUTimeParts();
+            const mins = hour * 60 + minute;
+            const isWeekend = weekday === 'Sat' || weekday === 'Sun';
+
+            // Campus meal periods (mapped to your existing tabs: breakfast / lunch / dinner)
+            // Mon–Fri: Breakfast 7:30–10:59, Lunch 11:00–15:59, Dinner 16:00–21:59, Late Night 22:00–24:00 (maps to dinner)
+            // Sat–Sun: Brunch 9:00–15:59 (maps to lunch), Dinner 16:00–23:00
+            if (isWeekend) {
+                if (mins >= 16 * 60) return 'dinner';
+                if (mins >= 9 * 60) return 'lunch'; // brunch -> lunch tab
+                return 'breakfast';
+            } else {
+                if (mins >= 16 * 60) return 'dinner';
+                if (mins >= 11 * 60) return 'lunch';
+                return 'breakfast';
+            }
+        }
+
+        function setInitialMealUI(meal) {
+            if (!meal) return;
+            currentMeal = meal;
+
+            document.querySelectorAll('.meal-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = document.querySelector(`.meal-btn[data-meal="${meal}"]`);
+            if (btn) btn.classList.add('active');
+        }
+async function loadDentalCafeData() {
             try {
                 const response = await fetch('dental_cafe.json?t=' + Date.now());
                 if (!response.ok) throw new Error('Could not load menu');
@@ -915,7 +974,7 @@ function renderDentalCafeContent() {
             }
 
             const items = menu.map(item => {
-                const price = "";
+                const price = item.price ? `<span class="item-price">${item.price}</span>` : "";
                 const dateStr = (dentalCafeData && dentalCafeData.date)
                     ? dentalCafeData.date
                     : (new Date()).toISOString().slice(0, 10);
@@ -1006,6 +1065,7 @@ function renderDentalCafeContent() {
             renderDiningHalls();
         }
 
+        setInitialMealUI(pickInitialMeal());
         loadDentalCafeData();
         renderDiningHalls();
     </script>
