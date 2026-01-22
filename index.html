@@ -915,7 +915,7 @@ function renderDentalCafeContent() {
             }
 
             const items = menu.map(item => {
-                const price = item.price ? `<span class="item-price">${item.price}</span>` : "";
+                const price = "";
                 const dateStr = (dentalCafeData && dentalCafeData.date)
                     ? dentalCafeData.date
                     : (new Date()).toISOString().slice(0, 10);
