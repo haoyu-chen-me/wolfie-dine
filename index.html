@@ -653,7 +653,12 @@
                         <span class="meal-label">Dinner</span>
                         <span class="meal-time">4:00–9:59pm</span>
                     </button>
-                </div>
+                
+                    <button class="meal-btn" data-meal="latenight" onclick="changeMeal('latenight')">
+                        <span class="meal-label">Late Night</span>
+                        <span class="meal-time">10:00pm–12:00am</span>
+                    </button>
+</div>
             </div>
 <div class="dining-halls" id="dining-halls-container">
             </div>
@@ -846,6 +851,12 @@
             }
         };
 
+
+
+        // Late Night uses the same menu as Dinner for static halls
+        menuData['west-hall'].latenight = menuData['west-hall'].dinner;
+        menuData['east-hall'].latenight = menuData['east-hall'].dinner;
+
         let dentalCafeData = null;
 
         const categoryIcons = {
@@ -896,73 +907,92 @@
         }
 
         function pickInitialMeal() {
+            const isWeekend = isWeekendNow();
             const now = new Date();
-            const day = now.getDay(); // 0=Sun,6=Sat
             const minutes = now.getHours() * 60 + now.getMinutes();
-            const weekend = (day === 0 || day === 6);
 
-            if (weekend) {
-                // Weekend: Brunch (9:00–15:59) and Dinner (16:00–23:00)
-                if (minutes >= 16 * 60) return 'dinner';
-                return 'lunch'; // use "lunch" slot for Brunch
+            if (isWeekend) {
+                // Weekend: Brunch 9:00–15:59, Dinner 16:00–23:00
+                if (minutes >= 9 * 60 && minutes < 16 * 60) return 'lunch';
+                return 'dinner';
             }
 
-            // Weekday: Breakfast (7:30–10:59), Lunch (11:00–15:59), Dinner (16:00–21:59), Late Night (22:00–23:59)
-            if (minutes < 7 * 60 + 30) return 'breakfast';
-            if (minutes < 11 * 60) return 'breakfast';
-            if (minutes < 16 * 60) return 'lunch';
-            return 'dinner';
+            // Weekday: Breakfast 7:30–10:59, Lunch 11:00–15:59, Dinner 16:00–21:59, Late Night 22:00–24:00
+            if (minutes >= (7 * 60 + 30) && minutes < 11 * 60) return 'breakfast';
+            if (minutes >= 11 * 60 && minutes < 16 * 60) return 'lunch';
+            if (minutes >= 22 * 60) return 'latenight';
+            if (minutes >= 16 * 60 && minutes < 22 * 60) return 'dinner';
+
+            // Before 7:30am
+            return 'breakfast';
         }
 
 
         function applyMealSchedule() {
-            const now = new Date();
-            const day = now.getDay();
-            const weekend = (day === 0 || day === 6);
+            const isWeekend = isWeekendNow();
+            const breakfastBtn = document.querySelector('[data-meal="breakfast"]');
+            const lunchBtn = document.querySelector('[data-meal="lunch"]');
+            const dinnerBtn = document.querySelector('[data-meal="dinner"]');
+            const lateNightBtn = document.querySelector('[data-meal="latenight"]');
 
-            const breakfastBtn = document.querySelector('.meal-btn[data-meal="breakfast"]');
-            const lunchBtn = document.querySelector('.meal-btn[data-meal="lunch"]');
-            const dinnerBtn = document.querySelector('.meal-btn[data-meal="dinner"]');
-
-            if (!breakfastBtn || !lunchBtn || !dinnerBtn) return;
-
-            // Breakfast time is always the weekday schedule (we hide it on weekends)
-            breakfastBtn.querySelector('.meal-time').textContent = '7:30–10:59am';
-
-            if (weekend) {
+            if (isWeekend) {
+                // Weekend: show Brunch + Dinner
                 breakfastBtn.style.display = 'none';
+                if (lateNightBtn) lateNightBtn.style.display = 'none';
+
                 lunchBtn.querySelector('.meal-label').textContent = 'Brunch';
-                lunchBtn.querySelector('.meal-time').textContent = '9:00am–3:59pm';
+                lunchBtn.querySelector('.meal-time').textContent = '9:00–3:59pm';
+
                 dinnerBtn.querySelector('.meal-label').textContent = 'Dinner';
                 dinnerBtn.querySelector('.meal-time').textContent = '4:00–11:00pm';
 
-                // If breakfast was active, move to Brunch
-                if (currentMeal === 'breakfast') currentMeal = 'lunch';
+                // If current selection is hidden, fall back to Brunch
+                if (currentMeal === 'breakfast' || currentMeal === 'latenight') {
+                    currentMeal = 'lunch';
+                    document.querySelectorAll('.meal-btn').forEach(btn => btn.classList.remove('active'));
+                    lunchBtn.classList.add('active');
+                }
             } else {
+                // Weekday: show Breakfast + Lunch + Dinner + Late Night
                 breakfastBtn.style.display = '';
+                if (lateNightBtn) lateNightBtn.style.display = '';
+
+                breakfastBtn.querySelector('.meal-label').textContent = 'Breakfast';
+                breakfastBtn.querySelector('.meal-time').textContent = '7:30–10:59am';
+
                 lunchBtn.querySelector('.meal-label').textContent = 'Lunch';
                 lunchBtn.querySelector('.meal-time').textContent = '11:00am–3:59pm';
+
                 dinnerBtn.querySelector('.meal-label').textContent = 'Dinner';
                 dinnerBtn.querySelector('.meal-time').textContent = '4:00–9:59pm';
+
+                if (lateNightBtn) {
+                    lateNightBtn.querySelector('.meal-label').textContent = 'Late Night';
+                    lateNightBtn.querySelector('.meal-time').textContent = '10:00pm–12:00am';
+                }
             }
+
+            renderDiningHalls();
         }
 
-function setInitialMealUI(meal) {
-            const breakfastBtn = document.querySelector('.meal-btn[data-meal="breakfast"]');
-            const lunchBtn = document.querySelector('.meal-btn[data-meal="lunch"]');
-            const dinnerBtn = document.querySelector('.meal-btn[data-meal="dinner"]');
+function setInitialMealUI(initialMeal) {
+            currentMeal = initialMeal;
 
-            // If weekend (breakfast hidden), never try to activate breakfast
-            if (breakfastBtn && breakfastBtn.style.display === 'none' && meal === 'breakfast') {
-                meal = 'lunch';
+            document.querySelectorAll('.meal-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            const chosenBtn = document.querySelector(`[data-meal="${initialMeal}"]`);
+            if (chosenBtn && chosenBtn.style.display !== 'none') {
+                chosenBtn.classList.add('active');
+            } else {
+                // Fallback when the initially-chosen meal is hidden (e.g., Weekend)
+                const fallbackBtn = document.querySelector('[data-meal="lunch"]');
+                if (fallbackBtn) {
+                    currentMeal = 'lunch';
+                    fallbackBtn.classList.add('active');
+                }
             }
-
-            // Update current meal and active button styling
-            currentMeal = meal;
-            document.querySelectorAll('.meal-btn').forEach(btn => btn.classList.remove('active'));
-
-            const btn = document.querySelector(`.meal-btn[data-meal="${meal}"]`);
-            if (btn) btn.classList.add('active');
 
             renderDiningHalls();
         }
