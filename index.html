@@ -547,24 +547,45 @@
         .meal-buttons{
           display:flex;
           justify-content:center;
-          gap:1rem;
+          gap:1.4rem;
           flex-wrap:wrap;
         }
 
         .meal-btn{
           border:1px solid rgba(0,0,0,.06);
-          background:#f2f3f5;   
+          background:#f2f3f5;
           color:#30343a;
-          font-size:1rem;
-          font-weight:650;
           padding:.82rem 2.2rem;
           border-radius:9999px;
           cursor:pointer;
           transition:background .16s ease, box-shadow .16s ease, transform .16s ease, color .16s ease, border-color .16s ease;
           box-shadow:none;
+
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          gap:.35rem;
+          text-align:center;
+          line-height:1.05;
+          min-width: 220px;
         }
 
-        .meal-btn:hover{
+        .meal-label{
+          font-size:1rem;
+          font-weight:650;
+        }
+
+        .meal-time{
+          font-size:0.82rem;
+          font-weight:600;
+          opacity:.75;
+          line-height:1.2;
+        }
+
+        .meal-btn.active .meal-time{
+          opacity:.9;
+        }
+.meal-btn:hover{
           background:#eceef1;
           transform:translateY(-1px);
         }
@@ -620,13 +641,21 @@
             <div class="meal-selector">
                 <h2>Select Meal Period</h2>
                 <div class="meal-buttons">
-                    <button class="meal-btn active" data-meal="breakfast" onclick="changeMeal('breakfast')">Breakfast</button>
-                    <button class="meal-btn" data-meal="lunch" onclick="changeMeal('lunch')">Lunch</button>
-                    <button class="meal-btn" data-meal="dinner" onclick="changeMeal('dinner')">Dinner</button>
+                    <button onclick="changeMeal('breakfast')" class="meal-btn active" data-meal="breakfast">
+                        <span class="meal-label">Breakfast</span>
+                        <span class="meal-time">Mon–Fri 7:30–10:59am</span>
+                    </button>
+                    <button class="meal-btn" data-meal="lunch" onclick="changeMeal('lunch')">
+                        <span class="meal-label">Lunch</span>
+                        <span class="meal-time">Mon–Fri 11:00am–3:59pm • Sat–Sun Brunch 9:00am–3:59pm</span>
+                    </button>
+                    <button class="meal-btn" data-meal="dinner" onclick="changeMeal('dinner')">
+                        <span class="meal-label">Dinner</span>
+                        <span class="meal-time">Mon–Fri 4:00–9:59pm • Sat–Sun 4:00–11:00pm</span>
+                    </button>
                 </div>
             </div>
-
-            <div class="dining-halls" id="dining-halls-container">
+<div class="dining-halls" id="dining-halls-container">
             </div>
         </div>
 
@@ -880,7 +909,7 @@
                 return 'breakfast';
             } else {
                 if (mins >= 16 * 60) return 'dinner';
-                if (mins >= 11 * 60) return 'lunch';
+                if (mins >= 9 * 60) return 'lunch';
                 return 'breakfast';
             }
         }
@@ -974,15 +1003,16 @@ function renderDentalCafeContent() {
             }
 
             const items = menu.map(item => {
-                const price = item.price ? `<span class="item-price">${item.price}</span>` : "";
                 const dateStr = (dentalCafeData && dentalCafeData.date)
                     ? dentalCafeData.date
-                    : (new Date()).toISOString().slice(0, 10);
+                    : (dentalCafeData && dentalCafeData.updated_at ? dentalCafeData.updated_at.split(' ')[0] : null);
+
                 const href = nutrisliceDentalCafeDayUrl(dateStr);
+
                 return `
                     <li class="menu-item">
                         <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                            <span>${item.name}</span>${price}
+                            <span>${item.name}</span>
                         </a>
                     </li>
                 `;
