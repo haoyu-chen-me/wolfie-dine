@@ -607,6 +607,49 @@
           .meal-selector{ padding:1.8rem 1.2rem; }
           .meal-btn{ width:100%; }
         }
+    
+        /* Meal period buttons: label + time, keep a clean one-row layout on desktop */
+        .meal-buttons {
+            gap: 1.25rem;
+        }
+        .meal-buttons.weekday {
+            flex-wrap: nowrap;
+        }
+        .meal-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .meal-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.05;
+            padding: .85rem 1.35rem;
+            min-width: 150px;
+        }
+        .meal-btn .meal-label {
+            font-size: 1.05rem;
+            font-weight: 750;
+        }
+        .meal-btn .meal-time {
+            margin-top: 0.3rem;
+            font-size: 0.82rem;
+            font-weight: 650;
+            opacity: 0.85;
+        }
+        .meal-btn.active .meal-time {
+            opacity: 0.95;
+        }
+        @media (max-width: 900px) {
+            .meal-buttons.weekday {
+                flex-wrap: wrap;
+            }
+            .meal-btn {
+                min-width: 140px;
+            }
+        }
+
     </style>
     <!-- Cloudflare Web Analytics -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
@@ -640,25 +683,7 @@
         <div id="menu-page" class="page active">
             <div class="meal-selector">
                 <h2>Select Meal Period</h2>
-                <div class="meal-buttons">
-                    <button onclick="changeMeal('breakfast')" class="meal-btn active" data-meal="breakfast">
-                        <span class="meal-label">Breakfast</span>
-                        <span class="meal-time">7:30–10:59am</span>
-                    </button>
-                    <button class="meal-btn" data-meal="lunch" onclick="changeMeal('lunch')">
-                        <span class="meal-label">Lunch</span>
-                        <span class="meal-time">11:00am–3:59pm</span>
-                    </button>
-                    <button class="meal-btn" data-meal="dinner" onclick="changeMeal('dinner')">
-                        <span class="meal-label">Dinner</span>
-                        <span class="meal-time">4:00–9:59pm</span>
-                    </button>
-                
-                    <button class="meal-btn" data-meal="latenight" onclick="changeMeal('latenight')">
-                        <span class="meal-label">Late Night</span>
-                        <span class="meal-time">10:00pm–12:00am</span>
-                    </button>
-</div>
+                <div class="meal-buttons" id="meal-buttons"></div>
             </div>
 <div class="dining-halls" id="dining-halls-container">
             </div>
@@ -907,72 +932,70 @@
         }
 
         function pickInitialMeal() {
-            const isWeekend = isWeekendNow();
             const now = new Date();
+            const day = now.getDay(); // 0 Sun ... 6 Sat
             const minutes = now.getHours() * 60 + now.getMinutes();
 
-            if (isWeekend) {
-                // Weekend: Brunch 9:00–15:59, Dinner 16:00–23:00
-                if (minutes >= 9 * 60 && minutes < 16 * 60) return 'lunch';
-                return 'dinner';
+            const isWeekend = (day === 0 || day === 6);
+
+            const schedule = isWeekend ? [
+                { key: 'lunch', label: 'Brunch', time: '9am–3:59pm', start: 9 * 60, end: 16 * 60 },
+                { key: 'dinner', label: 'Dinner', time: '4pm–11pm', start: 16 * 60, end: 23 * 60 }
+            ] : [
+                { key: 'breakfast', label: 'Breakfast', time: '7:30–10:59am', start: 7 * 60 + 30, end: 11 * 60 },
+                { key: 'lunch', label: 'Lunch', time: '11am–3:59pm', start: 11 * 60, end: 16 * 60 },
+                { key: 'dinner', label: 'Dinner', time: '4pm–9:59pm', start: 16 * 60, end: 22 * 60 },
+                { key: 'late-night', label: 'Late Night', time: '10pm–12am', start: 22 * 60, end: 24 * 60 }
+            ];
+
+            // If we're inside a window, use that.
+            for (const slot of schedule) {
+                if (minutes >= slot.start && minutes < slot.end) return slot.key;
             }
 
-            // Weekday: Breakfast 7:30–10:59, Lunch 11:00–15:59, Dinner 16:00–21:59, Late Night 22:00–24:00
-            if (minutes >= (7 * 60 + 30) && minutes < 11 * 60) return 'breakfast';
-            if (minutes >= 11 * 60 && minutes < 16 * 60) return 'lunch';
-            if (minutes >= 22 * 60) return 'latenight';
-            if (minutes >= 16 * 60 && minutes < 22 * 60) return 'dinner';
-
-            // Before 7:30am
-            return 'breakfast';
+            // Otherwise pick the next upcoming window today; if none, fall back to first slot.
+            for (const slot of schedule) {
+                if (minutes < slot.start) return slot.key;
+            }
+            return schedule[0].key;
         }
 
 
         function applyMealSchedule() {
-            const isWeekend = isWeekendNow();
-            const breakfastBtn = document.querySelector('[data-meal="breakfast"]');
-            const lunchBtn = document.querySelector('[data-meal="lunch"]');
-            const dinnerBtn = document.querySelector('[data-meal="dinner"]');
-            const lateNightBtn = document.querySelector('[data-meal="latenight"]');
+            const now = new Date();
+            const day = now.getDay(); // 0 Sun ... 6 Sat
+            const isWeekend = (day === 0 || day === 6);
 
-            if (isWeekend) {
-                // Weekend: show Brunch + Dinner
-                breakfastBtn.style.display = 'none';
-                if (lateNightBtn) lateNightBtn.style.display = 'none';
+            const schedule = isWeekend ? [
+                { key: 'lunch', label: 'Brunch', time: '9am–3:59pm' },
+                { key: 'dinner', label: 'Dinner', time: '4pm–11pm' }
+            ] : [
+                { key: 'breakfast', label: 'Breakfast', time: '7:30–10:59am' },
+                { key: 'lunch', label: 'Lunch', time: '11am–3:59pm' },
+                { key: 'dinner', label: 'Dinner', time: '4pm–9:59pm' },
+                { key: 'late-night', label: 'Late Night', time: '10pm–12am' }
+            ];
 
-                lunchBtn.querySelector('.meal-label').textContent = 'Brunch';
-                lunchBtn.querySelector('.meal-time').textContent = '9:00–3:59pm';
+            const buttonsWrap = document.getElementById('meal-buttons');
+            if (!buttonsWrap) return;
 
-                dinnerBtn.querySelector('.meal-label').textContent = 'Dinner';
-                dinnerBtn.querySelector('.meal-time').textContent = '4:00–11:00pm';
+            // Layout hint for CSS: weekday wants a single row when space allows.
+            buttonsWrap.classList.toggle('weekday', !isWeekend);
 
-                // If current selection is hidden, fall back to Brunch
-                if (currentMeal === 'breakfast' || currentMeal === 'latenight') {
-                    currentMeal = 'lunch';
-                    document.querySelectorAll('.meal-btn').forEach(btn => btn.classList.remove('active'));
-                    lunchBtn.classList.add('active');
-                }
-            } else {
-                // Weekday: show Breakfast + Lunch + Dinner + Late Night
-                breakfastBtn.style.display = '';
-                if (lateNightBtn) lateNightBtn.style.display = '';
+            // Rebuild buttons (keeps styling + active class logic elsewhere)
+            buttonsWrap.innerHTML = schedule.map(slot => `
+                <div class="meal-option">
+                    <button class="meal-btn" data-meal="${slot.key}">
+                        <span class="meal-label">${slot.label}</span>
+                        <span class="meal-time">${slot.time}</span>
+                    </button>
+                </div>
+            `).join('');
 
-                breakfastBtn.querySelector('.meal-label').textContent = 'Breakfast';
-                breakfastBtn.querySelector('.meal-time').textContent = '7:30–10:59am';
-
-                lunchBtn.querySelector('.meal-label').textContent = 'Lunch';
-                lunchBtn.querySelector('.meal-time').textContent = '11:00am–3:59pm';
-
-                dinnerBtn.querySelector('.meal-label').textContent = 'Dinner';
-                dinnerBtn.querySelector('.meal-time').textContent = '4:00–9:59pm';
-
-                if (lateNightBtn) {
-                    lateNightBtn.querySelector('.meal-label').textContent = 'Late Night';
-                    lateNightBtn.querySelector('.meal-time').textContent = '10:00pm–12:00am';
-                }
-            }
-
-            renderDiningHalls();
+            // Attach click handlers
+            buttonsWrap.querySelectorAll('.meal-btn').forEach(btn => {
+                btn.addEventListener('click', () => changeMeal(btn.dataset.meal));
+            });
         }
 
 function setInitialMealUI(initialMeal) {
@@ -997,20 +1020,27 @@ function setInitialMealUI(initialMeal) {
             renderDiningHalls();
         }
 
-async function loadDentalCafeData() {
+async async function loadDentalCafeData() {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 9000); // avoid infinite loading
             try {
-                const response = await fetch('dental_cafe.json?t=' + Date.now());
+                const response = await fetch('dental_cafe.json?ts=' + Date.now(), {
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
                 if (!response.ok) throw new Error('Could not load menu');
                 dentalCafeData = await response.json();
-                renderDiningHalls();
             } catch (error) {
                 console.error('Error loading Dental Cafe data:', error);
                 dentalCafeData = {
                     status: 'fetch_error',
-                    message: 'Menu data unavailable',
+                    message: 'Menu data unavailable (refresh or try again later)',
                     menu: [],
                     updated_at: ''
                 };
+            } finally {
+                clearTimeout(timeout);
+                // Ensure we re-render to replace the loading state.
                 renderDiningHalls();
             }
         }
