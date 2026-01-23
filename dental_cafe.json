@@ -1,5 +1,5 @@
 {
-    "date": "2026-01-22",
+    "date": "2026-01-23",
     "location": "Dental Cafe",
     "menu": [
         {
@@ -19,31 +19,35 @@
             "price": null
         },
         {
-            "name": "Grilled Chicken, Basil Pesto, Mozzarella Panini",
-            "price": 10.95
-        },
-        {
             "name": "Turkey Reuben Panini",
             "price": null
         },
         {
-            "name": "Chana Masala",
+            "name": "Grilled Chicken, Basil Pesto, Mozzarella Panini",
+            "price": 10.95
+        },
+        {
+            "name": "plant-based salisbury steak",
             "price": null
         },
         {
-            "name": "Basmati Rice",
+            "name": "Mashed Potatoes",
             "price": null
         },
         {
-            "name": "Chicken Tikka Masala",
+            "name": "steamed green beans",
             "price": null
         },
         {
-            "name": "Basmati Rice",
+            "name": "salisbury steak & mushroom gravy",
             "price": null
         },
         {
-            "name": "Butter Naan",
+            "name": "Mashed Potatoes",
+            "price": null
+        },
+        {
+            "name": "Green Beans",
             "price": null
         },
         {
@@ -56,6 +60,6 @@
         }
     ],
     "status": "ok",
-    "message": "Valid menu items: 13.",
-    "updated_at": "2026-01-22 01:26:46 EST"
+    "message": "Valid menu items: 14.",
+    "updated_at": "2026-01-23 01:26:24 EST"
 }
