@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wolfie Dine</title>
     <meta name="description" content="Daily menus, hours, and live updates in a clean, fast view. Check what’s open, spot something tasty, and decide where to eat—quickly.">
     <link rel="canonical" href="https://www.wolfiedine.com/">
@@ -329,7 +329,7 @@
 
         footer { text-align: center; padding: 2rem; color: #fff; margin-top: 3rem; }
 
-        @media (hover: none) and (pointer: coarse) {
+        @media (max-width: 768px) {
             h1 { font-size: 1.8rem; }
             .header-container { flex-direction: column; text-align: center; gap: 0.75rem; }
             .clock-container { text-align: center; }
@@ -346,7 +346,7 @@
         }
 
         @media (max-width: 576px) {
-            .dining-halls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .dining-halls { grid-template-columns: 1fr; }
             .hall-header h3 { font-size: 1.3rem; }
             .category-title { font-size: 1rem; }
             .about-content h2 { font-size: 2rem; }
@@ -418,7 +418,7 @@
 
         .meal-btn:focus-visible{ outline: none; box-shadow: 0 0 0 4px rgba(177,18,18,.18); }
 
-        @media (hover: none) and (pointer: coarse){
+        @media (max-width:768px){
           .meal-selector{ padding:1.8rem 1.2rem; }
           .meal-btn{ width:100%; }
         }
@@ -435,19 +435,7 @@
             .meal-buttons.weekday { flex-wrap: wrap; }
             .meal-btn { min-width: 140px; }
         }
-
-        
-        @media (max-width: 420px) {
-            .dining-halls { grid-template-columns: 1fr; }
-            .meal-btn { min-width: 160px; }
-        }
-
-
-        @media (max-width: 768px) {
-            .menu-content { max-height: none !important; overflow: visible !important; }
-        }
-
-</style>
+    </style>
 
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
@@ -551,7 +539,8 @@
         };
 
         let currentMeal = 'breakfast';
-function pickInitialMeal() {
+
+        function pickInitialMeal() {
             const now = new Date();
             const day = now.getDay();
             const minutes = now.getHours() * 60 + now.getMinutes();
@@ -982,7 +971,6 @@ function pickInitialMeal() {
                 const hall = menuData[hallId];
                 const hallDiv = document.createElement('div');
                 hallDiv.className = 'dining-hall';
-                hallDiv.dataset.hallId = hallId;
 
                 let menuContent;
                 if (hall.isDynamic) {
@@ -1017,42 +1005,6 @@ function pickInitialMeal() {
                         ${menuContent}
                     </div>
                 `;
-
-
-                if (window.matchMedia("(max-width: 768px)").matches) {
-                    if (!(hallId in mobileHallCollapsed)) {
-                        const allIds = Object.keys(menuData);
-                        mobileHallCollapsed[hallId] = (allIds.indexOf(hallId) !== 0);
-                    }
-
-                    if (mobileHallCollapsed[hallId]) {
-                        hallDiv.classList.add('collapsed');
-                    }
-
-                    const headerEl = hallDiv.querySelector('.hall-header');
-                    if (headerEl) {
-                        headerEl.addEventListener('click', () => {
-                            const isCollapsed = hallDiv.classList.contains('collapsed');
-
-                            if (isCollapsed) {
-                                document.querySelectorAll('.dining-hall').forEach(el => {
-                                    const id = el.dataset.hallId;
-                                    if (!id) return;
-                                    if (id !== hallId) {
-                                        el.classList.add('collapsed');
-                                        mobileHallCollapsed[id] = true;
-                                    }
-                                });
-
-                                hallDiv.classList.remove('collapsed');
-                                mobileHallCollapsed[hallId] = false;
-                            } else {
-                                hallDiv.classList.add('collapsed');
-                                mobileHallCollapsed[hallId] = true;
-                            }
-                        });
-                    }
-                }
 
                 container.appendChild(hallDiv);
             });
