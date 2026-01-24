@@ -437,10 +437,10 @@
         }
     </style>
 
-    <!-- Cloudflare Web Analytics -->
+
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon='{"token": "b55eeac22b1c465d9a39541f96cbcdae"}'></script>
-    <!-- End Cloudflare Web Analytics -->
+
 </head>
 
 <body>
@@ -504,7 +504,7 @@
                 isDynamic: true
             },
 
-            /* ✅ East 动态读取 east_dining.json */
+
             'east-hall': {
                 name: 'East Side Dining',
                 isDynamic: true
@@ -516,7 +516,7 @@
             }
         };
 
-        // Static hall: late-night uses same as dinner
+
         if (!menuData['west-hall'].isDynamic) {
             menuData['west-hall'].latenight = menuData['west-hall'].dinner;
         }
@@ -542,7 +542,7 @@
 
         function pickInitialMeal() {
             const now = new Date();
-            const day = now.getDay(); // 0 Sun ... 6 Sat
+            const day = now.getDay();
             const minutes = now.getHours() * 60 + now.getMinutes();
 
             const isWeekend = (day === 0 || day === 6);
@@ -568,7 +568,7 @@
 
         function applyMealSchedule() {
             const now = new Date();
-            const day = now.getDay(); // 0 Sun ... 6 Sat
+            const day = now.getDay();
             const isWeekend = (day === 0 || day === 6);
 
             const schedule = isWeekend ? [
@@ -731,7 +731,7 @@
             return `${base}?day=${encodeURIComponent(dateStr)}`;
         }
 
-        // ✅ East Side Dining (Today's Dine-in Specials) URL — add ?day=YYYY-MM-DD for "当天网页"
+
         function nutrisliceEastSideSpecialsDayUrl(dateStr) {
             const base = "https://stonybrook.nutrislice.com/menu/east-side-dining/todays-dine-in-specials-esd";
             if (!dateStr) return base;
@@ -746,23 +746,23 @@
 
 
         function getEastSideDineInHoursLabel() {
-            // 0=Sun, 6=Sat
+
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
 
-            // Based on published hours: weekdays 7:30am–12am, weekends 9am–11pm
+
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
 
 
         function getWestSideDineInHoursLabel() {
-            // 0=Sun, 6=Sat
+
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
 
-            // Based on published hours: weekdays 7:30am–12am, weekends 9am–11pm
+
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
 
@@ -825,18 +825,18 @@
                 ? `<div class="last-updated">Last updated: ${eastDiningData.updated_at}</div>`
                 : '';
 
-            // Determine date string to build "当天网页" link
+
             const dateStr = (eastDiningData && eastDiningData.date)
                 ? eastDiningData.date
                 : (eastDiningData && eastDiningData.updated_at ? eastDiningData.updated_at.split(' ')[0] : null);
 
             const itemHref = nutrisliceEastSideSpecialsDayUrl(dateStr);
 
-            // UI key -> JSON key
+
             let mealKey = currentMeal;
             if (mealKey === 'late-night') mealKey = 'late_night';
 
-            // Weekend mapping: JSON has brunch/dinner; UI shows Brunch as lunch.
+
             if (eastDiningData.is_weekend) {
                 if (mealKey === 'lunch' || mealKey === 'breakfast') mealKey = 'brunch';
                 if (mealKey === 'late_night') mealKey = 'dinner';
@@ -895,11 +895,11 @@
 
             const itemHref = nutrisliceWestSideSpecialsDayUrl(dateStr);
 
-            // UI key -> JSON key
+
             let mealKey = currentMeal;
             if (mealKey === 'late-night') mealKey = 'late_night';
 
-            // Weekend mapping: JSON has brunch/dinner; UI shows Brunch as lunch.
+
             if (westDiningData.is_weekend) {
                 if (mealKey === 'lunch' || mealKey === 'breakfast') mealKey = 'brunch';
                 if (mealKey === 'late_night') mealKey = 'dinner';
@@ -984,7 +984,7 @@
                         menuContent = '<div class="no-menu">Dynamic menu not configured</div>';
                     }
                 } else {
-                    // Fix: buttons use 'late-night' but static data uses 'latenight'
+
                     const staticKey = (currentMeal === 'late-night') ? 'latenight' : currentMeal;
                     const menu = hall[staticKey];
                     menuContent = renderStaticHallMenu(menu);
@@ -1018,7 +1018,7 @@
             renderDiningHalls();
         }
 
-        // Init
+
         applyMealSchedule();
         setInitialMealUI(pickInitialMeal());
         loadDentalCafeData();
