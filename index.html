@@ -435,7 +435,28 @@
             .meal-buttons.weekday { flex-wrap: wrap; }
             .meal-btn { min-width: 140px; }
         }
-    </style>
+    
+        @media (max-width: 768px) {
+            .menu-content { max-height: none !important; overflow: visible !important; }
+
+            .dining-hall .hall-header { cursor: pointer; position: relative; }
+            .dining-hall.collapsed .menu-content { display: none; }
+
+            .dining-hall .hall-header::after {
+                content: "▾";
+                position: absolute;
+                right: 14px;
+                top: 14px;
+                font-weight: 900;
+                font-size: 1.05rem;
+                opacity: 0.95;
+                line-height: 1;
+            }
+
+            .dining-hall.collapsed .hall-header::after { content: "▸"; }
+        }
+
+</style>
 
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
@@ -539,6 +560,7 @@
         };
 
         let currentMeal = 'breakfast';
+        let mobileHallCollapsed = {};
 
         function pickInitialMeal() {
             const now = new Date();
@@ -971,6 +993,7 @@
                 const hall = menuData[hallId];
                 const hallDiv = document.createElement('div');
                 hallDiv.className = 'dining-hall';
+                hallDiv.dataset.hallId = hallId;
 
                 let menuContent;
                 if (hall.isDynamic) {
@@ -1005,6 +1028,42 @@
                         ${menuContent}
                     </div>
                 `;
+
+
+                if (window.matchMedia("(max-width: 768px)").matches) {
+                    if (!(hallId in mobileHallCollapsed)) {
+                        const allIds = Object.keys(menuData);
+                        mobileHallCollapsed[hallId] = (allIds.indexOf(hallId) !== 0);
+                    }
+
+                    if (mobileHallCollapsed[hallId]) {
+                        hallDiv.classList.add('collapsed');
+                    }
+
+                    const headerEl = hallDiv.querySelector('.hall-header');
+                    if (headerEl) {
+                        headerEl.addEventListener('click', () => {
+                            const isCollapsed = hallDiv.classList.contains('collapsed');
+
+                            if (isCollapsed) {
+                                document.querySelectorAll('.dining-hall').forEach(el => {
+                                    const id = el.dataset.hallId;
+                                    if (!id) return;
+                                    if (id !== hallId) {
+                                        el.classList.add('collapsed');
+                                        mobileHallCollapsed[id] = true;
+                                    }
+                                });
+
+                                hallDiv.classList.remove('collapsed');
+                                mobileHallCollapsed[hallId] = false;
+                            } else {
+                                hallDiv.classList.add('collapsed');
+                                mobileHallCollapsed[hallId] = true;
+                            }
+                        });
+                    }
+                }
 
                 container.appendChild(hallDiv);
             });
