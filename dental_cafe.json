@@ -1,65 +1,8 @@
 {
-    "date": "2026-01-23",
+    "date": "2026-01-24",
     "location": "Dental Cafe",
-    "menu": [
-        {
-            "name": "Pork Bacon, Egg & Cheese on a English Muffin",
-            "price": 6.0
-        },
-        {
-            "name": "Turkey Sausage, Egg, Cheese on a English Muffin",
-            "price": 6.0
-        },
-        {
-            "name": "Double Egg & Cheese on a English Muffin",
-            "price": 6.0
-        },
-        {
-            "name": "Margarita Fresca Panini",
-            "price": null
-        },
-        {
-            "name": "Turkey Reuben Panini",
-            "price": null
-        },
-        {
-            "name": "Grilled Chicken, Basil Pesto, Mozzarella Panini",
-            "price": 10.95
-        },
-        {
-            "name": "plant-based salisbury steak",
-            "price": null
-        },
-        {
-            "name": "Mashed Potatoes",
-            "price": null
-        },
-        {
-            "name": "steamed green beans",
-            "price": null
-        },
-        {
-            "name": "salisbury steak & mushroom gravy",
-            "price": null
-        },
-        {
-            "name": "Mashed Potatoes",
-            "price": null
-        },
-        {
-            "name": "Green Beans",
-            "price": null
-        },
-        {
-            "name": "Personal Cheese Pizza",
-            "price": 6.0
-        },
-        {
-            "name": "Personal Pepperoni Pizza",
-            "price": 6.0
-        }
-    ],
-    "status": "ok",
-    "message": "Valid menu items: 14.",
-    "updated_at": "2026-01-23 01:26:24 EST"
+    "menu": [],
+    "status": "weekend_no_menu",
+    "message": "happyweekends - No menu posted for 2026-01-24.",
+    "updated_at": "2026-01-24 01:23:51 EST"
 }
