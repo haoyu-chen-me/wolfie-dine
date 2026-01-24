@@ -1,4 +1,3 @@
-# eastdi_scrape.py
 import requests
 import json
 import datetime
@@ -21,7 +20,6 @@ MEAL_KEYWORDS = [
 PIZZA_SECTION_RE = re.compile(r"\bpizza\b", re.I)
 PASTA_SECTION_RE = re.compile(r"\bpasta\b", re.I)
 
-# 你想要“晚餐 + late night 结合”，这里指定 late night 归并到哪个 dinner section
 LATE_NIGHT_SOURCE_SECTION = "Late Night Specials"
 LATE_NIGHT_TARGET_SECTION = "Grill Dinner Specials"
 
@@ -103,9 +101,6 @@ def meals_map_to_output(meals_map: dict, meal_order: list[str]) -> dict:
 
 
 def merge_blocks(blocks: list[dict]) -> list[dict]:
-    """
-    合并同名 section 的 items 并去重
-    """
     sec_map: dict[str, list[str]] = {}
     for b in blocks:
         s = b.get("section") or "Other"
@@ -116,31 +111,20 @@ def merge_blocks(blocks: list[dict]) -> list[dict]:
 
 
 def weekend_merge_brunch_dinner(base: dict) -> dict:
-    """
-    base: meals_map_to_output 生成的 dict，包含 breakfast/lunch/dinner/late_night/brunch
-    周末输出：brunch + dinner
-    - brunch = breakfast + lunch + (直接塞进去的 brunch)
-    - dinner = dinner + late_night，但 late_night 的 "Late Night Specials" 归并到 "Grill Dinner Specials"
-    """
-    # brunch
     brunch_blocks = []
     brunch_blocks.extend(base.get("breakfast", []))
     brunch_blocks.extend(base.get("lunch", []))
     brunch_blocks.extend(base.get("brunch", []))
     brunch = merge_blocks(brunch_blocks)
 
-    # dinner：先拿 dinner blocks
     dinner_blocks = list(base.get("dinner", []))
 
-    # 把 late_night blocks 处理后并入 dinner
     for b in base.get("late_night", []):
         sec = b.get("section") or "Other"
         items = b.get("items") or []
         if sec == LATE_NIGHT_SOURCE_SECTION:
-            # 强制并入 Grill Dinner Specials
             dinner_blocks.append({"section": LATE_NIGHT_TARGET_SECTION, "items": items})
         else:
-            # 其它 late night section（如果出现）就原样并入
             dinner_blocks.append(b)
 
     dinner = merge_blocks(dinner_blocks)
@@ -199,7 +183,6 @@ def fetch_east_dining_menu():
                 if section == "Other" and current_section:
                     section = current_section
 
-                # Pizza/Pasta 横跨
                 if is_pizza_or_pasta_section(section):
                     if is_weekend:
                         add_name(meals_map, "brunch", section, food_name)
