@@ -1,0 +1,115 @@
+{
+  "date": "2026-01-24",
+  "location": "East Side Dining (Dine-in Specials)",
+  "is_weekend": true,
+  "status": "ok",
+  "message": "Menu fetched and categorized.",
+  "updated_at": "2026-01-24 13:56:59 EST",
+  "meals": {
+    "brunch": [
+      {
+        "section": "Breakfast at Chef's Table",
+        "items": [
+          "Belgian Waffle",
+          "Apple Compote"
+        ]
+      },
+      {
+        "section": "Chef's Table Lunch Specials",
+        "items": [
+          "Beef Stroganoff",
+          "Buttered Egg Noodles",
+          "Roasted Broccoli",
+          "Belgian Waffle",
+          "Apple Compote"
+        ]
+      },
+      {
+        "section": "Grill Lunch Specials",
+        "items": [
+          "BBQ Pulled Pork Slider",
+          "Bacon BBQ Beef Cheese Burger",
+          "California Veggie Slider with Pickles",
+          "Chicken Nuggets",
+          "French Fries",
+          "Grilled Vegetables"
+        ]
+      },
+      {
+        "section": "Hot Breakfast Buffet",
+        "items": [
+          "Scrambled Eggs with Cream and Butter",
+          "Scrambled Egg Whites",
+          "Tofu Mushroom Scramble",
+          "Chorizo Pepper Feta Frittata",
+          "Pork Breakfast Sausage Links",
+          "Breakfast Potatoes"
+        ]
+      },
+      {
+        "section": "Pasta Specials",
+        "items": [
+          "Chicken Alfredo",
+          "Stuffed Shells in Marinara"
+        ]
+      },
+      {
+        "section": "Pizza Specials",
+        "items": [
+          "Cheese Pizza",
+          "Pepperoni Pizza",
+          "Meat Lover's Pizza",
+          "Pepper & Onion Pizza"
+        ]
+      }
+    ],
+    "dinner": [
+      {
+        "section": "Chef's Table Dinner Specials",
+        "items": [
+          "Maple Apple Pork Loin",
+          "Roasted Fingerling Potatoes",
+          "Roasted Brussels Sprouts",
+          "apple chutney"
+        ]
+      },
+      {
+        "section": "Grill Dinner Specials",
+        "items": [
+          "Fried Chicken Sandwich with American Cheese",
+          "Teriyaki Chicken",
+          "Pepper Jack Cheese, Hot Sauce, Sliced Jalapenos Beef Burger",
+          "Fried Chicken Tenders",
+          "French Fries",
+          "Grilled Vegetables"
+        ]
+      },
+      {
+        "section": "Pasta Specials",
+        "items": [
+          "Chicken Alfredo",
+          "Stuffed Shells in Marinara"
+        ]
+      },
+      {
+        "section": "Pizza Specials",
+        "items": [
+          "Cheese Pizza",
+          "Pepperoni Pizza",
+          "Meat Lover's Pizza",
+          "Pepper & Onion Pizza"
+        ]
+      },
+      {
+        "section": "Rooted Dinner Specials",
+        "items": [
+          "Beyond Chili Spiced \"Beef\"",
+          "Seasoned  Rice",
+          "Broccoli",
+          "Roasted Golden Beets"
+        ]
+      }
+    ]
+  },
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/01/24/?format=json"
+}

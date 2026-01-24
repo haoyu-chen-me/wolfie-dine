@@ -1,0 +1,126 @@
+{
+  "date": "2026-01-24",
+  "location": "West Side Dining (Dine-in Specials)",
+  "is_weekend": true,
+  "status": "ok",
+  "message": "Menu fetched and categorized.",
+  "updated_at": "2026-01-24 13:56:59 EST",
+  "meals": {
+    "brunch": [
+      {
+        "section": "Grill Lunch Specials",
+        "items": [
+          "Black Bean and Corn Quesadilla",
+          "Meatball Slider with Provolone",
+          "Grilled Lime Chicken Sandwich",
+          "Grilled Vegetables",
+          "Crispy Tater Tots",
+          "French Fries"
+        ]
+      },
+      {
+        "section": "Hot Breakfast Buffet",
+        "items": [
+          "Scrambled Eggs with Cream and Butter",
+          "Scrambled Egg Whites",
+          "Pepperoni Veggie Frittata",
+          "Tofu and Black Bean Scramble",
+          "Homes Fries",
+          "Turkey Sausage Patty",
+          "Belgian Waffle",
+          "Apple Compote",
+          "Herb Roasted Chicken Breast"
+        ]
+      },
+      {
+        "section": "Pasta and Soup Specials",
+        "items": [
+          "Pepperoni Flatbread",
+          "Broccoli & Cheddar Mac & Cheese",
+          "Baked Stuffed Pork Bacon Potato Soup"
+        ]
+      },
+      {
+        "section": "Pizza Specials",
+        "items": [
+          "Pepper and Onion Cheese Flatbread Pizza"
+        ]
+      },
+      {
+        "section": "Rooted Lunch Specials",
+        "items": [
+          "BBQ Tofu",
+          "Yellow Rice",
+          "Roasted Brussels Sprouts"
+        ]
+      }
+    ],
+    "dinner": [
+      {
+        "section": "Composed Salads",
+        "items": [
+          "Red Skin Potato Salad",
+          "Three Bean Salad"
+        ]
+      },
+      {
+        "section": "Fusion Kitchen Dinner Specials",
+        "items": [
+          "Penne Pasta",
+          "Rigatoni Pasta",
+          "Marinara Sauce",
+          "Alfredo Sauce",
+          "Garlic Herb Oil",
+          "Beef Bolognese Sauce",
+          "Sausage with Peppers, Onions",
+          "Roasted Vegetable Chiles Rellenos",
+          "Parmesan Cheese"
+        ]
+      },
+      {
+        "section": "Grill Dinner Specials",
+        "items": [
+          "Fontina, Cheddar, Asiago Grilled Cheese with Tomato",
+          "Buffalo Chicken Hoagie",
+          "Crispy Zucchini Dog, Mozzarella Cheese, No Nut Pesto, Roasted Red Peppers",
+          "Grilled Vegetables",
+          "Cheddar and Sour Cream Loaded Tater Tots",
+          "French Fries",
+          "Chicken Lemongrass Potsticker",
+          "Jalapeno Poppers",
+          "Fried Zucchini",
+          "Meatballs with Marinara",
+          "Arroz con Pollo",
+          "Sweet Plantains",
+          "Roasted Asparagus",
+          "Chicken and Dumpling Soup",
+          "Cheese Ravioli Marinara",
+          "Roasted Tri Color Bell Peppers"
+        ]
+      },
+      {
+        "section": "Pasta and Soup Specials",
+        "items": [
+          "Pepperoni Flatbread",
+          "Broccoli & Cheddar Mac & Cheese",
+          "Baked Stuffed Pork Bacon Potato Soup"
+        ]
+      },
+      {
+        "section": "Pizza Specials",
+        "items": [
+          "Pepper and Onion Cheese Flatbread Pizza"
+        ]
+      },
+      {
+        "section": "Rooted Dinner Specials",
+        "items": [
+          "Vegan Dal Bukhara (Curried Black Lentils)",
+          "Kidney Bean, Green Chilis & Tomato Curry",
+          "Roasted Asparagus"
+        ]
+      }
+    ]
+  },
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/west-side-dining/menu-type/todays-dine-in-specials-wsd/2026/01/24/?format=json"
+}
