@@ -1,4 +1,3 @@
-# westdi_scrape.py
 import requests
 import json
 import datetime
@@ -21,7 +20,6 @@ MEAL_KEYWORDS = [
 PIZZA_SECTION_RE = re.compile(r"\bpizza\b", re.I)
 PASTA_SECTION_RE = re.compile(r"\bpasta\b", re.I)
 
-# 周末：把 late night 合并进 dinner 时，如果 section 是这个名字，就强制并入目标 section
 LATE_NIGHT_SOURCE_SECTION = "Late Night Specials"
 LATE_NIGHT_TARGET_SECTION = "Grill Dinner Specials"
 
@@ -47,7 +45,6 @@ def safe_food_name(mi: dict) -> str | None:
 
 
 def detect_header_text(mi: dict) -> str | None:
-    # Nutrislice 有时会把 section 标题作为“没有 food 的条目”塞进 menu_items
     if mi.get("food"):
         return None
 
@@ -104,9 +101,6 @@ def meals_map_to_output(meals_map: dict, meal_order: list[str]) -> dict:
 
 
 def merge_blocks(blocks: list[dict]) -> list[dict]:
-    """
-    合并同名 section 的 items 并去重
-    """
     sec_map: dict[str, list[str]] = {}
     for b in blocks:
         s = b.get("section") or "Other"
@@ -117,12 +111,6 @@ def merge_blocks(blocks: list[dict]) -> list[dict]:
 
 
 def weekend_merge_brunch_dinner(base: dict) -> dict:
-    """
-    base: meals_map_to_output 生成的 dict，包含 breakfast/lunch/dinner/late_night/brunch
-    周末输出：brunch + dinner
-    - brunch = breakfast + lunch + (直接塞进去的 brunch)
-    - dinner = dinner + late_night，但 late_night 的 "Late Night Specials" 归并到 "Grill Dinner Specials"
-    """
     brunch_blocks = []
     brunch_blocks.extend(base.get("breakfast", []))
     brunch_blocks.extend(base.get("lunch", []))
@@ -145,7 +133,6 @@ def weekend_merge_brunch_dinner(base: dict) -> dict:
 
 
 def fetch_west_dining_menu():
-    # 用 timezone-aware UTC 避免 python 3.12 的 utcnow 警告，同时行为不变（再 -5 小时当作 EST）
     utc_now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
     eastern_time = utc_now - datetime.timedelta(hours=5)
 
@@ -198,7 +185,6 @@ def fetch_west_dining_menu():
                 if section == "Other" and current_section:
                     section = current_section
 
-                # Pizza/Pasta 横跨
                 if is_pizza_or_pasta_section(section):
                     if is_weekend:
                         add_name(meals_map, "brunch", section, food_name)
