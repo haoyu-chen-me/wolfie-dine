@@ -11,7 +11,7 @@
     <meta name="application-name" content="Wolfie Dine" />
     <meta name="apple-mobile-web-app-title" content="Wolfie Dine" />
     
-    <meta name="description" content="Daily menus, hours, and live updates in a clean, fast view. Check what's open, spot something tasty, and decide where to eat—quickly.">
+    <meta name="description" content="Daily menus, hours, and live updates in a clean, fast view. Check what’s open, spot something tasty, and decide where to eat—quickly.">
     <link rel="canonical" href="https://www.wolfiedine.com/">
 
     <link rel="apple-touch-icon" href="https://www.wolfiedine.com/apple-touch-icon.png">
@@ -22,9 +22,6 @@
     <link rel="icon" type="image/png" sizes="192x192" href="https://www.wolfiedine.com/wolfiedine_icon_192.png">
 
     <style>
-        /* =========================================
-           第一部分：原始 CSS (保持电脑端原汁原味)
-           ========================================= */
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -142,7 +139,7 @@
             text-align: center;
             margin-bottom: 2rem;
             animation: fadeIn 0.6s ease-out;
-            /* 原版样式 */
+            
             background: #fff;
             border-radius: 18px;
             padding: 2.2rem 2rem;
@@ -210,7 +207,7 @@
 
         .dining-halls {
             display: grid;
-            /* 电脑端默认保持原样 */
+           
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.2rem;
             margin-top: 1.5rem;
@@ -365,23 +362,20 @@
 
         footer { text-align: center; padding: 2rem; color: #fff; margin-top: 3rem; }
 
-        /* =========================================
-           第二部分：手机端特供 (极致紧凑的 3 列布局)
-           只在宽度小于 800px 时生效，完全不影响电脑
-           ========================================= */
+      
         @media (max-width: 800px) {
-            html { font-size: 14px; } /* 缩小基准字体 */
+            html { font-size: 14px; }
             
             body { -webkit-tap-highlight-color: transparent; }
 
             .header-container { padding: 0 0.8rem; }
             h1 { font-size: 1.4rem; letter-spacing: -0.5px; }
-            .tagline { display: none; } /* 手机隐藏副标题 */
+            .tagline { display: none; } 
             .clock-time { font-size: 1.2rem; }
             .clock-date { font-size: 0.7rem; }
             header { padding: 0.6rem 0; }
 
-            nav { top: 0; } /* 手机上去掉 top 偏移 */
+            nav { top: 0; } 
             .nav-container { padding: 0 0.5rem; gap: 0.5rem; }
             .nav-btn { padding: 0.7rem 0.8rem; font-size: 0.9rem; }
 
@@ -396,27 +390,27 @@
             .meal-buttons { gap: 0.5rem; }
             .meal-btn { 
                 min-width: unset; 
-                width: 48%; /* 按钮一行两个 */
+                width: 48%; 
                 padding: 0.5rem;
                 border-radius: 12px;
             }
             .meal-label { font-size: 0.9rem; }
             .meal-time { font-size: 0.7rem; }
 
-            /* --- 核心：手机端 3 列高密度布局 --- */
+           
             .dining-halls {
-                grid-template-columns: repeat(3, 1fr) !important; /* 强制覆盖 */
+                grid-template-columns: repeat(3, 1fr) !important; 
                 gap: 0.4rem;
                 margin-top: 0.5rem;
             }
             
-            /* 横屏时变 4 列 */
+           
             @media (min-width: 450px) and (max-width: 800px) {
                 .dining-halls { grid-template-columns: repeat(4, 1fr) !important; }
             }
 
             .dining-hall {
-                height: 220px; /* 手机端固定高度 */
+                height: 220px; 
                 display: flex;
                 flex-direction: column;
                 border-radius: 8px;
@@ -424,7 +418,7 @@
 
             .hall-header {
                 padding: 0.4rem 0.2rem;
-                height: 40px; /* 固定头部高度 */
+                height: 40px; 
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -439,13 +433,13 @@
                 text-overflow: ellipsis; 
             }
             
-            /* 手机端隐藏状态标签（Open/Hours）以节省空间，或者改得极小 */
+     
             .hall-status { display: none; } 
 
             .menu-content {
                 padding: 0.3rem;
                 flex-grow: 1;
-                /* 手机端隐藏滚动条 */
+           
                 scrollbar-width: none; 
             }
             .menu-content::-webkit-scrollbar { display: none; }
@@ -459,14 +453,14 @@
                 margin-bottom: 0.2rem;
                 padding-bottom: 0.1rem;
             }
-            .category-icon { display: none; } /* 手机隐藏图标 */
+            .category-icon { display: none; } 
 
             .menu-items { padding-left: 0; }
             
             .menu-item {
                 padding: 0.15rem 0;
                 padding-left: 0;
-                font-size: 0.7rem; /* 极小字体 */
+                font-size: 0.7rem; 
                 line-height: 1.2;
                 border-bottom: 1px dashed #f5f5f5;
                 justify-content: flex-start;
@@ -494,37 +488,37 @@
 </head>
 
 <body>
-    <header>
-        <div class="header-container">
-            <div class="header-left">
-                <h1>🐺 Wolfie Dine</h1>
-                <p class="tagline">Your campus dining companion</p>
-            </div>
-            <div class="clock-container">
-                <div class="clock-time" id="clock-time">00:00</div>
-                <div class="clock-date" id="clock-date">Loading...</div>
-            </div>
-        </div>
-    </header>
 
-    <nav>
-        <div class="nav-container">
-            <button class="nav-btn active" onclick="showPage('menu', this)">Menu</button>
-            <button class="nav-btn" onclick="showPage('about', this)">About</button>
-            <a class="nav-btn"
-               href="https://docs.google.com/forms/d/e/1FAIpQLSfwXXeb2SHBLBE1TENjznsm8F5WlA5zCsay5n1cbmbJU2BTIQ/viewform?usp=sharing&ouid=114715764942658548801"
-               target="_blank" rel="noopener noreferrer">Feedback</a>
+<header>
+    <div class="header-container">
+        <div class="header-left">
+            <h1>🐺 Wolfie Dine</h1>
+            <p class="tagline">Your campus dining companion</p>
         </div>
-    </nav>
+        <div class="clock-container">
+            <div class="clock-time" id="clock-time">00:00</div>
+            <div class="clock-date" id="clock-date">Loading...</div>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <div class="nav-container">
+        <button class="nav-btn active" onclick="showPage('menu', this)">Menu</button>
+        <button class="nav-btn" onclick="showPage('about', this)">About</button>
+        <a class="nav-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfwXXeb2SHBLBE1TENjznsm8F5WlA5zCsay5n1cbmbJU2BTIQ/viewform"
+           target="_blank">Feedback</a>
+    </div>
+</nav>
 
     <main>
         <div id="menu-page" class="page active">
             <div class="meal-selector">
                 <h2>Select Meal Period</h2>
                 <div class="meal-buttons" id="meal-buttons"></div>
-            </div>
-            <div class="dining-halls" id="dining-halls-container"></div>
         </div>
+        <div class="dining-halls" id="dining-halls-container"></div>
+    </div>
 
         <div id="about-page" class="page">
             <div class="about-content">
@@ -533,14 +527,15 @@
                     Wolfie Dine is a menu aggregator for the Stony Brook University dining halls that lets students see all meal options in one place.
                 </p>
                 <p>
-                    Wolfie Dine was founded in January 2025 by Tina Yu [BCM '29] and Chenhao Yu [CpE '28]. It's maintained by the same student team and updates daily.
+                    Wolfie Dine was founded in January 2025 by Tina Yu [BCM '29] and Chenhao Yu [CpE '28].
+                    It's maintained by the same student team and updates daily.
                 </p>
                 <p>
-                    See the <a href="https://stonybrook.nutrislice.com" target="_blank" rel="noopener noreferrer">official Dining website</a>
-                    for hours updates, nutritional information, service alerts[...]
+                    See the <a href="https://stonybrook.nutrislice.com" target="_blank">official Dining website</a>
+                    for hours updates, nutritional information, and service alerts.
                 </p>
                 <p>
-                    Feel free to leave any feedback on the feedback page!
+                    Feel free to leave feedback via the feedback page!
                 </p>
             </div>
         </div>
@@ -551,8 +546,7 @@
     </footer>
 
     <script>
-        // 修改点2：删除了原版那个强制模拟 1100px 宽度的 JS 脚本。
-        // 这对于实现"手机端3列布局"是必须的，否则手机会以为自己是电脑，永远显示原来的样子。
+        
 
         const menuData = {
             'west-hall': {
@@ -566,11 +560,21 @@
                 isDynamic: true
             },
 
+            'east-retail': {
+                name: 'East Side Retail',
+                isDynamic: true
+            },
+
+            'jasmine': {
+                name: 'Jasmine',
+                isDynamic: true
+            },
+
             'dental-cafe': {
                 name: 'Dental Café',
                 isDynamic: true
             }
-            // 你可以在这里继续添加新餐厅，手机端会自动按 3 列排布
+          
         };
 
 
@@ -581,6 +585,8 @@
         let dentalCafeData = null;
         let eastDiningData = null;
         let westDiningData = null;
+        let eastRetailData = null;
+        let jasmineData = null;
 
         const categoryIcons = {
             'Breakfast Classics': '🍳',
@@ -750,11 +756,65 @@
             }
         }
 
+        
+        async function loadEastRetailData() {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 9000);
+            try {
+                const response = await fetch('east_side_retail.json?ts=' + Date.now(), {
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error('Could not load menu');
+                eastRetailData = await response.json();
+            } catch (error) {
+                console.error('Error loading East Side Retail data:', error);
+                eastRetailData = {
+                    status: 'fetch_error',
+                    message: 'Menu data unavailable (refresh or try again later)',
+                    sections: [],
+                    updated_at: ''
+                };
+            } finally {
+                clearTimeout(timeout);
+                renderDiningHalls();
+            }
+        }
+
+
+
+        async function loadJasmineData() {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 9000);
+            try {
+                const response = await fetch('jasmine.json?ts=' + Date.now(), {
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error('Could not load menu');
+                jasmineData = await response.json();
+            } catch (error) {
+                console.error('Error loading Jasmine data:', error);
+                jasmineData = {
+                    status: 'fetch_error',
+                    message: 'Menu data unavailable (refresh or try again later)',
+                    sections: [],
+                    updated_at: '',
+                    hours_today: ''
+                };
+            } finally {
+                clearTimeout(timeout);
+                renderDiningHalls();
+            }
+        }
+
+
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}`;
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}:${seconds}`;
 
             const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -808,7 +868,7 @@
             const isWeekend = (day === 0 || day === 6);
 
 
-            return isWeekend ? "Sat-Sun 9am–11pm" : "Mon-Fri 7:30am–12am";
+            return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
 
 
@@ -819,7 +879,48 @@
             const isWeekend = (day === 0 || day === 6);
 
 
-            return isWeekend ? "Sat-Sun 9am–11pm" : "Mon-Fri 7:30am–12am";
+            return isWeekend ? "9am–11pm" : "7:30am–12am";
+        }
+
+
+        function getEastRetailStoreHoursLabel(storeName) {
+            const d = new Date();
+            const day = d.getDay(); // 0 Sun ... 6 Sat
+
+            function norm(s) {
+                return String(s || '')
+                    .toLowerCase()
+                    .replace(/\(.*?\)/g, '')      // remove (...) like (Emporium)
+                    .replace(/[^a-z0-9]+/g, ' ')
+                    .trim();
+            }
+
+            const key = norm(storeName);
+
+            const HOURS = {
+                // Mon-Thu / Fri / Sat / Sun
+                'cocina fresca': { monThu: '11:30am to 10pm', fri: '11:30am to 7pm', sat: 'Closed', sun: 'Closed' },
+                'wicked wingz': { monThu: '11:30am to 10pm', fri: '11:30am to 7pm', sat: 'Closed', sun: 'Closed' },
+                'halal ny': { monThu: '11:30am to 10pm', fri: '11:30am to 7pm', sat: 'Closed', sun: 'Closed' },
+                'island soul': { monThu: '11:30am to 10pm', fri: '11:30am to 7pm', sat: 'Closed', sun: 'Closed' },
+
+                'emporium market': { monThu: '9am to 12am', fri: '8am to 12am', sat: '10am to 11pm', sun: '10am to 11pm' },
+                'delancey st kosher': { monThu: '12pm to 7pm', fri: '10am to 3pm', sat: 'Closed', sun: '12pm to 6pm' },
+
+                "nathan s": { monThu: '12pm to 9pm', fri: '12pm to 7pm', sat: 'Closed', sun: 'Closed' }
+            };
+
+            const h = HOURS[key];
+            if (!h) return 'Hours vary';
+
+            // Sun
+            if (day === 0) return h.sun;
+            // Sat
+            if (day === 6) return h.sat;
+            // Fri
+            if (day === 5) return h.fri;
+            // Mon-Thu
+            return h.monThu;
         }
 
 
@@ -996,76 +1097,199 @@
         }
 
 
-        function renderStaticHallMenu(menu) {
+
+        function renderEastRetailContent() {
+            if (eastRetailData === null) {
+                return '<div class="loading-message">Loading menu...</div>';
+            }
+
+            const status = eastRetailData.status || '';
+            const message = eastRetailData.message || '';
+            const sections = Array.isArray(eastRetailData.sections) ? eastRetailData.sections : [];
+
+            const updated = '';
+            // (Retail card) Last updated hidden by request
+
+            if (sections.length === 0) {
+                const text = message || 'No menu data available.';
+                const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
+                return `<div class="no-menu" ${style}>${text}</div>${updated}`;
+            }
+
+            const htmlBlocks = sections.map(s => {
+                const sectionName = s.section || 'Menu';
+                const items = Array.isArray(s.items) ? s.items : [];
+                const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/east-side-retail';
+
+                const hours = getEastRetailStoreHoursLabel(sectionName);
+
+                const li = items.map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
+
+                return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hours}</span>
+                        </h4>
+                        <ul class="menu-items">${li}</ul>
+                    </div>
+                `;
+            }).join('');
+
+            return `${htmlBlocks}${updated}`;
+        }
+
+        
+        function renderJasmineContent() {
+            if (jasmineData === null) {
+                return '<div class="loading-message">Loading menu...</div>';
+            }
+
+            const status = jasmineData.status || '';
+            const message = jasmineData.message || '';
+            const sections = Array.isArray(jasmineData.sections) ? jasmineData.sections : [];
+
+            const updated = jasmineData.updated_at
+                ? `<div class="last-updated">Last updated: ${jasmineData.updated_at}</div>`
+                : '';
+
+            if (sections.length === 0) {
+                const text = message || 'No menu data available.';
+                const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
+                return `<div class="no-menu" ${style}>${text}</div>${updated}`;
+            }
+
+            const htmlBlocks = sections.map(s => {
+                const sectionName = s.section || 'Menu';
+                const items = Array.isArray(s.items) ? s.items : [];
+                const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/jasmine';
+                const hours = (s.hours_today && String(s.hours_today).trim()) ? s.hours_today : 'Closed';
+
+                const li = items.map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
+
+                return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hours}</span>
+                        </h4>
+                        <ul class="menu-items">${li}</ul>
+                    </div>
+                `;
+            }).join('');
+
+            return `${htmlBlocks}${updated}`;
+        }
+
+function renderStaticHallMenu(menu) {
             if (!menu || Object.keys(menu).length === 0) {
                 return '<div class="no-menu">No menu available for this meal period</div>';
             }
 
-            return Object.entries(menu).map(([category, items]) => `
-                <div class="menu-category">
-                    <h4 class="category-title">
-                        <span class="category-icon">${categoryIcons[category] || '🍴'}</span>
-                        ${category}
-                    </h4>
-                    <ul class="menu-items">
-                        ${items.map(item => `<li class="menu-item"><span>${item}</span></li>`).join('')}
-                    </ul>
-                </div>
-            `).join('');
-        }
-
-        function renderDiningHalls() {
-            const container = document.getElementById('dining-halls-container');
-            if (!container) return;
-
-            container.innerHTML = Object.entries(menuData).map(([hallId, hallInfo]) => {
-                let contentHTML = '';
-                let statusLabel = 'Hours vary';
-
-                if (hallInfo.isDynamic) {
-                    if (hallId === 'dental-cafe') {
-                        contentHTML = renderDentalCafeContent();
-                        statusLabel = 'Mon–Fri 8am–4pm';
-                    } else if (hallId === 'east-hall') {
-                        contentHTML = renderEastDiningContent();
-                        statusLabel = getEastSideDineInHoursLabel();
-                    } else if (hallId === 'west-hall') {
-                        contentHTML = renderWestDiningContent();
-                        statusLabel = getWestSideDineInHoursLabel();
-                    }
-                } else {
-                    const menu = hallInfo[currentMeal] || {};
-                    contentHTML = renderStaticHallMenu(menu);
-                }
+            return Object.keys(menu).map(category => {
+                const icon = categoryIcons[category] || '🍴';
+                const items = menu[category]
+                    .map(item => `<li class="menu-item"><span>${item}</span></li>`)
+                    .join('');
 
                 return `
-                    <div class="dining-hall">
-                        <div class="hall-header">
-                            <h3>${hallInfo.name}</h3>
-                            <span class="hall-status">${statusLabel}</span>
-                        </div>
-                        <div class="menu-content">${contentHTML}</div>
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">${icon}</span>
+                            ${category}
+                        </h4>
+                        <ul class="menu-items">${items}</ul>
                     </div>
                 `;
             }).join('');
         }
 
+        function renderDiningHalls() {
+            const container = document.getElementById('dining-halls-container');
+            container.innerHTML = '';
+
+            Object.keys(menuData).forEach(hallId => {
+                const hall = menuData[hallId];
+                const hallDiv = document.createElement('div');
+                hallDiv.className = 'dining-hall';
+
+                let menuContent;
+                if (hall.isDynamic) {
+                    if (hallId === 'dental-cafe') {
+                        menuContent = renderDentalCafeContent();
+                    } else if (hallId === 'east-hall') {
+                        menuContent = renderEastDiningContent();
+                    } else if (hallId === 'west-hall') {
+                        menuContent = renderWestDiningContent();
+                    } else if (hallId === 'east-retail') {
+                        menuContent = renderEastRetailContent();
+                    } else if (hallId === 'jasmine') {
+                        menuContent = renderJasmineContent();
+                    } else {
+                        menuContent = '<div class="no-menu">Dynamic menu not configured</div>';
+                    }
+                } else {
+
+                    const staticKey = (currentMeal === 'late-night') ? 'latenight' : currentMeal;
+                    const menu = hall[staticKey];
+                    menuContent = renderStaticHallMenu(menu);
+                }
+
+                const statusText = (hallId === 'east-hall')
+                    ? getEastSideDineInHoursLabel()
+                    : (hallId === 'west-hall')
+                        ? getWestSideDineInHoursLabel()
+                        : (hallId === 'east-retail')
+                            ? 'Hours vary'
+                            : (hallId === 'jasmine')
+                                ? ((jasmineData && jasmineData.hours_today) ? jasmineData.hours_today : 'Hours')
+                                : 'Open';
+
+                hallDiv.innerHTML = `
+                    <div class="hall-header">
+                        <h3>${hall.name}</h3>
+                        <span class="hall-status">${statusText}</span>
+                    </div>
+                    <div class="menu-content">
+                        ${menuContent}
+                    </div>
+                `;
+
+                container.appendChild(hallDiv);
+            });
+        }
+
         function changeMeal(meal) {
             currentMeal = meal;
             document.querySelectorAll('.meal-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-meal="${meal}"]`)?.classList.add('active');
+            const activeBtn = document.querySelector(`[data-meal="${meal}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
             renderDiningHalls();
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            applyMealSchedule();
-            const initialMeal = pickInitialMeal();
-            setInitialMealUI(initialMeal);
 
-            loadDentalCafeData();
-            loadEastDiningData();
-            loadWestDiningData();
-        });
+        applyMealSchedule();
+        setInitialMealUI(pickInitialMeal());
+        loadDentalCafeData();
+        loadEastDiningData();
+        loadWestDiningData();
+        loadEastRetailData();
+        loadJasmineData();
+        renderDiningHalls();
     </script>
 </body>
 </html>
