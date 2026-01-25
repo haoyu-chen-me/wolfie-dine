@@ -2,10 +2,8 @@
 import json
 import datetime
 import requests
-from zoneinfo import ZoneInfo
 
 HEADERS = {"User-Agent": "Mozilla/5.0 (SBU Student Project)"}
-NY_TZ = ZoneInfo("America/New_York")
 
 API_TEMPLATE = (
     "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/jasmine/menu-type/"
@@ -15,7 +13,7 @@ API_TEMPLATE = (
 # 固定日（给“不变”的档口用）
 FIXED_DATE = datetime.date(2026, 1, 26)
 
-# Jasmine 营业时间（整体）
+# Jasmine（整体）营业时间
 JASMINE_HOURS = {
     "mon_thu": "11am to 8pm",
     "fri": "11am to 8pm",
@@ -31,21 +29,22 @@ CURRY_HOURS = {
     "sun": "Closed",
 }
 
+# 你现在给的 4 个档口（如果有第 5 个，照这个格式再加一行）
 STALLS = [
     {"name": "Cafetasia Chinese", "slug": "cafetasia-chinese", "daily": False},
-    {"name": "Curry Kitchen", "slug": "curry-kitchen", "daily": True},
+    {"name": "Curry Kitchen", "slug": "curry-kitchen", "daily": True},  # daily
     {"name": "Cafetasia Korean", "slug": "cafetasia-korean", "daily": False},
     {"name": "Sushido", "slug": "sushido", "daily": False},
-    # 你补第5个：{"name": "xxxx", "slug": "xxxx", "daily": False},
 ]
 
 
-def ny_now() -> datetime.datetime:
-    return datetime.datetime.now(NY_TZ)
+def eastern_now() -> datetime.datetime:
+    # 简单按东部时间 UTC-5（和你之前 East/West 保持一致）
+    return datetime.datetime.utcnow() - datetime.timedelta(hours=5)
 
 
-def ny_today_date() -> datetime.date:
-    return ny_now().date()
+def eastern_today_date() -> datetime.date:
+    return eastern_now().date()
 
 
 def weekday_key(d: datetime.date) -> str:
@@ -161,14 +160,15 @@ def stall_hours_today(stall_name: str, today_key: str) -> str:
 
 
 def main():
-    today = ny_today_date()
+    now_eastern = eastern_now()
+    today = now_eastern.date()
     today_key = weekday_key(today)
 
     out = {
         "date": today.strftime("%Y-%m-%d"),
         "location": "Jasmine",
         "hours_today": JASMINE_HOURS[today_key],
-        "updated_at": ny_now().strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "updated_at": now_eastern.strftime("%Y-%m-%d %H:%M:%S EST"),
         "timezone": "America/New_York",
         "sections": [],
     }
@@ -178,9 +178,13 @@ def main():
         slug = s["slug"]
         is_daily = bool(s.get("daily"))
 
+        # daily 用今天；static 用固定日
         fetch_date = today if is_daily else FIXED_DATE
+
+        # 默认按表给 hours
         h = stall_hours_today(name, today_key)
 
+        # Curry Kitchen 周末直接 Closed，不抓
         if name.strip().lower() == "curry kitchen" and h == "Closed":
             items = []
         else:
@@ -188,6 +192,10 @@ def main():
                 items = fetch_flat_items(slug, fetch_date)
             except Exception:
                 items = []
+
+        # ✅ 新规则：如果什么都没抓到 -> 直接 Closed
+        if not items:
+            h = "Closed"
 
         out["sections"].append(
             {
