@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" id="viewport-meta" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     
     <title>Wolfie Dine　</title>
     
@@ -10,7 +10,6 @@
     <meta property="og:site_name" content="Wolfie Dine" />
     <meta name="application-name" content="Wolfie Dine" />
     <meta name="apple-mobile-web-app-title" content="Wolfie Dine" />
-    
     <meta name="description" content="Daily menus, hours, and live updates in a clean, fast view. Check what’s open, spot something tasty, and decide where to eat—quickly.">
     <link rel="canonical" href="https://www.wolfiedine.com/">
 
@@ -24,11 +23,16 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* 基础字体大小设置，方便rem计算 */
+        html { font-size: 16px; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: linear-gradient(135deg, #ffcdd2 0%, #ffebee 100%);
             min-height: 100vh;
             color: #333;
+            /* 解决 iOS 点击高亮背景色问题 */
+            -webkit-tap-highlight-color: transparent;
         }
 
         header {
@@ -50,24 +54,28 @@
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem; /* 稍微减小两边间距适应手机 */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 2rem;
+            gap: 1rem;
         }
 
         .header-left { flex: 0 1 auto; }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 1.8rem; /* 默认稍微调小一点，适应小屏 */
             font-weight: 700;
-            letter-spacing: -1px;
+            letter-spacing: -0.5px;
             margin: 0;
+        }
+        
+        @media (min-width: 768px) {
+            h1 { font-size: 2.5rem; letter-spacing: -1px; }
         }
 
         .tagline {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.9;
             font-weight: 300;
             margin-top: 0.25rem;
@@ -75,32 +83,44 @@
 
         .clock-container { flex: 0 0 auto; text-align: right; }
 
-        .clock-time { font-size: 1.8rem; font-weight: 700; margin: 0; }
-        .clock-date { font-size: 0.85rem; opacity: 0.9; margin-top: 0.15rem; }
+        .clock-time { font-size: 1.4rem; font-weight: 700; margin: 0; }
+        .clock-date { font-size: 0.75rem; opacity: 0.9; margin-top: 0.15rem; }
+        
+        @media (min-width: 768px) {
+            .clock-time { font-size: 1.8rem; }
+            .clock-date { font-size: 0.85rem; }
+            .tagline { font-size: 0.9rem; }
+        }
 
         nav {
             background: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: sticky;
-            top: 80px;
+            /* 根据 header 高度大概估算，或者直接靠 JS 动态计算，这里设为 sticky 依然有效 */
+            top: 0; 
             z-index: 999;
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1rem;
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
+            gap: 1rem; /* 手机上减小间距 */
+            flex-wrap: nowrap; /* 防止换行 */
+            overflow-x: auto; /* 极小屏幕允许滑动 */
+        }
+        
+        @media (min-width: 768px) {
+            .nav-container { padding: 0 2rem; gap: 2rem; }
         }
 
         .nav-btn {
             background: none;
             border: none;
-            padding: 1rem 1.5rem;
-            font-size: 1rem;
+            padding: 1rem 1rem; /* 增加点击区域 */
+            font-size: 1rem; /* 手机上保持清晰可读的大小 */
             font-weight: 600;
             color: #c62828;
             cursor: pointer;
@@ -108,6 +128,8 @@
             position: relative;
             text-decoration: none;
             display: inline-block;
+            white-space: nowrap;
+            /* 手机上让按钮更像触摸目标 */
         }
 
         .nav-btn::after {
@@ -128,8 +150,12 @@
 
         main {
             max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem 2rem;
+            margin: 1.5rem auto;
+            padding: 0 1rem 2rem; /* 减小内边距 */
+        }
+        
+        @media (min-width: 768px) {
+            main { margin: 2rem auto; padding: 0 2rem 2rem; }
         }
 
         .page { display: none; }
@@ -139,6 +165,16 @@
             text-align: center;
             margin-bottom: 2rem;
             animation: fadeIn 0.6s ease-out;
+            
+            /* 手机端样式优化 */
+            background: #fff;
+            border-radius: 18px;
+            padding: 1.5rem 1rem;
+            border: 1px solid rgba(0,0,0,.06);
+            box-shadow: 0 10px 24px rgba(0,0,0,.10);
+            max-width: 860px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @keyframes fadeIn {
@@ -147,47 +183,81 @@
         }
 
         .meal-selector h2 {
-            color: #fff;
+            color: #9b1111;
             margin-bottom: 1rem;
-            font-size: 1.8rem;
+            font-size: 1.5rem; /* 手机端字体 */
+            font-weight: 750;
+            letter-spacing: -.02em;
+        }
+        
+        @media (min-width: 768px) {
+            .meal-selector { padding: 2.2rem 2rem; }
+            .meal-selector h2 { font-size: 2rem; margin-bottom: 1.3rem; }
         }
 
         .meal-buttons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 0.8rem;
+            flex-wrap: wrap; /* 允许换行 */
         }
 
         .meal-btn {
-            padding: 0.75rem 2rem;
-            border: 2px solid #fff;
-            background: white;
-            color: #c62828;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: 25px;
+            border: 1px solid rgba(0,0,0,.06);
+            background: #f2f3f5;
+            color: #30343a;
+            padding: 0.8rem 1rem; /* 调整内边距 */
+            border-radius: 16px; /* 稍微减小圆角 */
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            text-align: center;
+            line-height: 1.1;
+            width: 48%; /* 手机上一行两个 */
+            min-width: unset; /* 取消最小宽度限制 */
+        }
+        
+        @media (min-width: 500px) {
+            .meal-btn { width: auto; min-width: 140px; padding: 0.85rem 1.35rem; }
         }
 
-        .meal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(255,255,255,0.3);
+        .meal-label { font-size: 0.95rem; font-weight: 650; }
+        .meal-time { font-size: 0.75rem; font-weight: 600; opacity: .75; }
+        
+        @media (min-width: 768px) {
+            .meal-label { font-size: 1.05rem; }
+            .meal-time { font-size: 0.82rem; }
         }
+        
+        .meal-btn.active .meal-time { opacity: .9; }
 
+        .meal-btn:hover { background: #eceef1; transform: translateY(-1px); }
         .meal-btn.active {
-            background: #b71c1c;
-            color: white;
-            border-color: #b71c1c;
-            transform: scale(1.05);
+            background: #b11212;
+            border-color: rgba(177,18,18,.18);
+            color: #fff;
+            box-shadow: 0 10px 18px rgba(177,18,18,.22);
+            transform: none;
         }
 
+        /* 关键：修复 Grid 布局在手机上拉伸的问题 */
         .dining-halls {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            /* 手机上默认 1 列，或者自适应，但不强制最小宽度 350px 导致溢出 */
+            grid-template-columns: 1fr; 
             gap: 1.2rem;
             margin-top: 1.5rem;
+        }
+
+        @media (min-width: 600px) {
+            /* 平板或大屏手机才开始用 Grid 列 */
+            .dining-halls { 
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            }
         }
 
         .dining-hall {
@@ -197,6 +267,8 @@
             overflow: hidden;
             transition: all 0.3s ease;
             animation: fadeInUp 0.6s ease-out;
+            /* 防止卡片太宽 */
+            max-width: 100%;
         }
 
         @keyframes fadeInUp {
@@ -216,20 +288,21 @@
             text-align: center;
         }
 
-        .hall-header h3 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+        .hall-header h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
 
         .hall-status {
             display: inline-block;
             background: rgba(255,255,255,0.2);
-            padding: 0.4rem 0.8rem;
+            padding: 0.3rem 0.7rem;
             border-radius: 16px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
         }
 
         .menu-content {
             padding: 1rem;
-            max-height: 420px;
+            /* 手机上可以稍微调高一点最大高度 */
+            max-height: 50vh; 
             overflow-y: auto;
         }
 
@@ -247,37 +320,38 @@
 
         .category-title {
             color: #c62828;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
             padding-bottom: 0.4rem;
-            padding-left: 1rem;
+            padding-left: 0.5rem;
             border-bottom: 2px solid #ffebee;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .category-icon { font-size: 1.2rem; }
+        .category-icon { font-size: 1.1rem; }
 
-        .menu-items { list-style: none; padding-left: 1rem; }
+        .menu-items { list-style: none; padding-left: 0.5rem; }
 
         .menu-item {
-            padding: 0.4rem 0;
-            padding-left: 0.8rem;
+            padding: 0.5rem 0;
+            padding-left: 0.5rem;
             border-left: 2px solid transparent;
             transition: all 0.3s ease;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.95rem;
+            font-size: 0.95rem; /* 保持适中字体 */
+            line-height: 1.4;
         }
 
         .menu-item:hover {
             border-left-color: #c62828;
             background: #ffebee;
-            padding-left: 1.2rem;
+            padding-left: 1rem;
         }
 
         .menu-item-link{
@@ -288,20 +362,14 @@
             color:inherit;
             text-decoration:none;
         }
-
-        .menu-item-link:focus-visible{
-            outline:none;
-            box-shadow:0 0 0 4px rgba(198,40,40,.18);
-            border-radius:8px;
-        }
-
-        .no-menu { text-align: center; padding: 2.5rem; color: #666; font-style: italic; }
+        
+        .no-menu { text-align: center; padding: 2rem; color: #666; font-style: italic; }
         .loading-message { text-align: center; padding: 2rem; color: #666; font-style: italic; }
 
         .last-updated {
             text-align: center;
             color: #888;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             margin-top: 0.8rem;
             padding-top: 0.6rem;
             border-top: 1px solid #ffebee;
@@ -311,22 +379,33 @@
         .about-content {
             background: white;
             border-radius: 12px;
-            padding: 3rem;
+            padding: 1.5rem;
             max-width: 800px;
-            margin: 2rem auto;
+            margin: 0 auto;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             animation: fadeIn 0.6s ease-out;
-            line-height: 1.8;
+            line-height: 1.6;
+        }
+        
+        @media (min-width: 768px) {
+            .about-content { padding: 3rem; line-height: 1.8; }
         }
 
         .about-content h2 {
             color: #c62828;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             text-align: center;
         }
+        
+        @media (min-width: 768px) {
+            .about-content h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        }
 
-        .about-content p { font-size: 1.1rem; margin-bottom: 1.5rem; color: #333; }
+        .about-content p { font-size: 1rem; margin-bottom: 1rem; color: #333; }
+        @media (min-width: 768px) {
+            .about-content p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+        }
 
         .about-content a {
             color: #c62828;
@@ -337,148 +416,14 @@
 
         .about-content a:hover { color: #b71c1c; }
 
-        footer { text-align: center; padding: 2rem; color: #fff; margin-top: 3rem; }
+        footer { text-align: center; padding: 2rem 1rem; color: #fff; margin-top: 2rem; font-size: 0.9rem; }
 
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .header-container { flex-direction: column; text-align: center; gap: 0.75rem; }
-            .clock-container { text-align: center; }
-            .clock-time { font-size: 1.5rem; }
-            .dining-halls { grid-template-columns: 1fr; }
-            .nav-container { gap: 0.5rem; }
-            .nav-btn { padding: 0.75rem 1rem; font-size: 0.9rem; }
-            .meal-buttons { flex-direction: column; align-items: stretch; max-width: 300px; margin: 0 auto; }
-            .header-container, .nav-container, main { padding: 0 1rem; }
-            .about-content { padding: 2rem 1.5rem; }
-            .menu-content { max-height: 350px; }
-            .category-title { padding-left: 0.5rem; }
-            .menu-items { padding-left: 0.5rem; }
-        }
-
-        @media (max-width: 576px) {
-            .dining-halls { grid-template-columns: 1fr; }
-            .hall-header h3 { font-size: 1.3rem; }
-            .category-title { font-size: 1rem; }
-            .about-content h2 { font-size: 2rem; }
-        }
-
-        @media (min-width: 1200px) {
-            .dining-halls { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        @media (min-width: 1600px) {
-            .dining-halls { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .meal-selector{
-          background:#fff;
-          border-radius: 18px;
-          padding:2.2rem 2rem;
-          max-width: 860px;
-          margin:1.4rem auto 2rem;
-          border:1px solid rgba(0,0,0,.06);
-          box-shadow:0 10px 24px rgba(0,0,0,.10);
-        }
-
-        .meal-selector h2{
-          color:#9b1111;
-          font-size:2rem;
-          font-weight:750;
-          letter-spacing: -.02em;
-          margin:0 0 1.3rem;
-        }
-
-        .meal-buttons{
-          display:flex;
-          justify-content:center;
-          gap:1.4rem;
-          flex-wrap:wrap;
-        }
-
-        .meal-btn{
-          border:1px solid rgba(0,0,0,.06);
-          background:#f2f3f5;
-          color:#30343a;
-          padding:.82rem 2.2rem;
-          border-radius:9999px;
-          cursor:pointer;
-          transition:background .16s ease, box-shadow .16s ease, transform .16s ease, color .16s ease, border-color .16s ease;
-          box-shadow:none;
-          display:flex;
-          flex-direction:column;
-          align-items:center;
-          gap:.35rem;
-          text-align:center;
-          line-height:1.05;
-          min-width: 220px;
-        }
-
-        .meal-label{ font-size:1rem; font-weight:650; }
-        .meal-time{ font-size:0.82rem; font-weight:600; opacity:.75; line-height:1.2; }
-        .meal-btn.active .meal-time{ opacity:.9; }
-
-        .meal-btn:hover{ background:#eceef1; transform:translateY(-1px); }
-        .meal-btn.active{
-          background:#b11212;
-          border-color: rgba(177,18,18,.18);
-          color:#fff;
-          box-shadow:0 10px 18px rgba(177,18,18,.22);
-          transform:none;
-        }
-
-        .meal-btn:focus-visible{ outline: none; box-shadow: 0 0 0 4px rgba(177,18,18,.18); }
-
-        @media (max-width:768px){
-          .meal-selector{ padding:1.8rem 1.2rem; }
-          .meal-btn{ width:100%; }
-        }
-
-        .meal-buttons { gap: 1.25rem; }
-        .meal-buttons.weekday { flex-wrap: nowrap; }
-        .meal-option { display: flex; flex-direction: column; align-items: center; }
-        .meal-btn { display: flex; flex-direction: column; align-items: center; line-height: 1.05; padding: .85rem 1.35rem; min-width: 150px; }
-        .meal-btn .meal-label { font-size: 1.05rem; font-weight: 750; }
-        .meal-btn .meal-time { margin-top: 0.3rem; font-size: 0.82rem; font-weight: 650; opacity: 0.85; }
-        .meal-btn.active .meal-time { opacity: 0.95; }
-
-        @media (max-width: 900px) {
-            .meal-buttons.weekday { flex-wrap: wrap; }
-            .meal-btn { min-width: 140px; }
+        /* 修复按钮在特定宽度的换行问题 */
+        .meal-buttons.weekday { flex-wrap: wrap; }
+        @media (min-width: 900px) {
+            .meal-buttons.weekday { flex-wrap: nowrap; }
         }
     </style>
-
-
-    
-    <script>
-      (function () {
-        const vp = document.getElementById('viewport-meta') || document.querySelector('meta[name="viewport"]');
-        if (!vp) return;
-
-        function isMobileCoarse() {
-          return window.matchMedia && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-        }
-
-        function applyAutoViewport() {
-          if (!isMobileCoarse()) return;
-
-          const baseWidth = 1100;
-          const w = Math.min(window.innerWidth || baseWidth, window.screen && window.screen.width ? window.screen.width : baseWidth);
-          let scale = w / baseWidth;
-
-          scale = Math.max(0.28, Math.min(scale, 0.6));
-          const s = scale.toFixed(4);
-
-          vp.setAttribute(
-            'content',
-            `width=${baseWidth}, initial-scale=${s}, minimum-scale=${s}, maximum-scale=1.0, user-scalable=yes`
-          );
-        }
-
-        applyAutoViewport();
-        window.addEventListener('resize', applyAutoViewport, { passive: true });
-      })();
-    </script>
-
 
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js"
       data-cf-beacon='{"token": "b55eeac22b1c465d9a39541f96cbcdae"}'></script>
@@ -545,19 +490,15 @@
                 name: 'West Side Dining',
                 isDynamic: true
             },
-
-
             'east-hall': {
                 name: 'East Side Dining',
                 isDynamic: true
             },
-
             'dental-cafe': {
                 name: 'Dental Café',
                 isDynamic: true
             }
         };
-
 
         if (!menuData['west-hall'].isDynamic) {
             menuData['west-hall'].latenight = menuData['west-hall'].dinner;
@@ -709,7 +650,6 @@
             }
         }
 
-
         async function loadWestDiningData() {
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 9000);
@@ -773,7 +713,6 @@
             return `${base}?day=${encodeURIComponent(dateStr)}`;
         }
 
-
         function nutrisliceEastSideSpecialsDayUrl(dateStr) {
             const base = "https://stonybrook.nutrislice.com/menu/east-side-dining/todays-dine-in-specials-esd";
             if (!dateStr) return base;
@@ -786,28 +725,19 @@
             return `${base}?day=${encodeURIComponent(dateStr)}`;
         }
 
-
         function getEastSideDineInHoursLabel() {
-
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
-
-
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
-
 
         function getWestSideDineInHoursLabel() {
-
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
-
-
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
-
 
         function renderDentalCafeContent() {
             if (dentalCafeData === null) {
@@ -867,17 +797,14 @@
                 ? `<div class="last-updated">Last updated: ${eastDiningData.updated_at}</div>`
                 : '';
 
-
             const dateStr = (eastDiningData && eastDiningData.date)
                 ? eastDiningData.date
                 : (eastDiningData && eastDiningData.updated_at ? eastDiningData.updated_at.split(' ')[0] : null);
 
             const itemHref = nutrisliceEastSideSpecialsDayUrl(dateStr);
 
-
             let mealKey = currentMeal;
             if (mealKey === 'late-night') mealKey = 'late_night';
-
 
             if (eastDiningData.is_weekend) {
                 if (mealKey === 'lunch' || mealKey === 'breakfast') mealKey = 'brunch';
@@ -937,10 +864,8 @@
 
             const itemHref = nutrisliceWestSideSpecialsDayUrl(dateStr);
 
-
             let mealKey = currentMeal;
             if (mealKey === 'late-night') mealKey = 'late_night';
-
 
             if (westDiningData.is_weekend) {
                 if (mealKey === 'lunch' || mealKey === 'breakfast') mealKey = 'brunch';
@@ -980,7 +905,6 @@
 
             return `${htmlBlocks}${updated}`;
         }
-
 
         function renderStaticHallMenu(menu) {
             if (!menu || Object.keys(menu).length === 0) {
@@ -1026,7 +950,6 @@
                         menuContent = '<div class="no-menu">Dynamic menu not configured</div>';
                     }
                 } else {
-
                     const staticKey = (currentMeal === 'late-night') ? 'latenight' : currentMeal;
                     const menu = hall[staticKey];
                     menuContent = renderStaticHallMenu(menu);
@@ -1059,7 +982,6 @@
             if (activeBtn) activeBtn.classList.add('active');
             renderDiningHalls();
         }
-
 
         applyMealSchedule();
         setInitialMealUI(pickInitialMeal());
