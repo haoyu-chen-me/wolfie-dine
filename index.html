@@ -23,7 +23,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 基础字体大小设置，方便rem计算 */
         html { font-size: 16px; }
 
         body {
@@ -31,14 +30,13 @@
             background: linear-gradient(135deg, #ffcdd2 0%, #ffebee 100%);
             min-height: 100vh;
             color: #333;
-            /* 解决 iOS 点击高亮背景色问题 */
             -webkit-tap-highlight-color: transparent;
         }
 
         header {
             background: linear-gradient(135deg, #b71c1c 0%, #c62828 100%);
             color: white;
-            padding: 1rem 0;
+            padding: 0.8rem 0; /* 稍微减小头部高度腾空间 */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
@@ -54,7 +52,7 @@
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 1.5rem; /* 稍微减小两边间距适应手机 */
+            padding: 0 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,7 +62,7 @@
         .header-left { flex: 0 1 auto; }
 
         h1 {
-            font-size: 1.8rem; /* 默认稍微调小一点，适应小屏 */
+            font-size: 1.6rem; 
             font-weight: 700;
             letter-spacing: -0.5px;
             margin: 0;
@@ -72,19 +70,20 @@
         
         @media (min-width: 768px) {
             h1 { font-size: 2.5rem; letter-spacing: -1px; }
+            header { padding: 1rem 0; }
         }
 
         .tagline {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             opacity: 0.9;
             font-weight: 300;
-            margin-top: 0.25rem;
+            margin-top: 0.1rem;
         }
 
         .clock-container { flex: 0 0 auto; text-align: right; }
 
-        .clock-time { font-size: 1.4rem; font-weight: 700; margin: 0; }
-        .clock-date { font-size: 0.75rem; opacity: 0.9; margin-top: 0.15rem; }
+        .clock-time { font-size: 1.3rem; font-weight: 700; margin: 0; }
+        .clock-date { font-size: 0.7rem; opacity: 0.9; margin-top: 0.1rem; }
         
         @media (min-width: 768px) {
             .clock-time { font-size: 1.8rem; }
@@ -96,7 +95,6 @@
             background: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             position: sticky;
-            /* 根据 header 高度大概估算，或者直接靠 JS 动态计算，这里设为 sticky 依然有效 */
             top: 0; 
             z-index: 999;
         }
@@ -107,9 +105,8 @@
             padding: 0 1rem;
             display: flex;
             justify-content: center;
-            gap: 1rem; /* 手机上减小间距 */
-            flex-wrap: nowrap; /* 防止换行 */
-            overflow-x: auto; /* 极小屏幕允许滑动 */
+            gap: 1rem;
+            overflow-x: auto;
         }
         
         @media (min-width: 768px) {
@@ -119,8 +116,8 @@
         .nav-btn {
             background: none;
             border: none;
-            padding: 1rem 1rem; /* 增加点击区域 */
-            font-size: 1rem; /* 手机上保持清晰可读的大小 */
+            padding: 0.8rem 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             color: #c62828;
             cursor: pointer;
@@ -129,7 +126,6 @@
             text-decoration: none;
             display: inline-block;
             white-space: nowrap;
-            /* 手机上让按钮更像触摸目标 */
         }
 
         .nav-btn::after {
@@ -145,13 +141,12 @@
 
         .nav-btn:hover::after,
         .nav-btn.active::after { width: 100%; }
-
         .nav-btn:hover { color: #b71c1c; }
 
         main {
             max-width: 1400px;
-            margin: 1.5rem auto;
-            padding: 0 1rem 2rem; /* 减小内边距 */
+            margin: 1rem auto;
+            padding: 0 0.8rem 2rem; /* 减小边缘留白，利用空间 */
         }
         
         @media (min-width: 768px) {
@@ -163,15 +158,13 @@
 
         .meal-selector {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1.2rem; /* 减小间距 */
             animation: fadeIn 0.6s ease-out;
-            
-            /* 手机端样式优化 */
             background: #fff;
-            border-radius: 18px;
-            padding: 1.5rem 1rem;
+            border-radius: 16px;
+            padding: 1rem 0.8rem;
             border: 1px solid rgba(0,0,0,.06);
-            box-shadow: 0 10px 24px rgba(0,0,0,.10);
+            box-shadow: 0 4px 12px rgba(0,0,0,.08);
             max-width: 860px;
             margin-left: auto;
             margin-right: auto;
@@ -184,49 +177,49 @@
 
         .meal-selector h2 {
             color: #9b1111;
-            margin-bottom: 1rem;
-            font-size: 1.5rem; /* 手机端字体 */
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
             font-weight: 750;
             letter-spacing: -.02em;
         }
         
         @media (min-width: 768px) {
-            .meal-selector { padding: 2.2rem 2rem; }
+            .meal-selector { padding: 2.2rem 2rem; margin-bottom: 2rem; }
             .meal-selector h2 { font-size: 2rem; margin-bottom: 1.3rem; }
         }
 
         .meal-buttons {
             display: flex;
             justify-content: center;
-            gap: 0.8rem;
-            flex-wrap: wrap; /* 允许换行 */
+            gap: 0.6rem;
+            flex-wrap: wrap;
         }
 
         .meal-btn {
             border: 1px solid rgba(0,0,0,.06);
             background: #f2f3f5;
             color: #30343a;
-            padding: 0.8rem 1rem; /* 调整内边距 */
-            border-radius: 16px; /* 稍微减小圆角 */
+            padding: 0.6rem 0.5rem;
+            border-radius: 12px;
             cursor: pointer;
-            transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+            transition: background .16s ease;
             box-shadow: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.1rem;
             text-align: center;
             line-height: 1.1;
-            width: 48%; /* 手机上一行两个 */
-            min-width: unset; /* 取消最小宽度限制 */
+            width: 48%; /* 一行两个 */
+            min-width: unset;
         }
         
         @media (min-width: 500px) {
-            .meal-btn { width: auto; min-width: 140px; padding: 0.85rem 1.35rem; }
+            .meal-btn { width: auto; min-width: 140px; padding: 0.85rem 1.35rem; gap: 0.35rem; }
         }
 
-        .meal-label { font-size: 0.95rem; font-weight: 650; }
-        .meal-time { font-size: 0.75rem; font-weight: 600; opacity: .75; }
+        .meal-label { font-size: 0.9rem; font-weight: 650; }
+        .meal-time { font-size: 0.7rem; font-weight: 600; opacity: .75; }
         
         @media (min-width: 768px) {
             .meal-label { font-size: 1.05rem; }
@@ -235,40 +228,52 @@
         
         .meal-btn.active .meal-time { opacity: .9; }
 
-        .meal-btn:hover { background: #eceef1; transform: translateY(-1px); }
+        .meal-btn:hover { background: #eceef1; }
         .meal-btn.active {
             background: #b11212;
             border-color: rgba(177,18,18,.18);
             color: #fff;
-            box-shadow: 0 10px 18px rgba(177,18,18,.22);
-            transform: none;
+            box-shadow: 0 4px 10px rgba(177,18,18,.22);
         }
 
-        /* 关键：修复 Grid 布局在手机上拉伸的问题 */
+        /* --- 核心修改：紧凑的双列布局 --- */
         .dining-halls {
             display: grid;
-            /* 手机上默认 1 列，或者自适应，但不强制最小宽度 350px 导致溢出 */
-            grid-template-columns: 1fr; 
-            gap: 1.2rem;
-            margin-top: 1.5rem;
+            /* 强制手机端也是两列，利用宽度 */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 0.6rem; /* 减小卡片间距 */
+            margin-top: 1rem;
         }
 
-        @media (min-width: 600px) {
-            /* 平板或大屏手机才开始用 Grid 列 */
+        /* 最后一个元素如果是单数（比如第3个），让它横跨占满底部，利用空间 */
+        .dining-hall:last-child:nth-child(odd) {
+            grid-column: span 2;
+        }
+
+        @media (min-width: 900px) {
+            /* 电脑端恢复3列或4列 */
             .dining-halls { 
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 1.2rem;
             }
+            .dining-hall:last-child:nth-child(odd) {
+                grid-column: auto; /* 电脑端不需要横跨 */
+            }
+        }
+        @media (min-width: 1200px) {
+            .dining-halls { grid-template-columns: repeat(3, 1fr); }
         }
 
         .dining-hall {
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow: hidden;
             transition: all 0.3s ease;
             animation: fadeInUp 0.6s ease-out;
-            /* 防止卡片太宽 */
             max-width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         @keyframes fadeInUp {
@@ -276,102 +281,119 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .dining-hall:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-        }
-
         .hall-header {
             background: linear-gradient(135deg, #c62828 0%, #d32f2f 100%);
             color: white;
-            padding: 1rem;
+            padding: 0.6rem 0.4rem; /* 减小头部内边距 */
             text-align: center;
         }
 
-        .hall-header h3 { font-size: 1.3rem; margin-bottom: 0.3rem; }
+        .hall-header h3 { 
+            font-size: 1rem; /* 减小标题字号，防止换行 */
+            margin-bottom: 0.1rem; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        @media (min-width: 768px) {
+            .hall-header { padding: 1rem; }
+            .hall-header h3 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+        }
 
         .hall-status {
             display: inline-block;
             background: rgba(255,255,255,0.2);
-            padding: 0.3rem 0.7rem;
-            border-radius: 16px;
-            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.65rem; /* 状态字体变小 */
             font-weight: 600;
+        }
+        @media (min-width: 768px) {
+            .hall-status { padding: 0.4rem 0.8rem; font-size: 0.8rem; border-radius: 16px; }
         }
 
         .menu-content {
-            padding: 1rem;
-            /* 手机上可以稍微调高一点最大高度 */
-            max-height: 50vh; 
+            padding: 0.5rem; /* 内容区更紧凑 */
+            /* 限制高度，让卡片内部滚动，防止整个页面太长 */
+            height: 280px; 
             overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-content { padding: 1rem; height: 420px; }
         }
 
-        .menu-content::-webkit-scrollbar { width: 6px; }
-        .menu-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        .menu-content::-webkit-scrollbar-thumb { background: #c62828; border-radius: 10px; }
-        .menu-content::-webkit-scrollbar-thumb:hover { background: #b71c1c; }
+        .menu-content::-webkit-scrollbar { width: 4px; }
+        .menu-content::-webkit-scrollbar-track { background: #f1f1f1; }
+        .menu-content::-webkit-scrollbar-thumb { background: #c62828; border-radius: 4px; }
 
-        .menu-category { margin-bottom: 1.2rem; animation: slideIn 0.5s ease-out; }
+        .menu-category { margin-bottom: 0.8rem; animation: slideIn 0.5s ease-out; }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-20px); }
+            from { opacity: 0; transform: translateX(-10px); }
             to { opacity: 1; transform: translateX(0); }
         }
 
         .category-title {
             color: #c62828;
-            font-size: 1.05rem;
+            font-size: 0.9rem; /* 类别标题变小 */
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            padding-bottom: 0.4rem;
-            padding-left: 0.5rem;
-            border-bottom: 2px solid #ffebee;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0.2rem;
+            padding-left: 0.2rem;
+            border-bottom: 1px solid #ffebee;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .category-title { font-size: 1.1rem; margin-bottom: 0.5rem; border-bottom-width: 2px; }
         }
 
-        .category-icon { font-size: 1.1rem; }
+        .category-icon { font-size: 1rem; }
 
-        .menu-items { list-style: none; padding-left: 0.5rem; }
+        .menu-items { list-style: none; padding-left: 0.2rem; }
 
         .menu-item {
-            padding: 0.5rem 0;
-            padding-left: 0.5rem;
+            padding: 0.3rem 0;
+            padding-left: 0.3rem;
             border-left: 2px solid transparent;
-            transition: all 0.3s ease;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            font-size: 0.95rem; /* 保持适中字体 */
-            line-height: 1.4;
+            align-items: flex-start; /* 防止长菜名对不齐 */
+            font-size: 0.8rem; /* 菜名变小，适合双列 */
+            line-height: 1.3;
+        }
+        
+        @media (min-width: 768px) {
+            .menu-item { font-size: 0.95rem; padding: 0.4rem 0 0.4rem 0.8rem; }
         }
 
         .menu-item:hover {
             border-left-color: #c62828;
             background: #ffebee;
-            padding-left: 1rem;
         }
 
-        .menu-item-link{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            width:100%;
-            color:inherit;
-            text-decoration:none;
+        .menu-item-link {
+            display: block;
+            width: 100%;
+            color: inherit;
+            text-decoration: none;
         }
         
-        .no-menu { text-align: center; padding: 2rem; color: #666; font-style: italic; }
-        .loading-message { text-align: center; padding: 2rem; color: #666; font-style: italic; }
+        .no-menu { text-align: center; padding: 1.5rem 0; color: #666; font-style: italic; font-size: 0.8rem; }
+        .loading-message { text-align: center; padding: 1.5rem 0; color: #666; font-style: italic; font-size: 0.8rem; }
 
         .last-updated {
             text-align: center;
             color: #888;
-            font-size: 0.75rem;
-            margin-top: 0.8rem;
-            padding-top: 0.6rem;
+            font-size: 0.65rem;
+            margin-top: 0.5rem;
+            padding-top: 0.4rem;
             border-top: 1px solid #ffebee;
             font-style: italic;
         }
@@ -397,26 +419,12 @@
             margin-bottom: 1rem;
             text-align: center;
         }
-        
-        @media (min-width: 768px) {
-            .about-content h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
-        }
 
         .about-content p { font-size: 1rem; margin-bottom: 1rem; color: #333; }
-        @media (min-width: 768px) {
-            .about-content p { font-size: 1.1rem; margin-bottom: 1.5rem; }
-        }
-
-        .about-content a {
-            color: #c62828;
-            text-decoration: underline;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
+        .about-content a { color: #c62828; text-decoration: underline; font-weight: 600; }
         .about-content a:hover { color: #b71c1c; }
 
-        footer { text-align: center; padding: 2rem 1rem; color: #fff; margin-top: 2rem; font-size: 0.9rem; }
+        footer { text-align: center; padding: 2rem 1rem; color: #fff; margin-top: 2rem; font-size: 0.8rem; }
 
         /* 修复按钮在特定宽度的换行问题 */
         .meal-buttons.weekday { flex-wrap: wrap; }
@@ -741,7 +749,7 @@
 
         function renderDentalCafeContent() {
             if (dentalCafeData === null) {
-                return '<div class="loading-message">Loading menu...</div>';
+                return '<div class="loading-message">Loading...</div>';
             }
 
             const status = dentalCafeData.status || '';
@@ -753,7 +761,7 @@
                 : '';
 
             if (menu.length === 0) {
-                const text = message || 'No menu data available.';
+                const text = message || 'No menu available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
@@ -776,7 +784,7 @@
                 <div class="menu-category">
                     <h4 class="category-title">
                         <span class="category-icon">🍴</span>
-                        Today's Menu
+                        Today
                     </h4>
                     <ul class="menu-items">${items}</ul>
                 </div>
@@ -786,7 +794,7 @@
 
         function renderEastDiningContent() {
             if (eastDiningData === null) {
-                return '<div class="loading-message">Loading menu...</div>';
+                return '<div class="loading-message">Loading...</div>';
             }
 
             const status = eastDiningData.status || '';
@@ -814,7 +822,7 @@
             const blocks = Array.isArray(meals[mealKey]) ? meals[mealKey] : [];
 
             if (blocks.length === 0) {
-                const text = message || 'No menu data available.';
+                const text = message || 'No menu available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
@@ -847,7 +855,7 @@
 
         function renderWestDiningContent() {
             if (westDiningData === null) {
-                return '<div class="loading-message">Loading menu...</div>';
+                return '<div class="loading-message">Loading...</div>';
             }
 
             const status = westDiningData.status || '';
@@ -875,7 +883,7 @@
             const blocks = Array.isArray(meals[mealKey]) ? meals[mealKey] : [];
 
             if (blocks.length === 0) {
-                const text = message || 'No menu data available.';
+                const text = message || 'No menu available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
@@ -908,7 +916,7 @@
 
         function renderStaticHallMenu(menu) {
             if (!menu || Object.keys(menu).length === 0) {
-                return '<div class="no-menu">No menu available for this meal period</div>';
+                return '<div class="no-menu">No menu available</div>';
             }
 
             return Object.keys(menu).map(category => {
@@ -947,7 +955,7 @@
                     } else if (hallId === 'west-hall') {
                         menuContent = renderWestDiningContent();
                     } else {
-                        menuContent = '<div class="no-menu">Dynamic menu not configured</div>';
+                        menuContent = '<div class="no-menu">Not configured</div>';
                     }
                 } else {
                     const staticKey = (currentMeal === 'late-night') ? 'latenight' : currentMeal;
