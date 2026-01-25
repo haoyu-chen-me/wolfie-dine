@@ -1,7 +1,9 @@
+# eastdi_scrape.py
 import requests
 import json
 import datetime
 import re
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 TARGET_URL_TEMPLATE = (
     "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/"
@@ -22,6 +24,24 @@ PASTA_SECTION_RE = re.compile(r"\bpasta\b", re.I)
 
 LATE_NIGHT_SOURCE_SECTION = "Late Night Specials"
 LATE_NIGHT_TARGET_SECTION = "Grill Dinner Specials"
+
+
+def _ny_tz():
+    try:
+        return ZoneInfo("America/New_York")
+    except ZoneInfoNotFoundError as e:
+        raise RuntimeError(
+            "Missing timezone data for America/New_York.\n"
+            "Fix (Windows 本地最常见): python -m pip install tzdata\n"
+            "Then rerun."
+        ) from e
+
+
+NY_TZ = _ny_tz()
+
+
+def ny_now() -> datetime.datetime:
+    return datetime.datetime.now(NY_TZ)
 
 
 def pick_section_name(menu_item: dict) -> str:
@@ -128,19 +148,18 @@ def weekend_merge_brunch_dinner(base: dict) -> dict:
             dinner_blocks.append(b)
 
     dinner = merge_blocks(dinner_blocks)
-
     return {"brunch": brunch, "dinner": dinner}
 
 
 def fetch_east_dining_menu():
-    eastern_time = datetime.datetime.utcnow() - datetime.timedelta(hours=5)
-    date_str = eastern_time.strftime("%Y-%m-%d")
-    is_weekend = eastern_time.weekday() >= 5
+    now = ny_now()
+    date_str = now.strftime("%Y-%m-%d")
+    is_weekend = now.weekday() >= 5
 
     url = TARGET_URL_TEMPLATE.format(
-        year=eastern_time.year,
-        month=f"{eastern_time.month:02d}",
-        day=f"{eastern_time.day:02d}",
+        year=now.year,
+        month=f"{now.month:02d}",
+        day=f"{now.day:02d}",
     )
     print(f"Fetching from: {url}")
 
@@ -219,7 +238,8 @@ def fetch_east_dining_menu():
         "is_weekend": is_weekend,
         "status": status,
         "message": message,
-        "updated_at": eastern_time.strftime("%Y-%m-%d %H:%M:%S EST"),
+        "updated_at": now.strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "timezone": "America/New_York",
         "meals": meals_out,
         "source_url": url,
     }
@@ -232,3 +252,4 @@ def fetch_east_dining_menu():
 
 if __name__ == "__main__":
     fetch_east_dining_menu()
+
