@@ -2,7 +2,7 @@ name: Update Menus (All Locations)
 
 on:
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '20 5 * * *'
   workflow_dispatch: 
 
 
