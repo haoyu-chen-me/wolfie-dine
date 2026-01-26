@@ -554,6 +554,13 @@
             return false;
         }
 
+        function isSpecialFeb26() {
+            const d = new Date();
+            // Special hours override for Feb 26 (any year)
+            return (d.getMonth() === 1 && d.getDate() === 26);
+        }
+
+
         const menuData = {
             'west-hall': {
                 name: 'West Side Dining',
@@ -935,6 +942,8 @@
 
         function getEastSideDineInHoursLabel() {
 
+            if (isSpecialFeb26()) return "9am to 8pm";
+
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
@@ -942,10 +951,13 @@
 
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
+
 
 
         function getWestSideDineInHoursLabel() {
 
+            if (isSpecialFeb26()) return "9am to 8pm";
+
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
@@ -953,11 +965,31 @@
 
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
+
 
 
         function getEastRetailStoreHoursLabel(storeName) {
             const d = new Date();
             const day = d.getDay(); // 0 Sun ... 6 Sat
+
+            if (isSpecialFeb26()) {
+                function norm(s) {
+                    return String(s || '')
+                        .toLowerCase()
+                        .replace(/\(.*?\)/g, '')
+                        .replace(/[^a-z0-9]+/g, ' ')
+                        .trim();
+                }
+
+                const key = norm(storeName);
+                const SPECIAL = {
+                    'halal ny': '11:30am to 8pm',
+                    "smash n shake": '11am to 8pm',
+                    'subway': '11am to 8pm',
+                    'popeyes': '11:30am to 7pm'
+                };
+                return SPECIAL[key] || 'Closed';
+            }
 
             function norm(s) {
                 return String(s || '')
@@ -997,6 +1029,7 @@
 
 
         function getDentalCafeHoursLabel() {
+            if (isSpecialFeb26()) return 'Closed';
             const d = new Date();
             const day = d.getDay(); // 0 Sun ... 6 Sat
             const isWeekend = (day === 0 || day === 6);
@@ -1004,9 +1037,11 @@
         }
 
 
+
         function getSACStoreHoursLabel(storeName) {
             const d = new Date();
             const day = d.getDay(); // 0 Sun ... 6 Sat
+            if (isSpecialFeb26()) return 'Closed';
 
             function norm(s) {
                 return String(s || '')
@@ -1305,6 +1340,10 @@
 
         
         function renderJasmineContent() {
+            if (isSpecialFeb26()) {
+                return '<div class="no-menu">Closed</div>';
+            }
+
             if (jasmineData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1368,6 +1407,10 @@
 
 
         function renderRothContent() {
+            if (isSpecialFeb26()) {
+                return '<div class="no-menu">Closed</div>';
+            }
+
             if (rothData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1431,6 +1474,10 @@
 
 
         function renderSACContent() {
+            if (isSpecialFeb26()) {
+                return '<div class="no-menu">Closed</div>';
+            }
+
             if (sacData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1534,12 +1581,17 @@ function renderStaticHallMenu(menu) {
             const container = document.getElementById('dining-halls-container');
             container.innerHTML = '';
 
+            const forceClosedAll = isSpecialFeb26() && (currentMeal === 'late-night');
+
             Object.keys(menuData).forEach(hallId => {
                 const hall = menuData[hallId];
                 const hallDiv = document.createElement('div');
                 hallDiv.className = 'dining-hall';
 
                 let menuContent;
+                if (forceClosedAll) {
+                    menuContent = '<div class="no-menu">Closed</div>';
+                } else {
                 if (hall.isDynamic) {
                     if (hallId === 'dental-cafe') {
                         menuContent = renderDentalCafeContent();
@@ -1564,6 +1616,7 @@ function renderStaticHallMenu(menu) {
                     const menu = hall[staticKey];
                     menuContent = renderStaticHallMenu(menu);
                 }
+                }
 
                 let statusText = 'Open';
 
@@ -1585,6 +1638,8 @@ function renderStaticHallMenu(menu) {
                     const h = (rothData && rothData.hours_today) ? rothData.hours_today : 'Hours';
                     statusText = isClosedHoursLabel(h) ? 'Closed' : h;
                 }
+
+                if (forceClosedAll) statusText = 'Closed';
 
 hallDiv.innerHTML = `
                     <div class="hall-header">
