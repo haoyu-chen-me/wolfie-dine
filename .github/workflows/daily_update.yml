@@ -1,4 +1,4 @@
-name: Update Menus (Dental + East + West + Jasmine)
+name: Update Menus (Dental + East + West + Jasmine + SAC + Roth)
 
 on:
   schedule:
@@ -29,13 +29,15 @@ jobs:
           python eastdi_scrape.py
           python westdi_scrape.py
           python jasmine_scrape.py
+          python sac_scrape.py
+          python roth_scrape.py
 
       - name: Commit and push if changed
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'actions@github.com'
 
-          git add dental_cafe.json east_dining.json west_dining.json jasmine.json
+          git add dental_cafe.json east_dining.json west_dining.json jasmine.json sac.json roth.json
 
           git diff --quiet && git diff --staged --quiet || (
             git commit -m "🍴 Update menus - $(date -u +'%Y-%m-%d')" &&
