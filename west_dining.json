@@ -4,7 +4,7 @@
   "is_weekend": true,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-01-25 14:59:31 EST",
+  "updated_at": "2026-01-25 20:15:25 EST",
   "meals": {
     "brunch": [
       {
@@ -59,10 +59,13 @@
       {
         "section": "Fusion Kitchen Dinner Specials",
         "items": [
-          "Sesame Chicken, Sesame Seeds",
-          "Vegetable Lo Mein Egg Noodles, Mushrooms, Soy, Oyster, Fish Sauce",
-          "Sesame Ginger Soy Glazed Bok Choy",
-          "Jasmine Rice"
+          "Scrambled Eggs with Cream and Butter",
+          "Scrambled Egg Whites",
+          "Crispy Tater Tots",
+          "Belgian Waffle",
+          "Chicken Breakfast Sausage Patty",
+          "Tofu Scramble",
+          "Honey Glazed Ham"
         ]
       },
       {
