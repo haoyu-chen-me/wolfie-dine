@@ -1,7 +1,7 @@
 {
   "location": "SAC",
   "timezone": "America/New_York",
-  "updated_at": "2026-01-25 21:44:53 EST",
+  "updated_at": "2026-01-26 01:29:19 EST",
   "status": "partial_error",
   "sections": [
     {
@@ -117,12 +117,12 @@
       "section": "Soups & Chili",
       "school": "sac",
       "slug": "grab-n-go",
-      "date": "2026-01-25",
+      "date": "2026-01-26",
       "status": "no_data_today",
       "message": "No food names parsed.",
       "items": [],
-      "menu_url": "https://stonybrook.nutrislice.com/menu/sac/grab-n-go/2026-01-25",
-      "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sac/menu-type/grab-n-go/2026/01/25/?format=json",
+      "menu_url": "https://stonybrook.nutrislice.com/menu/sac/grab-n-go/2026-01-26",
+      "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sac/menu-type/grab-n-go/2026/01/26/?format=json",
       "is_daily": true
     },
     {
