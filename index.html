@@ -554,13 +554,6 @@
             return false;
         }
 
-        function isSpecialFeb26() {
-            const d = new Date();
-            // Special hours override for Feb 26 (any year)
-            return (d.getMonth() === 1 && d.getDate() === 26);
-        }
-
-
         const menuData = {
             'west-hall': {
                 name: 'West Side Dining',
@@ -909,7 +902,6 @@
 
         setInterval(updateClock, 1000);
         updateClock();
-        
         function showPage(pageName, btn) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(`${pageName}-page`).classList.add('active');
@@ -941,8 +933,6 @@
 
 
         function getEastSideDineInHoursLabel() {
-            if (isSpecialFeb26()) return "9am to 8pm";
-
             const d = new Date();
             const day = d.getDay();
             
@@ -950,12 +940,9 @@
             if (day === 6) return "Sat 9am–11pm";
             return "Mon-Fri 7:30am–12am";
         }
-
 
 
         function getWestSideDineInHoursLabel() {
-            if (isSpecialFeb26()) return "9am to 8pm";
-
             const d = new Date();
             const day = d.getDay();
             
@@ -963,31 +950,11 @@
             if (day === 6) return "Sat 9am–11pm";
             return "Mon-Fri 7:30am–12am";
         }
-
 
 
         function getEastRetailStoreHoursLabel(storeName) {
             const d = new Date();
             const day = d.getDay(); // 0 Sun ... 6 Sat
-
-            if (isSpecialFeb26()) {
-                function norm(s) {
-                    return String(s || '')
-                        .toLowerCase()
-                        .replace(/\(.*?\)/g, '')
-                        .replace(/[^a-z0-9]+/g, ' ')
-                        .trim();
-                }
-
-                const key = norm(storeName);
-                const SPECIAL = {
-                    'halal ny': '11:30am to 8pm',
-                    "smash n shake": '11am to 8pm',
-                    'subway': '11am to 8pm',
-                    'popeyes': '11:30am to 7pm'
-                };
-                return SPECIAL[key] || 'Closed';
-            }
 
             function norm(s) {
                 return String(s || '')
@@ -1138,42 +1105,38 @@
                 : '';
 
             if (menu.length === 0) {
-                const text = message || 'No menu available.';
+                const text = message || 'No menu data available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
 
-            const itemsHTML = menu.map(food => {
-                const href = nutrisliceDentalCafeDayUrl('');
-                return `
-                    <li class="menu-item">
-                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                            <span>${food}</span>
-                        </a>
-                    </li>
-                `;
-            }).join('');
+            const dateStr = (dentalCafeData && dentalCafeData.date)
+                ? dentalCafeData.date
+                : (dentalCafeData && dentalCafeData.updated_at ? dentalCafeData.updated_at.split(' ')[0] : null);
 
-            const categoryHTML = `
+            const href = nutrisliceDentalCafeDayUrl(dateStr);
+
+            const items = menu.map(item => `
+                <li class="menu-item">
+                    <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                        <span>${item.name}</span>
+                    </a>
+                </li>
+            `).join("");
+
+            return `
                 <div class="menu-category">
                     <h4 class="category-title">
                         <span class="category-icon">🍴</span>
-                        All Items
+                        Today's Menu
                     </h4>
-                    <ul class="menu-items">${itemsHTML}</ul>
+                    <ul class="menu-items">${items}</ul>
                 </div>
+                ${updated}
             `;
-
-            return categoryHTML + updated;
         }
 
-
         function renderEastDiningContent() {
-            const eastHours = getEastSideDineInHoursLabel();
-            if (isClosedHoursLabel(eastHours)) {
-                return '<div class="no-menu">Closed</div>';
-            }
-
             if (eastDiningData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1181,67 +1144,63 @@
             const status = eastDiningData.status || '';
             const message = eastDiningData.message || '';
             const meals = eastDiningData.meals || {};
+
             const updated = eastDiningData.updated_at
                 ? `<div class="last-updated">Last updated: ${eastDiningData.updated_at}</div>`
                 : '';
 
-            let mealData = meals[currentMeal];
-            if (currentMeal === 'late-night') {
-                mealData = meals['dinner'];
+
+            const dateStr = (eastDiningData && eastDiningData.date)
+                ? eastDiningData.date
+                : (eastDiningData && eastDiningData.updated_at ? eastDiningData.updated_at.split(' ')[0] : null);
+
+            const itemHref = nutrisliceEastSideSpecialsDayUrl(dateStr);
+
+
+            let mealKey = currentMeal;
+            if (mealKey === 'late-night') mealKey = 'late_night';
+
+
+            if (eastDiningData.is_weekend) {
+                if (mealKey === 'lunch' || mealKey === 'breakfast') mealKey = 'brunch';
+                if (mealKey === 'late_night') mealKey = 'dinner';
             }
 
-            if (!mealData) {
-                const text = message || 'No menu available for this period.';
+            const blocks = Array.isArray(meals[mealKey]) ? meals[mealKey] : [];
+
+            if (blocks.length === 0) {
+                const text = message || 'No menu data available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
 
-            const mealCategories = Array.isArray(mealData.categories) ? mealData.categories : [];
+            const htmlBlocks = blocks.map(b => {
+                const section = b.section || 'Menu';
+                const items = Array.isArray(b.items) ? b.items : [];
 
-            if (mealCategories.length === 0) {
-                const text = message || 'No menu available for this period.';
-                const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
-                return `<div class="no-menu" ${style}>${text}</div>${updated}`;
-            }
-
-            const categoryHTML = mealCategories.map(cat => {
-                const catName = cat.category || 'Menu';
-                const items = Array.isArray(cat.items) ? cat.items : [];
-                if (items.length === 0) return '';
-
-                const icon = categoryIcons[catName] || '🍴';
-                const itemsHTML = items.map(food => {
-                    const href = nutrisliceEastSideSpecialsDayUrl('');
-                    return `
-                        <li class="menu-item">
-                            <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                                <span>${food}</span>
-                            </a>
-                        </li>
-                    `;
-                }).join('');
+                const li = items.map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${itemHref}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
 
                 return `
                     <div class="menu-category">
                         <h4 class="category-title">
-                            <span class="category-icon">${icon}</span>
-                            ${catName}
+                            <span class="category-icon">🍴</span>
+                            ${section}
                         </h4>
-                        <ul class="menu-items">${itemsHTML}</ul>
+                        <ul class="menu-items">${li}</ul>
                     </div>
                 `;
             }).join('');
 
-            return categoryHTML + updated;
+            return `${htmlBlocks}${updated}`;
         }
 
-
         function renderWestDiningContent() {
-            const westHours = getWestSideDineInHoursLabel();
-            if (isClosedHoursLabel(westHours)) {
-                return '<div class="no-menu">Closed</div>';
-            }
-
             if (westDiningData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1249,59 +1208,61 @@
             const status = westDiningData.status || '';
             const message = westDiningData.message || '';
             const meals = westDiningData.meals || {};
+
             const updated = westDiningData.updated_at
                 ? `<div class="last-updated">Last updated: ${westDiningData.updated_at}</div>`
                 : '';
 
-            let mealData = meals[currentMeal];
-            if (currentMeal === 'late-night') {
-                mealData = meals['dinner'];
+            const dateStr = (westDiningData && westDiningData.date)
+                ? westDiningData.date
+                : (westDiningData && westDiningData.updated_at ? westDiningData.updated_at.split(' ')[0] : null);
+
+            const itemHref = nutrisliceWestSideSpecialsDayUrl(dateStr);
+
+
+            let mealKey = currentMeal;
+            if (mealKey === 'late-night') mealKey = 'late_night';
+
+
+            if (westDiningData.is_weekend) {
+                if (mealKey === 'lunch' || mealKey === 'breakfast') mealKey = 'brunch';
+                if (mealKey === 'late_night') mealKey = 'dinner';
             }
 
-            if (!mealData) {
-                const text = message || 'No menu available for this period.';
+            const blocks = Array.isArray(meals[mealKey]) ? meals[mealKey] : [];
+
+            if (blocks.length === 0) {
+                const text = message || 'No menu data available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
 
-            const mealCategories = Array.isArray(mealData.categories) ? mealData.categories : [];
+            const htmlBlocks = blocks.map(b => {
+                const section = b.section || 'Menu';
+                const items = Array.isArray(b.items) ? b.items : [];
 
-            if (mealCategories.length === 0) {
-                const text = message || 'No menu available for this period.';
-                const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
-                return `<div class="no-menu" ${style}>${text}</div>${updated}`;
-            }
-
-            const categoryHTML = mealCategories.map(cat => {
-                const catName = cat.category || 'Menu';
-                const items = Array.isArray(cat.items) ? cat.items : [];
-                if (items.length === 0) return '';
-
-                const icon = categoryIcons[catName] || '🍴';
-                const itemsHTML = items.map(food => {
-                    const href = nutrisliceWestSideSpecialsDayUrl('');
-                    return `
-                        <li class="menu-item">
-                            <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                                <span>${food}</span>
-                            </a>
-                        </li>
-                    `;
-                }).join('');
+                const li = items.map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${itemHref}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
 
                 return `
                     <div class="menu-category">
                         <h4 class="category-title">
-                            <span class="category-icon">${icon}</span>
-                            ${catName}
+                            <span class="category-icon">🍴</span>
+                            ${section}
                         </h4>
-                        <ul class="menu-items">${itemsHTML}</ul>
+                        <ul class="menu-items">${li}</ul>
                     </div>
                 `;
             }).join('');
 
-            return categoryHTML + updated;
+            return `${htmlBlocks}${updated}`;
         }
+
 
 
         function renderEastRetailContent() {
@@ -1312,6 +1273,7 @@
             const status = eastRetailData.status || '';
             const message = eastRetailData.message || '';
             const sections = Array.isArray(eastRetailData.sections) ? eastRetailData.sections : [];
+
             const updated = '';
             // (Retail card) Last updated hidden by request
 
@@ -1341,45 +1303,30 @@
                     `;
                 }
 
-                if (items.length === 0) {
-                    return `
+                const li = items.map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
+
+                return `
                     <div class="menu-category">
                         <h4 class="category-title">
                             <span class="category-icon">🍴</span>
                             ${sectionName}
                             <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hours}</span>
                         </h4>
-                        <div style="padding:1rem; text-align:center; font-style:italic; color:#999;">
-                            <a href="${href}" target="_blank" rel="noopener noreferrer" style="color:#c62828;">View Today's Menu</a>
-                        </div>
+                        <ul class="menu-items">${li}</ul>
                     </div>
-                    `;
-                }
-
-                const itemsHTML = items.map(foodName => `
-                    <li class="menu-item">
-                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                            <span>${foodName}</span>
-                        </a>
-                    </li>
-                `).join('');
-
-                return `
-                <div class="menu-category">
-                    <h4 class="category-title">
-                        <span class="category-icon">🍴</span>
-                        ${sectionName}
-                        <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hours}</span>
-                    </h4>
-                    <ul class="menu-items">${itemsHTML}</ul>
-                </div>
                 `;
             }).join('');
 
-            return htmlBlocks + updated;
+            return `${htmlBlocks}${updated}`;
         }
 
-
+        
         function renderJasmineContent() {
             if (jasmineData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
@@ -1388,12 +1335,13 @@
             const status = jasmineData.status || '';
             const message = jasmineData.message || '';
             const sections = Array.isArray(jasmineData.sections) ? jasmineData.sections : [];
+
             const updated = jasmineData.updated_at
                 ? `<div class="last-updated">Last updated: ${jasmineData.updated_at}</div>`
                 : '';
 
             if (sections.length === 0) {
-                const text = message || 'No menu available.';
+                const text = message || 'No menu data available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
@@ -1402,9 +1350,8 @@
                 const sectionName = s.section || 'Menu';
                 const items = Array.isArray(s.items) ? s.items : [];
                 const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/jasmine';
-                const hoursLabel = s.hours_today || '';
-
-                const isClosed = isClosedHoursLabel(hoursLabel) || items.length === 0;
+                const hours = (s.hours_today && String(s.hours_today).trim()) ? s.hours_today : 'Closed';
+                const isClosed = isClosedHoursLabel(hours);
 
                 if (isClosed) {
                     return `
@@ -1412,33 +1359,33 @@
                         <h4 class="category-title">
                             <span class="category-icon">🍴</span>
                             ${sectionName}
-                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hoursLabel || 'Closed'}</span>
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hours}</span>
                         </h4>
                     </div>
-                                        `;
+                    `;
                 }
 
-                const itemsHTML = items.map(foodName => `
+                const li = items.map(name => `
                     <li class="menu-item">
                         <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                            <span>${foodName}</span>
+                            <span>${name}</span>
                         </a>
                     </li>
                 `).join('');
 
                 return `
-                <div class="menu-category">
-                    <h4 class="category-title">
-                        <span class="category-icon">🍴</span>
-                        ${sectionName}
-                        <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hoursLabel}</span>
-                    </h4>
-                    <ul class="menu-items">${itemsHTML}</ul>
-                </div>
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hours}</span>
+                        </h4>
+                        <ul class="menu-items">${li}</ul>
+                    </div>
                 `;
             }).join('');
 
-            return htmlBlocks + updated;
+            return `${htmlBlocks}${updated}`;
         }
 
 
@@ -1450,12 +1397,13 @@
             const status = rothData.status || '';
             const message = rothData.message || '';
             const sections = Array.isArray(rothData.sections) ? rothData.sections : [];
+
             const updated = rothData.updated_at
                 ? `<div class="last-updated">Last updated: ${rothData.updated_at}</div>`
                 : '';
 
             if (sections.length === 0) {
-                const text = message || 'No menu available.';
+                const text = message || 'No menu data available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>${updated}`;
             }
@@ -1464,31 +1412,42 @@
                 const sectionName = s.section || 'Menu';
                 const items = Array.isArray(s.items) ? s.items : [];
                 const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/roth-cafe';
+                const hours = (s.hours_today && String(s.hours_today).trim()) ? s.hours_today : 'Closed';
+                const isClosed = isClosedHoursLabel(hours);
 
-                if (items.length === 0) {
-                    return '';
+                if (isClosed) {
+                    return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hours}</span>
+                        </h4>
+                    </div>
+                    `;
                 }
 
-                const itemsHTML = items.map(foodName => `
+                const li = items.map(name => `
                     <li class="menu-item">
                         <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                            <span>${foodName}</span>
+                            <span>${name}</span>
                         </a>
                     </li>
                 `).join('');
 
                 return `
-                <div class="menu-category">
-                    <h4 class="category-title">
-                        <span class="category-icon">🍴</span>
-                        ${sectionName}
-                    </h4>
-                    <ul class="menu-items">${itemsHTML}</ul>
-                </div>
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hours}</span>
+                        </h4>
+                        <ul class="menu-items">${li}</ul>
+                    </div>
                 `;
             }).join('');
 
-            return htmlBlocks + updated;
+            return `${htmlBlocks}${updated}`;
         }
 
 
@@ -1499,11 +1458,19 @@
 
             const status = sacData.status || '';
             const message = sacData.message || '';
-            const allSections = Array.isArray(sacData.sections) ? sacData.sections : [];
-            const updated = '';
+            const sections = Array.isArray(sacData.sections) ? sacData.sections : [];
+
+            // Add Dunkin (not on Nutrislice) as a static entry
+            const dunkinSection = {
+                section: 'Dunkin Donuts',
+                items: ['Menu'],
+                menu_url: 'https://www.dunkindonuts.com/en/menu'
+            };
+
+            const allSections = [...sections, dunkinSection];
 
             if (allSections.length === 0) {
-                const text = message || 'No menu available.';
+                const text = message || 'No menu data available.';
                 const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
                 return `<div class="no-menu" ${style}>${text}</div>`;
             }
@@ -1518,6 +1485,7 @@
 
                 const isDunkin = String(sectionName || '').toLowerCase().includes('dunkin');
 
+                // As requested: empty stalls => Closed (except Dunkin, which is a static link)
                 const isEmpty = items.length === 0;
                 const isClosed = isClosedByHours || (!isDunkin && isEmpty) || (String(s.message || '').toLowerCase().includes('closed'));
 
@@ -1533,166 +1501,32 @@
                     `;
                 }
 
-                if (isEmpty && isDunkin) {
-                    return `
+                // Dunkin: show link even without item list
+                const li = (isDunkin ? ['Menu'] : items).map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
+
+                return `
                     <div class="menu-category">
                         <h4 class="category-title">
                             <span class="category-icon">🍴</span>
                             ${sectionName}
                             <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hours}</span>
                         </h4>
-                        <div style="padding:1rem; text-align:center; font-style:italic; color:#999;">
-                            <a href="${href}" target="_blank" rel="noopener noreferrer" style="color:#c62828;">View Menu</a>
-                        </div>
-                    </div>
-                    `;
-                }
-
-                const itemsHTML = items.map(foodName => `
-                    <li class="menu-item">
-                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
-                            <span>${foodName}</span>
-                        </a>
-                    </li>
-                `).join('');
-
-                return `
-                <div class="menu-category">
-                    <h4 class="category-title">
-                        <span class="category-icon">🍴</span>
-                        ${sectionName}
-                        <span style="margin-left:auto; font-size:0.75rem; font-weight:600; color:#333;">${hours}</span>
-                    </h4>
-                    <ul class="menu-items">${itemsHTML}</ul>
-                </div>
-                `;
-            }).join('');
-
-            return htmlBlocks + updated;
-        }
-
-
-        function renderStaticHallMenu(menu) {
-            if (!menu || !Array.isArray(menu.categories)) {
-                return '<div class="no-menu">No menu available for this meal period.</div>';
-            }
-
-            const categoryHTML = menu.categories.map(cat => {
-                const catName = cat.name || 'Menu';
-                const items = Array.isArray(cat.items) ? cat.items : [];
-                if (items.length === 0) return '';
-
-                const icon = categoryIcons[catName] || '🍴';
-                const itemsHTML = items.map(food => `
-                    <li class="menu-item">
-                        <span>${food}</span>
-                    </li>
-                `).join('');
-
-                return `
-                    <div class="menu-category">
-                        <h4 class="category-title">
-                            <span class="category-icon">${icon}</span>
-                            ${catName}
-                        </h4>
-                        <ul class="menu-items">${itemsHTML}</ul>
+                        <ul class="menu-items">${li}</ul>
                     </div>
                 `;
             }).join('');
 
-            return categoryHTML || '<div class="no-menu">No items available.</div>';
-        }
-
-        function renderDiningHalls() {
-            const container = document.getElementById('dining-halls-container');
-            if (!container) return;
-
-            container.innerHTML = '';
-
-            Object.entries(menuData).forEach(([hallId, hall]) => {
-                const hallDiv = document.createElement('div');
-                hallDiv.className = 'dining-hall';
-
-                let menuContent;
-                if (hall.isDynamic) {
-                    if (hallId === 'dental-cafe') {
-                        menuContent = renderDentalCafeContent();
-                    } else if (hallId === 'east-hall') {
-                        menuContent = renderEastDiningContent();
-                    } else if (hallId === 'west-hall') {
-                        menuContent = renderWestDiningContent();
-                    } else if (hallId === 'east-retail') {
-                        menuContent = renderEastRetailContent();
-                    } else if (hallId === 'jasmine') {
-                        menuContent = renderJasmineContent();
-                    } else if (hallId === 'roth') {
-                        menuContent = renderRothContent();
-                    } else if (hallId === 'sac') {
-                        menuContent = renderSACContent();
-                    } else {
-                        menuContent = '<div class="no-menu">Dynamic menu not configured</div>';
-                    }
-                } else {
-
-                    const staticKey = (currentMeal === 'late-night') ? 'latenight' : currentMeal;
-                    const menu = hall[staticKey];
-                    menuContent = renderStaticHallMenu(menu);
-                }
-
-                let statusText = 'Open';
-
-                if (hallId === 'east-hall') {
-                    statusText = getEastSideDineInHoursLabel();
-                } else if (hallId === 'west-hall') {
-                    statusText = getWestSideDineInHoursLabel();
-                } else if (hallId === 'east-retail') {
-                    statusText = 'Hours vary';
-                } else if (hallId === 'sac') {
-                    statusText = 'Hours vary';
-                } else if (hallId === 'dental-cafe') {
-                    const h = getDentalCafeHoursLabel();
-                    statusText = isClosedHoursLabel(h) ? 'Closed' : h;
-                } else if (hallId === 'jasmine') {
-                    const h = (jasmineData && jasmineData.hours_today) ? jasmineData.hours_today : 'Hours';
-                    statusText = isClosedHoursLabel(h) ? 'Closed' : h;
-                } else if (hallId === 'roth') {
-                    const h = (rothData && rothData.hours_today) ? rothData.hours_today : 'Hours';
-                    statusText = isClosedHoursLabel(h) ? 'Closed' : h;
-                }
-
-                hallDiv.innerHTML = `
-                    <div class="hall-header">
-                        <h3>${hall.name}</h3>
-                        <span class="hall-status">${statusText}</span>
-                    </div>
-                    <div class="menu-content">
-                        ${menuContent}
-                    </div>
-                `;
-
-                container.appendChild(hallDiv);
-            });
-        }
-
-        function changeMeal(meal) {
-            currentMeal = meal;
-            document.querySelectorAll('.meal-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.querySelector(`[data-meal="${meal}"]`);
-            if (activeBtn) activeBtn.classList.add('active');
-            renderDiningHalls();
+            return `${htmlBlocks}`;
         }
 
 
-        applyMealSchedule();
-        setInitialMealUI(pickInitialMeal());
-        loadDentalCafeData();
-        loadEastDiningData();
-        loadWestDiningData();
-        loadEastRetailData();
-        loadJasmineData();
-        loadRothData();
-        loadSACData();
-        renderDiningHalls();
-    </script>
-</body>
-</html>
+
+function renderStaticHallMenu(menu) {
+            if (!menu || Object.keys(menu).length === 0) {
+                return '<div class="no-
