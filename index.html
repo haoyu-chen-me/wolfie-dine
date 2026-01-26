@@ -362,7 +362,6 @@
 
         footer { text-align: center; padding: 2rem; color: #fff; margin-top: 3rem; }
 
-      
         @media (max-width: 800px) {
             html { font-size: 14px; }
             
@@ -498,7 +497,7 @@
         <div class="clock-container">
             <div class="clock-time" id="clock-time">00:00</div>
             <div class="clock-date" id="clock-date">Loading...</div>
-        </div>
+</div>
     </div>
 </header>
 
@@ -546,7 +545,21 @@
     </footer>
 
     <script>
-        
+
+        function isClosedHoursLabel(label) {
+            const s = String(label || '').trim().toLowerCase();
+            if (!s) return true;
+            if (s === '-' || s === '—') return true;
+            if (s.includes('closed')) return true;
+            return false;
+        }
+
+        function isSpecialFeb26() {
+            const d = new Date();
+            // Special hours override for Feb 26 (any year)
+            return (d.getMonth() === 1 && d.getDate() === 26);
+        }
+
 
         const menuData = {
             'west-hall': {
@@ -570,6 +583,19 @@
                 isDynamic: true
             },
 
+
+            'roth': {
+                name: 'Roth Café',
+                isDynamic: true
+            },
+
+
+            'sac': {
+                name: 'SAC',
+                isDynamic: true
+            },
+
+
             'dental-cafe': {
                 name: 'Dental Café',
                 isDynamic: true
@@ -587,6 +613,8 @@
         let westDiningData = null;
         let eastRetailData = null;
         let jasmineData = null;
+        let rothData = null;
+        let sacData = null;
 
         const categoryIcons = {
             'Breakfast Classics': '🍳',
@@ -809,6 +837,58 @@
         }
 
 
+        async function loadRothData() {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 9000);
+            try {
+                const response = await fetch('roth.json?ts=' + Date.now(), {
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error('Could not load menu');
+                rothData = await response.json();
+            } catch (error) {
+                console.error('Error loading Roth data:', error);
+                rothData = {
+                    status: 'fetch_error',
+                    message: 'Menu data unavailable (refresh or try again later)',
+                    sections: [],
+                    updated_at: '',
+                    hours_today: ''
+                };
+            } finally {
+                clearTimeout(timeout);
+                renderDiningHalls();
+            }
+        }
+
+        async function loadSACData() {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 9000);
+            try {
+                const response = await fetch('sac.json?ts=' + Date.now(), {
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error('Could not load menu');
+                sacData = await response.json();
+            } catch (error) {
+                console.error('Error loading SAC data:', error);
+                sacData = {
+                    status: 'fetch_error',
+                    message: 'Menu data unavailable (refresh or try again later)',
+                    sections: [],
+                    updated_at: ''
+                };
+            } finally {
+                clearTimeout(timeout);
+                renderDiningHalls();
+            }
+        }
+
+
+
+
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -830,7 +910,6 @@
 
         setInterval(updateClock, 1000);
         updateClock();
-
         function showPage(pageName, btn) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(`${pageName}-page`).classList.add('active');
@@ -863,6 +942,8 @@
 
         function getEastSideDineInHoursLabel() {
 
+            if (isSpecialFeb26()) return "9am to 8pm";
+
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
@@ -870,10 +951,13 @@
 
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
+
 
 
         function getWestSideDineInHoursLabel() {
 
+            if (isSpecialFeb26()) return "9am to 8pm";
+
             const d = new Date();
             const day = d.getDay();
             const isWeekend = (day === 0 || day === 6);
@@ -881,11 +965,31 @@
 
             return isWeekend ? "9am–11pm" : "7:30am–12am";
         }
+
 
 
         function getEastRetailStoreHoursLabel(storeName) {
             const d = new Date();
             const day = d.getDay(); // 0 Sun ... 6 Sat
+
+            if (isSpecialFeb26()) {
+                function norm(s) {
+                    return String(s || '')
+                        .toLowerCase()
+                        .replace(/\(.*?\)/g, '')
+                        .replace(/[^a-z0-9]+/g, ' ')
+                        .trim();
+                }
+
+                const key = norm(storeName);
+                const SPECIAL = {
+                    'halal ny': '11:30am to 8pm',
+                    "smash n shake": '11am to 8pm',
+                    'subway': '11am to 8pm',
+                    'popeyes': '11:30am to 7pm'
+                };
+                return SPECIAL[key] || 'Closed';
+            }
 
             function norm(s) {
                 return String(s || '')
@@ -924,7 +1028,81 @@
         }
 
 
+        function getDentalCafeHoursLabel() {
+            if (isSpecialFeb26()) return 'Closed';
+            const d = new Date();
+            const day = d.getDay(); // 0 Sun ... 6 Sat
+            const isWeekend = (day === 0 || day === 6);
+            return isWeekend ? 'Closed' : '7:30am to 2:30pm';
+        }
+
+
+
+        function getSACStoreHoursLabel(storeName) {
+            const d = new Date();
+            const day = d.getDay(); // 0 Sun ... 6 Sat
+            if (isSpecialFeb26()) return 'Closed';
+
+            function norm(s) {
+                return String(s || '')
+                    .toLowerCase()
+                    .replace(/\(.*?\)/g, '')
+                    .replace(/[^a-z0-9]+/g, ' ')
+                    .trim();
+            }
+
+            const key = norm(storeName);
+
+            // Group mapping
+            const isFoodCourt = [
+                'flame',
+                'seawolves pizza',
+                'tuscan bistro',
+                'noodles',
+                'soups chili',
+                'grab n go',
+                'sac grill',
+                'wok wok stir fry',
+                'stiry fry',
+                'stir fry',
+                'healthy by nature'
+            ].includes(key);
+
+            const isCornerDeli = (key === 'corner deli');
+            const isCraft = (key === 'craft' || key === 'craft salads smoothies and bowls');
+            const isDunkin = (key === 'dunkin' || key === 'dunkin donut' || key === 'dunkin donuts' || key === 'dunkin donuts');
+
+            function pick(hours) {
+                if (day === 0 || day === 6) return hours.weekend;
+                if (day === 5) return hours.fri;
+                return hours.monThu;
+            }
+
+            if (isFoodCourt) {
+                return pick({ monThu: '11am to 6pm', fri: '11am to 3pm', weekend: 'Closed' });
+            }
+            if (isCornerDeli) {
+                return pick({ monThu: '11am to 6pm', fri: '11am to 3pm', weekend: 'Closed' });
+            }
+            if (isCraft) {
+                return pick({ monThu: '10am to 7pm', fri: '10am to 7pm', weekend: 'Closed' });
+            }
+            if (isDunkin) {
+                return pick({ monThu: '7:30am to 7pm', fri: '7:30am to 7pm', weekend: '10am to 7pm' });
+            }
+
+            // Fallback for any unexpected section name
+            return 'Hours vary';
+        }
+
+
+
         function renderDentalCafeContent() {
+            const dentalHours = getDentalCafeHoursLabel();
+            if (isClosedHoursLabel(dentalHours)) {
+                return '<div class=\"no-menu\">Closed</div>';
+            }
+
             if (dentalCafeData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1122,6 +1300,20 @@
                 const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/east-side-retail';
 
                 const hours = getEastRetailStoreHoursLabel(sectionName);
+                const isClosed = isClosedHoursLabel(hours);
+
+                if (isClosed) {
+                    return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">Closed</span>
+                        </h4>
+                        <div class="no-menu">Closed</div>
+                    </div>
+                `;
+                }
 
                 const li = items.map(name => `
                     <li class="menu-item">
@@ -1148,6 +1340,10 @@
 
         
         function renderJasmineContent() {
+            if (isSpecialFeb26()) {
+                return '<div class="no-menu">Closed</div>';
+            }
+
             if (jasmineData === null) {
                 return '<div class="loading-message">Loading menu...</div>';
             }
@@ -1171,6 +1367,20 @@
                 const items = Array.isArray(s.items) ? s.items : [];
                 const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/jasmine';
                 const hours = (s.hours_today && String(s.hours_today).trim()) ? s.hours_today : 'Closed';
+                const isClosed = isClosedHoursLabel(hours);
+
+                if (isClosed) {
+                    return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">Closed</span>
+                        </h4>
+                        <div class="no-menu">Closed</div>
+                    </div>
+                `;
+                }
 
                 const li = items.map(name => `
                     <li class="menu-item">
@@ -1194,6 +1404,155 @@
 
             return `${htmlBlocks}${updated}`;
         }
+
+
+        function renderRothContent() {
+            if (isSpecialFeb26()) {
+                return '<div class="no-menu">Closed</div>';
+            }
+
+            if (rothData === null) {
+                return '<div class="loading-message">Loading menu...</div>';
+            }
+
+            const status = rothData.status || '';
+            const message = rothData.message || '';
+            const sections = Array.isArray(rothData.sections) ? rothData.sections : [];
+
+            const updated = rothData.updated_at
+                ? `<div class="last-updated">Last updated: ${rothData.updated_at}</div>`
+                : '';
+
+            if (sections.length === 0) {
+                const text = message || 'No menu data available.';
+                const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
+                return `<div class="no-menu" ${style}>${text}</div>${updated}`;
+            }
+
+            const htmlBlocks = sections.map(s => {
+                const sectionName = s.section || 'Menu';
+                const items = Array.isArray(s.items) ? s.items : [];
+                const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/roth-cafe';
+                const hours = (s.hours_today && String(s.hours_today).trim()) ? s.hours_today : 'Closed';
+                const isClosed = isClosedHoursLabel(hours);
+
+                if (isClosed) {
+                    return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">Closed</span>
+                        </h4>
+                        <div class="no-menu">Closed</div>
+                    </div>
+                `;
+                }
+
+                const li = items.map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
+
+                return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hours}</span>
+                        </h4>
+                        <ul class="menu-items">${li}</ul>
+                    </div>
+                `;
+            }).join('');
+
+            return `${htmlBlocks}${updated}`;
+        }
+
+
+        function renderSACContent() {
+            if (isSpecialFeb26()) {
+                return '<div class="no-menu">Closed</div>';
+            }
+
+            if (sacData === null) {
+                return '<div class="loading-message">Loading menu...</div>';
+            }
+
+            const status = sacData.status || '';
+            const message = sacData.message || '';
+            const sections = Array.isArray(sacData.sections) ? sacData.sections : [];
+
+            // Add Dunkin (not on Nutrislice) as a static entry
+            const dunkinSection = {
+                section: 'Dunkin Donuts',
+                items: ['Menu'],
+                menu_url: 'https://www.dunkindonuts.com/en/menu'
+            };
+
+            const allSections = [...sections, dunkinSection];
+
+            if (allSections.length === 0) {
+                const text = message || 'No menu data available.';
+                const style = status === 'fetch_error' ? 'style="color:#b71c1c"' : '';
+                return `<div class="no-menu" ${style}>${text}</div>`;
+            }
+
+            const htmlBlocks = allSections.map(s => {
+                const sectionName = s.section || 'Menu';
+                const items = Array.isArray(s.items) ? s.items : [];
+                const href = s.menu_url || 'https://stonybrook.nutrislice.com/menu/sac';
+
+                const hours = getSACStoreHoursLabel(sectionName);
+                const isClosedByHours = isClosedHoursLabel(hours);
+
+                const isDunkin = String(sectionName || '').toLowerCase().includes('dunkin');
+
+                // As requested: empty stalls => Closed (except Dunkin, which is a static link)
+                const isEmpty = items.length === 0;
+                const isClosed = isClosedByHours || (!isDunkin && isEmpty) || (String(s.message || '').toLowerCase().includes('closed'));
+
+                if (isClosed) {
+                    return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">Closed</span>
+                        </h4>
+                        <div class="no-menu">Closed</div>
+                    </div>
+                `;
+                }
+
+                // Dunkin: show link even without item list
+                const li = (isDunkin ? ['Menu'] : items).map(name => `
+                    <li class="menu-item">
+                        <a class="menu-item-link" href="${href}" target="_blank" rel="noopener noreferrer">
+                            <span>${name}</span>
+                        </a>
+                    </li>
+                `).join('');
+
+                return `
+                    <div class="menu-category">
+                        <h4 class="category-title">
+                            <span class="category-icon">🍴</span>
+                            ${sectionName}
+                            <span style="margin-left:auto; font-size:0.9rem; font-weight:650; color:#666;">${hours}</span>
+                        </h4>
+                        <ul class="menu-items">${li}</ul>
+                    </div>
+                `;
+            }).join('');
+
+            return `${htmlBlocks}`;
+        }
+
+
 
 function renderStaticHallMenu(menu) {
             if (!menu || Object.keys(menu).length === 0) {
@@ -1222,12 +1581,17 @@ function renderStaticHallMenu(menu) {
             const container = document.getElementById('dining-halls-container');
             container.innerHTML = '';
 
+            const forceClosedAll = isSpecialFeb26() && (currentMeal === 'late-night');
+
             Object.keys(menuData).forEach(hallId => {
                 const hall = menuData[hallId];
                 const hallDiv = document.createElement('div');
                 hallDiv.className = 'dining-hall';
 
                 let menuContent;
+                if (forceClosedAll) {
+                    menuContent = '<div class="no-menu">Closed</div>';
+                } else {
                 if (hall.isDynamic) {
                     if (hallId === 'dental-cafe') {
                         menuContent = renderDentalCafeContent();
@@ -1239,6 +1603,10 @@ function renderStaticHallMenu(menu) {
                         menuContent = renderEastRetailContent();
                     } else if (hallId === 'jasmine') {
                         menuContent = renderJasmineContent();
+                    } else if (hallId === 'roth') {
+                        menuContent = renderRothContent();
+                    } else if (hallId === 'sac') {
+                        menuContent = renderSACContent();
                     } else {
                         menuContent = '<div class="no-menu">Dynamic menu not configured</div>';
                     }
@@ -1248,18 +1616,32 @@ function renderStaticHallMenu(menu) {
                     const menu = hall[staticKey];
                     menuContent = renderStaticHallMenu(menu);
                 }
+                }
 
-                const statusText = (hallId === 'east-hall')
-                    ? getEastSideDineInHoursLabel()
-                    : (hallId === 'west-hall')
-                        ? getWestSideDineInHoursLabel()
-                        : (hallId === 'east-retail')
-                            ? 'Hours vary'
-                            : (hallId === 'jasmine')
-                                ? ((jasmineData && jasmineData.hours_today) ? jasmineData.hours_today : 'Hours')
-                                : 'Open';
+                let statusText = 'Open';
 
-                hallDiv.innerHTML = `
+                if (hallId === 'east-hall') {
+                    statusText = getEastSideDineInHoursLabel();
+                } else if (hallId === 'west-hall') {
+                    statusText = getWestSideDineInHoursLabel();
+                } else if (hallId === 'east-retail') {
+                    statusText = 'Hours vary';
+                } else if (hallId === 'sac') {
+                    statusText = 'Hours vary';
+                } else if (hallId === 'dental-cafe') {
+                    const h = getDentalCafeHoursLabel();
+                    statusText = isClosedHoursLabel(h) ? 'Closed' : h;
+                } else if (hallId === 'jasmine') {
+                    const h = (jasmineData && jasmineData.hours_today) ? jasmineData.hours_today : 'Hours';
+                    statusText = isClosedHoursLabel(h) ? 'Closed' : h;
+                } else if (hallId === 'roth') {
+                    const h = (rothData && rothData.hours_today) ? rothData.hours_today : 'Hours';
+                    statusText = isClosedHoursLabel(h) ? 'Closed' : h;
+                }
+
+                if (forceClosedAll) statusText = 'Closed';
+
+hallDiv.innerHTML = `
                     <div class="hall-header">
                         <h3>${hall.name}</h3>
                         <span class="hall-status">${statusText}</span>
@@ -1289,6 +1671,8 @@ function renderStaticHallMenu(menu) {
         loadWestDiningData();
         loadEastRetailData();
         loadJasmineData();
+        loadRothData();
+        loadSACData();
         renderDiningHalls();
     </script>
 </body>
