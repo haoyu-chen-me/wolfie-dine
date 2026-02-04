@@ -1,18 +1,18 @@
 {
-  "date": "2026-02-03",
+  "date": "2026-02-04",
   "location": "East Side Dining (Dine-in Specials)",
   "is_weekend": false,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-02-03 01:08:04 EST",
+  "updated_at": "2026-02-04 01:06:01 EST",
   "timezone": "America/New_York",
   "meals": {
     "breakfast": [
       {
         "section": "Breakfast at Chef's Table",
         "items": [
-          "Oreo Pancakes",
-          "Raspberry Compote"
+          "Cinnamon Vanilla French Toast",
+          "Apple Compote"
         ]
       },
       {
@@ -20,11 +20,12 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Breakfast Quesadilla",
-          "Cheesy Tofu Fajita Scramble",
-          "Breakfast Potatoes",
-          "Pork Breakfast Sausage Patty",
-          "Oreo Pancakes"
+          "Chilaquiles, Beans, Tofu Scramble",
+          "Turkey Bacon",
+          "Egg, Sausage, Cheddar Scramble",
+          "Crispy Tater Tots",
+          "Cinnamon Vanilla French Toast",
+          "Apple Compote"
         ]
       },
       {
@@ -32,9 +33,10 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Cheesy Tofu Fajita Scramble",
-          "Breakfast Potatoes",
-          "Pork Breakfast Sausage Patty"
+          "Chilaquiles, Beans, Tofu Scramble",
+          "Egg, Sausage, Cheddar Scramble",
+          "Turkey Bacon",
+          "Crispy Tater Tots"
         ]
       }
     ],
@@ -42,29 +44,28 @@
       {
         "section": "Chef's Table Lunch Specials",
         "items": [
-          "Garlic Herb Roast Beef",
-          "Creamy Mashed Potatoes",
-          "Beef Gravy",
-          "Crispy Fried Onion",
-          "Peas and Carrots"
+          "Citrus & Herb Chicken Thigh",
+          "Lemon and Garlic Mashed Potatoes",
+          "Corn Succotash with Lima  Beans",
+          "Savory Creations Chicken Gravy"
         ]
       },
       {
         "section": "Grill Lunch Specials",
         "items": [
-          "Buffalo Chicken Snack Wrap",
-          "Cheddar Turkey Burger & Balsamic Onions",
-          "Grilled Cheese Sandwich",
+          "Olive Turkey Burger",
+          "Pork & Cheese Quesadilla",
+          "Fried Chicken Sandwich with Kimchi",
           "Breaded Jalapeno Cheddar Cheese Poppers",
-          "Sweet Potato Fries",
+          "Truffle Parmesan Fries",
           "Grilled Vegetables"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Crispy Chicken Buffalo Blue Cheese Alfredo Penne",
-          "Gnocchi, Blistered Tomatoes, Corn, Swiss Chard"
+          "Chicken and Artichokes with Penne",
+          "Vegetable Pasta Primavera"
         ]
       },
       {
@@ -72,17 +73,17 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Buffalo Chicken Pizza with Blue Cheese Crumble",
-          "Fresh Jalapeno Cheese Pizza"
+          "Pork Sausage Cheese Pizza",
+          "Veggie Supreme Pizza"
         ]
       },
       {
         "section": "Rooted Lunch Specials",
         "items": [
-          "Jerked Tofu Steak, Mango Salsa",
-          "Caribbean Red Beans and Rice",
-          "Grilled Sweet Peppers",
-          "Sauteed Collard Greens"
+          "Cajun Lentil Stew",
+          "Maple Glazed Sweet Potatoes",
+          "Sauteed Swiss Chard",
+          "Roasted Cauliflower"
         ]
       }
     ],
@@ -90,33 +91,28 @@
       {
         "section": "Chef's Table Dinner Specials",
         "items": [
-          "buttermilk brined fried chicken",
-          "fry sauce",
-          "butter bean succotash",
-          "smothered cabbage"
+          "Cajun Shrimp",
+          "Creamy Southern Grits",
+          "Stewed Okra Medley",
+          "Frizzled Leeks"
         ]
       },
       {
         "section": "Grill Dinner Specials",
         "items": [
-          "Flour Tortilla",
-          "Fried Corn Tortilla",
-          "Chicken Carnitas",
-          "Ground Beef Taco",
-          "Sofrito Tofu",
-          "Refried Beans",
-          "Grilled Vegetables",
-          "Sour Cream",
-          "Shredded Iceberg Lettuce",
-          "RTS Pico de Gallo",
-          "Cheddar Cheese"
+          "Buffalo Chicken Snack Wrap",
+          "Pepper and Onion Garden Burger, White Bun",
+          "Mushroom, Caramelized Onions, Swiss Beef Burger on Brioche Bun",
+          "Fried Chicken Tenders",
+          "French Fries",
+          "Grilled Vegetables"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Crispy Chicken Buffalo Blue Cheese Alfredo Penne",
-          "Gnocchi, Blistered Tomatoes, Corn, Swiss Chard"
+          "Chicken and Artichokes with Penne",
+          "Vegetable Pasta Primavera"
         ]
       },
       {
@@ -124,17 +120,17 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Buffalo Chicken Pizza with Blue Cheese Crumble",
-          "Fresh Jalapeno Cheese Pizza"
+          "Pork Sausage Cheese Pizza",
+          "Veggie Supreme Pizza"
         ]
       },
       {
         "section": "Rooted Dinner Specials",
         "items": [
-          "Jerk Tofu",
-          "Caribbean Red Beans and Rice",
-          "Grilled Sweet Peppers",
-          "Sauteed Collard Greens"
+          "Sweet Potato Picadillo",
+          "Herbed Quinoa",
+          "Roasted Eggplant",
+          "Roasted Broccoli"
         ]
       }
     ],
@@ -142,8 +138,8 @@
       {
         "section": "Pasta Specials",
         "items": [
-          "Crispy Chicken Buffalo Blue Cheese Alfredo Penne",
-          "Gnocchi, Blistered Tomatoes, Corn, Swiss Chard"
+          "Chicken and Artichokes with Penne",
+          "Vegetable Pasta Primavera"
         ]
       },
       {
@@ -151,11 +147,11 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Buffalo Chicken Pizza with Blue Cheese Crumble",
-          "Fresh Jalapeno Cheese Pizza"
+          "Pork Sausage Cheese Pizza",
+          "Veggie Supreme Pizza"
         ]
       }
     ]
   },
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/03/?format=json"
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/04/?format=json"
 }

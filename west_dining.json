@@ -1,10 +1,10 @@
 {
-  "date": "2026-02-03",
+  "date": "2026-02-04",
   "location": "West Side Dining (Dine-in Specials)",
   "is_weekend": false,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-02-03 01:08:06 EST",
+  "updated_at": "2026-02-04 01:06:04 EST",
   "timezone": "America/New_York",
   "meals": {
     "breakfast": [
@@ -13,12 +13,12 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Tofu Scramble, Jalapeno, Avocado, Salsa",
-          "Luau Scramble Eggs, Pineapple, Pork Bacon, Tomato, Jack Cheese",
-          "Crispy Tater Tots",
-          "Chocolate Chip Pancakes",
-          "Corned Beef Hash",
-          "Pineapple Compote"
+          "Black Bean, Bell Peppers, Tomato & Onion Tofu Scramble",
+          "Potato Cheese Frittata",
+          "Homes Fries",
+          "Baked Blueberry French Toast",
+          "Pork Bacon",
+          "Mixed Berry Compote"
         ]
       }
     ],
@@ -26,34 +26,28 @@
       {
         "section": "Fusion Kitchen Lunch Specials",
         "items": [
-          "Lemon Pepper Rotisserie Chicken",
-          "Garlic Roasted Potatoes",
-          "Charred Broccoli",
+          "Gochujang Chicken",
+          "Sesame Glazed Red Pepper and Snow Peas",
+          "Scallion Oil Soba Noodles",
           "Jasmine Rice"
         ]
       },
       {
         "section": "Grill Lunch Specials",
         "items": [
-          "White Hamburger Bun",
-          "Whole Wheat Hamburger Bun",
-          "Seasoned Burger Beef",
-          "Turkey Burger Patty",
-          "California Veggie Burger",
-          "Sauteed Mushrooms",
-          "Grilled Peppers and Onions",
-          "Cheese Sauce",
-          "Waffle Fries",
-          "Onion Rings",
-          "Bacon Onion Jam"
+          "Beer Battered Cod Sandwich with Caper Mayo Spread",
+          "Bulgogi Grilled Chicken Sandwich, Spicy Kimchi",
+          "Grilled Swiss Cheese Sandwich",
+          "Truffle Parmesan Fries",
+          "French Fries"
         ]
       },
       {
         "section": "Pasta and Soup Specials",
         "items": [
-          "Creamy Penne a la Vodka",
-          "Gemelli Cacio e Pepe with Bacon & Arugula",
-          "Vegetable Minestrone Soup"
+          "sesame soba noodles",
+          "Farfalle Garlic and Oil",
+          "Tomato Basil Bisque"
         ]
       },
       {
@@ -61,17 +55,17 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Four Cheese Pizza Primavera",
-          "Cheesesteak Pizza"
+          "Pesto Roasted Vegetable Pizza",
+          "Mushroom, Pork Sausage & Pepperoni Supreme Cheese Pizza"
         ]
       },
       {
         "section": "Rooted Lunch Specials",
         "items": [
-          "Barbeque Meatless Meatballs",
-          "Roasted Sweet Potato and Apple",
-          "Braised Red Cabbage with Apples",
-          "roasted jalapenos"
+          "Cajun-Style Lentil Stew",
+          "Cilantro Brown Rice",
+          "Lemon Thyme Carrots",
+          "Chimichurri Yucca"
         ]
       }
     ],
@@ -79,36 +73,35 @@
       {
         "section": "Composed Salads",
         "items": [
-          "Tomato, Spinach and Feta Orzo Salad",
-          "Pickled Fennel"
+          "Soy-Garlic Romaine Salad",
+          "Chipotle Cole Slaw"
         ]
       },
       {
         "section": "Fusion Kitchen Dinner Specials",
         "items": [
-          "Chicken Tikka",
-          "Potato, Garbanzo and Pea Coconut Curry",
-          "Cumin Roasted Cauliflower and Peas",
-          "Paneer Biryani",
-          "Jasmine Rice"
+          "Cajun Shrimp",
+          "Creamy Southern Grits",
+          "Stewed Okra Medley",
+          "Frizzled Leeks"
         ]
       },
       {
         "section": "Grill Dinner Specials",
         "items": [
-          "Sloppy Joe Sandwich",
-          "Turkey Burger",
-          "Grilled Eggplant, Mozz, Ciabatta",
-          "Crispy Tater Tots",
+          "Smoked Turkey, Arugula, Dried Cranberry, Cream Cheese Wrap",
+          "Roasted Street Corn Hot Dog",
+          "Vegetable Quesadilla",
+          "Curly Fries",
           "French Fries"
         ]
       },
       {
         "section": "Pasta and Soup Specials",
         "items": [
-          "Creamy Penne a la Vodka",
-          "Gemelli Cacio e Pepe with Bacon & Arugula",
-          "Vegetable Minestrone Soup"
+          "sesame soba noodles",
+          "Farfalle Garlic and Oil",
+          "Tomato Basil Bisque"
         ]
       },
       {
@@ -116,17 +109,17 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Four Cheese Pizza Primavera",
-          "Cheesesteak Pizza"
+          "Pesto Roasted Vegetable Pizza",
+          "Mushroom, Pork Sausage & Pepperoni Supreme Cheese Pizza"
         ]
       },
       {
         "section": "Rooted Dinner Specials",
         "items": [
-          "Chana Masala",
-          "Basmati Rice",
-          "Vindaloo Roasted Vegetables",
-          "Tofu & Potato Curry"
+          "Quinoa Rancheros",
+          "Fajita Vegetables",
+          "Cilantro Green Rice",
+          "Sauteed Yellow Squash & Pepper"
         ]
       }
     ],
@@ -134,9 +127,9 @@
       {
         "section": "Pasta and Soup Specials",
         "items": [
-          "Creamy Penne a la Vodka",
-          "Gemelli Cacio e Pepe with Bacon & Arugula",
-          "Vegetable Minestrone Soup"
+          "sesame soba noodles",
+          "Farfalle Garlic and Oil",
+          "Tomato Basil Bisque"
         ]
       },
       {
@@ -144,11 +137,11 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Four Cheese Pizza Primavera",
-          "Cheesesteak Pizza"
+          "Pesto Roasted Vegetable Pizza",
+          "Mushroom, Pork Sausage & Pepperoni Supreme Cheese Pizza"
         ]
       }
     ]
   },
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/west-side-dining/menu-type/todays-dine-in-specials-wsd/2026/02/03/?format=json"
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/west-side-dining/menu-type/todays-dine-in-specials-wsd/2026/02/04/?format=json"
 }

@@ -1,7 +1,7 @@
 {
   "location": "SAC",
   "timezone": "America/New_York",
-  "updated_at": "2026-02-03 01:08:07 EST",
+  "updated_at": "2026-02-04 01:06:08 EST",
   "status": "partial_error",
   "sections": [
     {
@@ -114,17 +114,17 @@
       "section": "Soups & Chili",
       "school": "sac",
       "slug": "grab-n-go",
-      "date": "2026-02-03",
+      "date": "2026-02-04",
       "status": "ok",
       "message": "Menu fetched.",
       "items": [
         "Chicken & Dumpling Soup",
+        "Broccoli & Cheddar Cheese Soup",
         "Corn Chowder",
-        "Baked Stuffed Pork Bacon Potato Soup",
         "Beef Chili"
       ],
-      "menu_url": "https://stonybrook.nutrislice.com/menu/sac/grab-n-go/2026-02-03",
-      "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sac/menu-type/grab-n-go/2026/02/03/?format=json",
+      "menu_url": "https://stonybrook.nutrislice.com/menu/sac/grab-n-go/2026-02-04",
+      "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sac/menu-type/grab-n-go/2026/02/04/?format=json",
       "is_daily": true
     },
     {

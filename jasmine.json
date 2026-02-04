@@ -1,9 +1,9 @@
 {
-  "date": "2026-02-03",
+  "date": "2026-02-04",
   "location": "Jasmine",
   "hours_today": "11am to 8pm",
   "fixed_menu_date_for_non_daily": "2026-01-27",
-  "updated_at": "2026-02-03 01:08:06 EST",
+  "updated_at": "2026-02-04 01:06:05 EST",
   "timezone": "America/New_York",
   "sections": [
     {
@@ -36,21 +36,21 @@
     {
       "section": "Curry Kitchen",
       "hours_today": "11am to 8pm",
-      "menu_date": "2026-02-03",
+      "menu_date": "2026-02-04",
       "items": [
         "Chicken Biryani",
         "Chicken Tikka Masala",
         "Tandoori Chicken with Onion Salad",
         "Butter Naan",
         "Vegetable Samosa",
-        "BBQ Masala Chicken",
+        "Chicken Manchurian",
         "Chana Masala Aloo",
-        "Lobia Curry",
-        "Vegetable Soya Makhani with Cashews & Almonds",
+        "Dal Makhani",
+        "Spicy Tofu",
         "Basmati Rice",
         "Sesame Tahini White Sauce"
       ],
-      "menu_url": "https://stonybrook.nutrislice.com/menu/jasmine/curry-kitchen/2026-02-03"
+      "menu_url": "https://stonybrook.nutrislice.com/menu/jasmine/curry-kitchen/2026-02-04"
     },
     {
       "section": "Cafetasia Korean",
