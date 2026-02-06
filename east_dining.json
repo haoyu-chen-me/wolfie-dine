@@ -1,18 +1,18 @@
 {
-  "date": "2026-02-05",
+  "date": "2026-02-06",
   "location": "East Side Dining (Dine-in Specials)",
   "is_weekend": false,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-02-05 01:12:09 EST",
+  "updated_at": "2026-02-06 01:09:38 EST",
   "timezone": "America/New_York",
   "meals": {
     "breakfast": [
       {
         "section": "Breakfast at Chef's Table",
         "items": [
-          "Texas French Toast Sticks",
-          "Banana Foster Sauce"
+          "Banana Pancakes",
+          "Apple Compote"
         ]
       },
       {
@@ -20,11 +20,12 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Denver Scramble",
-          "Spicy Tofu Scramble",
-          "Breakfast Potatoes",
-          "Turkey Sausage Patty",
-          "Texas French Toast Sticks"
+          "Egg, Chorizo, Cheddar Scramble",
+          "Mushroom Tofu Scramble",
+          "Crispy Tater Tots",
+          "Pork Sausage",
+          "Apple Compote",
+          "Banana Pancakes"
         ]
       },
       {
@@ -32,10 +33,10 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Spicy Tofu Scramble",
-          "Denver Scramble",
-          "Breakfast Potatoes",
-          "Turkey Sausage Patty"
+          "Mushroom Tofu Scramble",
+          "Egg, Chorizo, Cheddar Scramble",
+          "Crispy Tater Tots",
+          "Pork Sausage"
         ]
       }
     ],
@@ -43,27 +44,30 @@
       {
         "section": "Chef's Table Lunch Specials",
         "items": [
-          "beer battered cod",
-          "House Made Potato Chips",
-          "Cole Slaw",
-          "Caper Remoulade"
+          "White Rice",
+          "Black Beans",
+          "Chuletas Fritas",
+          "Baked Plantains",
+          "Pickled Red Onions"
         ]
       },
       {
         "section": "Grill Lunch Specials",
         "items": [
-          "Sriracha Coleslaw Black Bean Burger on Brioche",
-          "BBQ Crispy Chicken Ranch Wrap",
-          "Chicken Philly Cheese Steak",
-          "French Fries",
+          "Cajun Remoulade Fried Fish Po Boy",
+          "Pesto Chicken & Mozzarella Cheese Sandwich",
+          "Mozzarella Cheese & Tomato Bruschetta Malibu Burger",
+          "Breaded Jalapeno Cream Cheese Poppers",
+          "Curly Fries",
           "Grilled Vegetables"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Rigatoni Beef Bolognese",
-          "Jumbo Cheese Stuffed Shells"
+          "Italian Sausage and Mushroom Pasta",
+          "Rotini with Broccoli Rabe and Turkey",
+          "Bowtie Pasta"
         ]
       },
       {
@@ -71,17 +75,17 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Buffalo Chicken Ranch Pizza",
-          "Spinach Artichoke White Pizza"
+          "Pork & Beef Sausage & Peppers Pizza",
+          "Truffle, Mushroom, and Caramelized Onion Pizza"
         ]
       },
       {
         "section": "Rooted Lunch Specials",
         "items": [
-          "Tofu Cacciatore",
-          "Couscous Pilaf",
-          "Garlic Lemon Broccoli",
-          "Steamed Spinach with Sauteed Garlic"
+          "Spicy Potato Curry",
+          "Quinoa and Wild Rice",
+          "Roasted Carrots",
+          "Sauteed Collard Greens"
         ]
       }
     ],
@@ -89,27 +93,28 @@
       {
         "section": "Chef's Table Dinner Specials",
         "items": [
-          "Pork Pernil",
-          "Carrots, Yellow Squash and Snow Peas",
-          "Roasted Sweet Potato"
+          "Sun-Dried Tomato Risotto",
+          "Braised Swiss Chard",
+          "Beef Masala"
         ]
       },
       {
         "section": "Grill Dinner Specials",
         "items": [
-          "Pork Sandwich",
-          "Beef Barbacoa Slider",
-          "Cheese Quesadilla",
+          "Turkey Burger",
+          "Garden Burger, White Bun",
+          "Bacon BBQ Beef Slider",
+          "Fried Mushrooms",
           "French Fries",
-          "Grilled Vegetables",
-          "Mac n Cheese Bites"
+          "Grilled Vegetables"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Rigatoni Beef Bolognese",
-          "Jumbo Cheese Stuffed Shells"
+          "Italian Sausage and Mushroom Pasta",
+          "Rotini with Broccoli Rabe and Turkey",
+          "Bowtie Pasta"
         ]
       },
       {
@@ -117,17 +122,17 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Buffalo Chicken Ranch Pizza",
-          "Spinach Artichoke White Pizza"
+          "Pork & Beef Sausage & Peppers Pizza",
+          "Truffle, Mushroom, and Caramelized Onion Pizza"
         ]
       },
       {
         "section": "Rooted Dinner Specials",
         "items": [
-          "Buffalo Grilled Tofu",
+          "Chana Masala (Chickpea Curry)",
           "Basmati Rice",
-          "Roasted Potatoes",
-          "Roasted Cauliflower"
+          "Roasted Mini Bell Peppers",
+          "Vegetable Samosa"
         ]
       }
     ],
@@ -135,8 +140,9 @@
       {
         "section": "Pasta Specials",
         "items": [
-          "Rigatoni Beef Bolognese",
-          "Jumbo Cheese Stuffed Shells"
+          "Italian Sausage and Mushroom Pasta",
+          "Rotini with Broccoli Rabe and Turkey",
+          "Bowtie Pasta"
         ]
       },
       {
@@ -144,11 +150,11 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Buffalo Chicken Ranch Pizza",
-          "Spinach Artichoke White Pizza"
+          "Pork & Beef Sausage & Peppers Pizza",
+          "Truffle, Mushroom, and Caramelized Onion Pizza"
         ]
       }
     ]
   },
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/05/?format=json"
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/06/?format=json"
 }
