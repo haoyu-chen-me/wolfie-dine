@@ -1,149 +1,113 @@
 {
-  "date": "2026-02-06",
+  "date": "2026-02-07",
   "location": "West Side Dining (Dine-in Specials)",
-  "is_weekend": false,
+  "is_weekend": true,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-02-06 01:09:40 EST",
+  "updated_at": "2026-02-07 00:58:50 EST",
   "timezone": "America/New_York",
   "meals": {
-    "breakfast": [
+    "brunch": [
+      {
+        "section": "Grill Lunch Specials",
+        "items": [
+          "Cheesesteak Club",
+          "Spicy Pickled Vegetables Beef Hot Dog",
+          "Cheeseburger Snack Wrap",
+          "Garlic Seasoned Fries",
+          "French Fries"
+        ]
+      },
       {
         "section": "Hot Breakfast Buffet",
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Curried Tofu Scramble",
-          "Bacon Cheddar Frittata",
-          "Potato Latkes",
-          "Cinnamon Vanilla French Toast",
-          "Turkey Bacon",
-          "Strawberry Compote"
-        ]
-      }
-    ],
-    "lunch": [
-      {
-        "section": "Fusion Kitchen Lunch Specials",
-        "items": [
-          "Mojo Pork Roast and Marinade",
-          "Spicy Collard Greens",
-          "Baked Plantains",
-          "Saffron Basmati Rice",
+          "Mushroom Tofu Scramble",
+          "Ham, Cheddar Cheese, Peppers & Onions Egg Scramble",
+          "Home Fries with Onions & Peppers",
+          "Belgian Waffle",
+          "Chicken Sausage Patty",
+          "Blueberry Compote",
+          "Maple Glazed Pork",
+          "Maple Glazed Sweet Potatoes",
+          "Roasted Brussels Sprouts",
           "Jasmine Rice"
-        ]
-      },
-      {
-        "section": "Grill Lunch Specials",
-        "items": [
-          "Hot Fried Chicken Sandwich Hero",
-          "Corned Beef and Swiss Cheese Reuben",
-          "Red Delicious Apple and Cheddar Panini with Whole Grain Mustard on Sour Dough",
-          "Chicken Nuggets",
-          "French Fries"
         ]
       },
       {
         "section": "Pasta and Soup Specials",
         "items": [
-          "Orange Chicken with Lo Mein",
-          "Basil Garlic & Oil Penne",
-          "Chicken Gumbo"
+          "Creamy Penne Ala Vodka",
+          "Beef Barley Soup",
+          "Sausage Flatbread Pizza"
         ]
       },
       {
         "section": "Pizza Specials",
         "items": [
-          "Cheese Pizza",
-          "Pepperoni Pizza",
-          "Pork Bacon Four Cheese Pizza",
-          "Mushroom & Caramelized Onion & Truffle Oil Cheese Pizza"
+          "Garden Salad Flatbread"
         ]
       },
       {
         "section": "Rooted Lunch Specials",
         "items": [
-          "Jerk Tofu",
-          "Barley Mushroom Pilaf",
-          "Sesame Glazed Red Pepper and Snow Peas",
-          "Corn, Black Beans, Chipotle"
+          "Curry Spice Oat Lentil Porridge",
+          "Potato, Garbanzo and Pea Coconut Curry",
+          "Petite Carrots",
+          "Garlic Broccoli"
         ]
       }
     ],
     "dinner": [
       {
-        "section": "Composed Salads",
-        "items": [
-          "Roasted Vegetable Cous Cous Salad",
-          "Garden Salad"
-        ]
-      },
-      {
         "section": "Fusion Kitchen Dinner Specials",
         "items": [
-          "Pineapple Jerk Chicken",
-          "Spicy Pinto Beans",
-          "Red Rice",
-          "Cajun Okra and Corn",
+          "Penne Pasta",
+          "Rigatoni Pasta",
+          "Garlic Herb Oil",
+          "Marinara Sauce",
+          "Beef Bolognese Sauce",
+          "Alfredo Sauce",
+          "Sausage with Peppers, Onions",
+          "Roasted Vegetable Chiles Rellenos",
           "Jasmine Rice"
         ]
       },
       {
         "section": "Grill Dinner Specials",
         "items": [
-          "Beef Cheeseburger Slider",
-          "Fontina, Cheddar, Asiago Grilled Cheese with Tomato",
-          "Pulled Pork Slider with Mayo Based Coleslaw",
-          "Roasted Garlic Fries",
+          "Vegetable & Cheese Quesadilla",
+          "Pork Sausage, Pepper, Onion Sandwich",
+          "Hot Fried Chicken Sandwich",
+          "Cajun Fries",
           "French Fries"
         ]
       },
       {
         "section": "Pasta and Soup Specials",
         "items": [
-          "Orange Chicken with Lo Mein",
-          "Basil Garlic & Oil Penne",
-          "Chicken Gumbo"
+          "Creamy Penne Ala Vodka",
+          "Beef Barley Soup",
+          "Sausage Flatbread Pizza"
         ]
       },
       {
         "section": "Pizza Specials",
         "items": [
-          "Cheese Pizza",
-          "Pepperoni Pizza",
-          "Pork Bacon Four Cheese Pizza",
-          "Mushroom & Caramelized Onion & Truffle Oil Cheese Pizza"
+          "Garden Salad Flatbread"
         ]
       },
       {
         "section": "Rooted Dinner Specials",
         "items": [
-          "Blackened Tofu",
-          "Sesame Carrots",
-          "Vegetable Rice Pilaf",
-          "Kale and Brussels"
-        ]
-      }
-    ],
-    "late_night": [
-      {
-        "section": "Pasta and Soup Specials",
-        "items": [
-          "Orange Chicken with Lo Mein",
-          "Basil Garlic & Oil Penne",
-          "Chicken Gumbo"
-        ]
-      },
-      {
-        "section": "Pizza Specials",
-        "items": [
-          "Cheese Pizza",
-          "Pepperoni Pizza",
-          "Pork Bacon Four Cheese Pizza",
-          "Mushroom & Caramelized Onion & Truffle Oil Cheese Pizza"
+          "Vegetable Samosas",
+          "Roasted Herb Potatoes",
+          "Steamed Broccoli & Cauliflower",
+          "Sauteed Mushrooms"
         ]
       }
     ]
   },
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/west-side-dining/menu-type/todays-dine-in-specials-wsd/2026/02/06/?format=json"
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/west-side-dining/menu-type/todays-dine-in-specials-wsd/2026/02/07/?format=json"
 }

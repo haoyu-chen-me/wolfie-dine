@@ -1,18 +1,28 @@
 {
-  "date": "2026-02-06",
+  "date": "2026-02-07",
   "location": "East Side Dining (Dine-in Specials)",
-  "is_weekend": false,
+  "is_weekend": true,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-02-06 01:09:38 EST",
+  "updated_at": "2026-02-07 00:58:49 EST",
   "timezone": "America/New_York",
   "meals": {
-    "breakfast": [
+    "brunch": [
       {
         "section": "Breakfast at Chef's Table",
         "items": [
-          "Banana Pancakes",
-          "Apple Compote"
+          "Belgian Waffles",
+          "Peach Compote"
+        ]
+      },
+      {
+        "section": "Chef's Table Lunch Specials",
+        "items": [
+          "Herb Roasted Chicken Breast",
+          "Yellow Rice",
+          "Green Bean Saute",
+          "Cherry Compote",
+          "Waffles"
         ]
       },
       {
@@ -21,11 +31,19 @@
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
           "Egg, Chorizo, Cheddar Scramble",
-          "Mushroom Tofu Scramble",
-          "Crispy Tater Tots",
-          "Pork Sausage",
-          "Apple Compote",
-          "Banana Pancakes"
+          "Chicken Sausage Patty",
+          "Breakfast Potatoes"
+        ]
+      },
+      {
+        "section": "Grill Lunch Specials",
+        "items": [
+          "Beef Cheesesteak",
+          "Cajun Black Bean Burger, Mushrooms, Peppers, Onions",
+          "Jalapeno Ranch Chicken Slider",
+          "Breaded Popcorn Chicken",
+          "Cajun Spiced Fries",
+          "Grilled Vegetables"
         ]
       },
       {
@@ -33,41 +51,18 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Mushroom Tofu Scramble",
+          "Pepper and Onion Tofu Scramble",
           "Egg, Chorizo, Cheddar Scramble",
-          "Crispy Tater Tots",
-          "Pork Sausage"
-        ]
-      }
-    ],
-    "lunch": [
-      {
-        "section": "Chef's Table Lunch Specials",
-        "items": [
-          "White Rice",
-          "Black Beans",
-          "Chuletas Fritas",
-          "Baked Plantains",
-          "Pickled Red Onions"
-        ]
-      },
-      {
-        "section": "Grill Lunch Specials",
-        "items": [
-          "Cajun Remoulade Fried Fish Po Boy",
-          "Pesto Chicken & Mozzarella Cheese Sandwich",
-          "Mozzarella Cheese & Tomato Bruschetta Malibu Burger",
-          "Breaded Jalapeno Cream Cheese Poppers",
-          "Curly Fries",
-          "Grilled Vegetables"
+          "Chicken Sausage Patty",
+          "Breakfast Potatoes"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Italian Sausage and Mushroom Pasta",
-          "Rotini with Broccoli Rabe and Turkey",
-          "Bowtie Pasta"
+          "Chicken, Mushroom, and Broccoli Pasta",
+          "Creamy Penne a la Vodka",
+          "Egg Noodles"
         ]
       },
       {
@@ -75,17 +70,19 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Pork & Beef Sausage & Peppers Pizza",
-          "Truffle, Mushroom, and Caramelized Onion Pizza"
+          "Portuguese Style Pizza",
+          "Buffalo Cauliflower Cheese Pizza"
         ]
       },
       {
         "section": "Rooted Lunch Specials",
         "items": [
-          "Spicy Potato Curry",
-          "Quinoa and Wild Rice",
-          "Roasted Carrots",
-          "Sauteed Collard Greens"
+          "Scrambled Eggs with Cream and Butter",
+          "Scrambled Egg Whites",
+          "Pepper and Onion Tofu Scramble",
+          "Breakfast Potatoes",
+          "Egg, Chorizo, Cheddar Scramble",
+          "Chicken Sausage Patty"
         ]
       }
     ],
@@ -93,18 +90,18 @@
       {
         "section": "Chef's Table Dinner Specials",
         "items": [
-          "Sun-Dried Tomato Risotto",
-          "Braised Swiss Chard",
-          "Beef Masala"
+          "Jerk Chicken Thighs",
+          "White Rice",
+          "Roasted Broccoli"
         ]
       },
       {
         "section": "Grill Dinner Specials",
         "items": [
+          "Pineapple Salsa Topped Hot Dog",
+          "Grilled Cheese",
           "Turkey Burger",
-          "Garden Burger, White Bun",
-          "Bacon BBQ Beef Slider",
-          "Fried Mushrooms",
+          "Fried Chicken Tenders",
           "French Fries",
           "Grilled Vegetables"
         ]
@@ -112,9 +109,9 @@
       {
         "section": "Pasta Specials",
         "items": [
-          "Italian Sausage and Mushroom Pasta",
-          "Rotini with Broccoli Rabe and Turkey",
-          "Bowtie Pasta"
+          "Chicken, Mushroom, and Broccoli Pasta",
+          "Creamy Penne a la Vodka",
+          "Egg Noodles"
         ]
       },
       {
@@ -122,39 +119,20 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Pork & Beef Sausage & Peppers Pizza",
-          "Truffle, Mushroom, and Caramelized Onion Pizza"
+          "Portuguese Style Pizza",
+          "Buffalo Cauliflower Cheese Pizza"
         ]
       },
       {
         "section": "Rooted Dinner Specials",
         "items": [
-          "Chana Masala (Chickpea Curry)",
-          "Basmati Rice",
-          "Roasted Mini Bell Peppers",
-          "Vegetable Samosa"
-        ]
-      }
-    ],
-    "late_night": [
-      {
-        "section": "Pasta Specials",
-        "items": [
-          "Italian Sausage and Mushroom Pasta",
-          "Rotini with Broccoli Rabe and Turkey",
-          "Bowtie Pasta"
-        ]
-      },
-      {
-        "section": "Pizza Specials",
-        "items": [
-          "Cheese Pizza",
-          "Pepperoni Pizza",
-          "Pork & Beef Sausage & Peppers Pizza",
-          "Truffle, Mushroom, and Caramelized Onion Pizza"
+          "Tofu Mushroom Marsala",
+          "Garlic Broccoli",
+          "Red Bliss Potatoes",
+          "Roasted Parsnips"
         ]
       }
     ]
   },
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/06/?format=json"
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/07/?format=json"
 }

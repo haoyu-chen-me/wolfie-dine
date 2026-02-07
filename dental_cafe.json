@@ -1,49 +1,11 @@
 {
   "location": "Dental Café",
-  "date": "2026-02-06",
+  "date": "2026-02-07",
   "timezone": "America/New_York",
-  "updated_at": "2026-02-06 01:09:51 EST",
-  "status": "ok",
-  "message": "Menu fetched.",
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sbu-eats-events/menu-type/dental-cafe/2026/02/06/?format=json",
-  "sections": [
-    {
-      "section": "Breakfast Specials",
-      "items": [
-        "Pork Bacon, Egg & Cheese on a English Muffin",
-        "Turkey Sausage, Egg, Cheese on a English Muffin",
-        "Double Egg & Cheese on a English Muffin"
-      ]
-    },
-    {
-      "section": "Daily Specials",
-      "items": [
-        "Chipotle Aioli Chicken, Mozzarella Cheese & Basil Panini",
-        "Turkey & Asiago Cheese Panini, Spinach & Artichoke Mayo Spread",
-        "Roast Beef and Brie Panini"
-      ]
-    },
-    {
-      "section": "Vegetarian Specials",
-      "items": [
-        "Pasta and Vegan Meatballs in Marinara"
-      ]
-    },
-    {
-      "section": "Hot Entree Special",
-      "items": [
-        "Meatballs In Marinara",
-        "Penne Marinara",
-        "Steamed Broccoli"
-      ]
-    },
-    {
-      "section": "Pizza",
-      "items": [
-        "Personal Cheese Pizza",
-        "Personal Pepperoni Pizza"
-      ]
-    }
-  ],
-  "menu_url": "https://stonybrook.nutrislice.com/menu/sbu-eats-events/dental-cafe/2026-02-06"
+  "updated_at": "2026-02-07 00:58:55 EST",
+  "status": "no_data_today",
+  "message": "2026-02-07 menu_items empty",
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sbu-eats-events/menu-type/dental-cafe/2026/02/07/?format=json",
+  "sections": [],
+  "menu_url": "https://stonybrook.nutrislice.com/menu/sbu-eats-events/dental-cafe/2026-02-07"
 }

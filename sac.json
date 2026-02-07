@@ -1,7 +1,7 @@
 {
   "location": "SAC",
   "timezone": "America/New_York",
-  "updated_at": "2026-02-06 01:09:44 EST",
+  "updated_at": "2026-02-07 00:58:51 EST",
   "status": "partial_error",
   "sections": [
     {
@@ -114,16 +114,12 @@
       "section": "Soups & Chili",
       "school": "sac",
       "slug": "grab-n-go",
-      "date": "2026-02-06",
-      "status": "ok",
-      "message": "Menu fetched.",
-      "items": [
-        "Chicken & Dumpling Soup",
-        "Tomato Basil Bisque",
-        "Beef Chili"
-      ],
-      "menu_url": "https://stonybrook.nutrislice.com/menu/sac/grab-n-go/2026-02-06",
-      "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sac/menu-type/grab-n-go/2026/02/06/?format=json",
+      "date": "2026-02-07",
+      "status": "no_data_today",
+      "message": "2026-02-07 menu_items empty.",
+      "items": [],
+      "menu_url": "https://stonybrook.nutrislice.com/menu/sac/grab-n-go/2026-02-07",
+      "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sac/menu-type/grab-n-go/2026/02/07/?format=json",
       "is_daily": true
     },
     {
