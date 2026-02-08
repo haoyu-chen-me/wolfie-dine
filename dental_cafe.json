@@ -1,11 +1,11 @@
 {
   "location": "Dental Café",
-  "date": "2026-02-07",
+  "date": "2026-02-08",
   "timezone": "America/New_York",
-  "updated_at": "2026-02-07 00:58:55 EST",
+  "updated_at": "2026-02-08 01:09:10 EST",
   "status": "no_data_today",
-  "message": "2026-02-07 menu_items empty",
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sbu-eats-events/menu-type/dental-cafe/2026/02/07/?format=json",
+  "message": "2026-02-08 menu_items empty",
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/sbu-eats-events/menu-type/dental-cafe/2026/02/08/?format=json",
   "sections": [],
-  "menu_url": "https://stonybrook.nutrislice.com/menu/sbu-eats-events/dental-cafe/2026-02-07"
+  "menu_url": "https://stonybrook.nutrislice.com/menu/sbu-eats-events/dental-cafe/2026-02-08"
 }

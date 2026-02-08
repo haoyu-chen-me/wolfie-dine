@@ -1,48 +1,38 @@
 {
-  "date": "2026-02-07",
+  "date": "2026-02-08",
   "location": "East Side Dining (Dine-in Specials)",
   "is_weekend": true,
   "status": "ok",
   "message": "Menu fetched and categorized.",
-  "updated_at": "2026-02-07 00:58:49 EST",
+  "updated_at": "2026-02-08 01:09:06 EST",
   "timezone": "America/New_York",
   "meals": {
     "brunch": [
       {
         "section": "Breakfast at Chef's Table",
         "items": [
-          "Belgian Waffles",
-          "Peach Compote"
+          "French Toast Sticks",
+          "Apple Compote"
         ]
       },
       {
         "section": "Chef's Table Lunch Specials",
         "items": [
-          "Herb Roasted Chicken Breast",
-          "Yellow Rice",
-          "Green Bean Saute",
-          "Cherry Compote",
-          "Waffles"
-        ]
-      },
-      {
-        "section": "Grill Breakfast Buffet",
-        "items": [
-          "Scrambled Eggs with Cream and Butter",
-          "Scrambled Egg Whites",
-          "Egg, Chorizo, Cheddar Scramble",
-          "Chicken Sausage Patty",
-          "Breakfast Potatoes"
+          "roasted chicken thigh",
+          "Roasted Zucchini and Tomatoes",
+          "Black Eyed Peas, Brown Rice",
+          "French Toast Sticks",
+          "Apple Compote"
         ]
       },
       {
         "section": "Grill Lunch Specials",
         "items": [
-          "Beef Cheesesteak",
-          "Cajun Black Bean Burger, Mushrooms, Peppers, Onions",
-          "Jalapeno Ranch Chicken Slider",
-          "Breaded Popcorn Chicken",
-          "Cajun Spiced Fries",
+          "Jalapeno Burger",
+          "Crispy Chipotle Turkey Burger",
+          "Chipotle Black Bean Burger,  American Cheese, Wheat Bun",
+          "Fried Chicken Tenders",
+          "French Fries",
           "Grilled Vegetables"
         ]
       },
@@ -51,18 +41,17 @@
         "items": [
           "Scrambled Eggs with Cream and Butter",
           "Scrambled Egg Whites",
-          "Pepper and Onion Tofu Scramble",
-          "Egg, Chorizo, Cheddar Scramble",
-          "Chicken Sausage Patty",
-          "Breakfast Potatoes"
+          "Curried Tofu Scramble",
+          "Turkey Sausage",
+          "Bacon Cheddar Frittata",
+          "Crispy Hashbrowns"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Chicken, Mushroom, and Broccoli Pasta",
-          "Creamy Penne a la Vodka",
-          "Egg Noodles"
+          "Creamy Rigatoni alla Vodka",
+          "Pepper Jack Chicken Mac & Cheese"
         ]
       },
       {
@@ -70,19 +59,8 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Portuguese Style Pizza",
-          "Buffalo Cauliflower Cheese Pizza"
-        ]
-      },
-      {
-        "section": "Rooted Lunch Specials",
-        "items": [
-          "Scrambled Eggs with Cream and Butter",
-          "Scrambled Egg Whites",
-          "Pepper and Onion Tofu Scramble",
-          "Breakfast Potatoes",
-          "Egg, Chorizo, Cheddar Scramble",
-          "Chicken Sausage Patty"
+          "Veggie Supreme Pizza",
+          "Pork Sausage Cheese Pizza"
         ]
       }
     ],
@@ -90,28 +68,30 @@
       {
         "section": "Chef's Table Dinner Specials",
         "items": [
-          "Jerk Chicken Thighs",
-          "White Rice",
-          "Roasted Broccoli"
+          "Barbeque Chicken, BBQ Sauce",
+          "Pork Bacon Baked Beans",
+          "Collard Greens",
+          "Buttermilk Biscuit"
         ]
       },
       {
         "section": "Grill Dinner Specials",
         "items": [
-          "Pineapple Salsa Topped Hot Dog",
-          "Grilled Cheese",
-          "Turkey Burger",
-          "Fried Chicken Tenders",
-          "French Fries",
-          "Grilled Vegetables"
+          "Grilled Vegetables",
+          "Tortilla Chips",
+          "Beef Chili",
+          "Cheese Sauce",
+          "Pico de Gallo",
+          "BBQ Chicken Wings",
+          "Salted Pretzel Bites",
+          "Homemade Funnel Cakes"
         ]
       },
       {
         "section": "Pasta Specials",
         "items": [
-          "Chicken, Mushroom, and Broccoli Pasta",
-          "Creamy Penne a la Vodka",
-          "Egg Noodles"
+          "Creamy Rigatoni alla Vodka",
+          "Pepper Jack Chicken Mac & Cheese"
         ]
       },
       {
@@ -119,20 +99,20 @@
         "items": [
           "Cheese Pizza",
           "Pepperoni Pizza",
-          "Portuguese Style Pizza",
-          "Buffalo Cauliflower Cheese Pizza"
+          "Veggie Supreme Pizza",
+          "Pork Sausage Cheese Pizza"
         ]
       },
       {
         "section": "Rooted Dinner Specials",
         "items": [
-          "Tofu Mushroom Marsala",
-          "Garlic Broccoli",
-          "Red Bliss Potatoes",
-          "Roasted Parsnips"
+          "brown rice",
+          "Pinto Bean Stew",
+          "Roasted Cherry Tomatoes and Broccoli",
+          "Roasted Eggplant"
         ]
       }
     ]
   },
-  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/07/?format=json"
+  "source_url": "https://stonybrook.api.nutrislice.com/menu/api/weeks/school/east-side-dining/menu-type/todays-dine-in-specials-esd/2026/02/08/?format=json"
 }
